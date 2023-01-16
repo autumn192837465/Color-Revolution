@@ -1,16 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CB.Model;
+using Kinopi.Extensions;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private MeshRenderer meshRenderer;
 
-    
-    private float redHealth = 255;
-    private float blueHealth = 255;
-    private float greenHealth = 255;
+
+    [SerializeField] private EnemyDataScriptableObject enemyDataScriptableObject;
+    private EnemyData enemyData;
+
+    private void Awake()
+    {
+        enemyData = enemyDataScriptableObject.EnemyData.DeepClone();
+    }
+
     void Start()
     {
         
@@ -27,13 +34,13 @@ public class Enemy : MonoBehaviour
         var bullet = other.GetComponent<Bullet>();
         if(bullet == null) return;
 
-        redHealth -= bullet.AttackDamage.RedValue;
-        blueHealth -= bullet.AttackDamage.BlueValue;
-        greenHealth -= bullet.AttackDamage.GreenValue;
+        enemyData.Health.ReduceHealth(bullet.AttackDamage);
 
-        if (redHealth < 0) redHealth = 0;
-        if (blueHealth < 0) blueHealth = 0;
-        if (greenHealth < 0) greenHealth = 0;
+        if (IsDead)
+        {
+            Destroy(gameObject);
+            
+        }
         
         SetColor();
         Destroy(bullet.gameObject);
@@ -43,7 +50,8 @@ public class Enemy : MonoBehaviour
 
     private void SetColor()
     {
-        meshRenderer.material.color = new Color(redHealth / 255.0f, blueHealth / 255.0f, greenHealth / 255.0f);
-        if(redHealth ==0 && blueHealth == 0 && greenHealth == 0)    Destroy(gameObject);
+        meshRenderer.material.color = enemyData.Health.GetColor();
     }
+
+    private bool IsDead => enemyData.Health.IsDead;
 }

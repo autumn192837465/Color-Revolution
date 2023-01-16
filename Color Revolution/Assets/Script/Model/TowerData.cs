@@ -1,4 +1,5 @@
 using System;
+using CR.Model;
 using UnityEngine;
 
 namespace CB.Model

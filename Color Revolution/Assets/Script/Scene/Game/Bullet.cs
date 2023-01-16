@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CR.Model;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -37,7 +38,7 @@ public class Bullet : MonoBehaviour
     public void Initialize(RGB attackDamage)
     {
         AttackDamage = attackDamage;
-        meshRenderer.material.color = attackDamage.Color;
+        meshRenderer.material.color = attackDamage.GetColor();
     }
 
     public void SetDestination(GameObject des)

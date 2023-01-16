@@ -52,11 +52,17 @@ namespace CR.Game
         private void Awake()
         {
             towerData = towerDataScriptableObject.TowerData.DeepClone();
+            Initialize();
         }
 
 
+        private void Initialize()
+        {
+            
+        }
 
-
+            
+        
     
         void Update()
         {

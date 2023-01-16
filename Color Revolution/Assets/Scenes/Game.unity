@@ -2511,6 +2511,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 875910704}
+  enemyDataScriptableObject: {fileID: 11400000, guid: d7663f2b8ef7fc44e9ae8c655bb171fc,
+    type: 2}
 --- !u!135 &875910703
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3490,7 +3492,7 @@ GameObject:
   - component: {fileID: 1428511809}
   - component: {fileID: 1428511811}
   m_Layer: 5
-  m_Name: Shop
+  m_Name: Layout_Game_Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
