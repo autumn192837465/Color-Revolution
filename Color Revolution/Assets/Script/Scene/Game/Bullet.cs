@@ -34,18 +34,15 @@ public class Bullet : MonoBehaviour
         transform.position += dir * Time.deltaTime;
     }
 
+    public void Initialize(RGB attackDamage)
+    {
+        AttackDamage = attackDamage;
+        meshRenderer.material.color = attackDamage.Color;
+    }
+
     public void SetDestination(GameObject des)
     {
         destination = des;
     }
 
-    public void SetColor(Color color)
-    {
-        meshRenderer.material.color = color;
-    }
-
-    public void SetDamage(RGB attackDamage)
-    {
-        AttackDamage = attackDamage;
-    }
 }

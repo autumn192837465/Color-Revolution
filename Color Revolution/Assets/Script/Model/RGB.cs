@@ -1,7 +1,7 @@
 
 using System;
 using UnityEngine;
-
+using Kinopi.Utils;
 [Serializable]
 public class RGB
 {
@@ -11,7 +11,12 @@ public class RGB
         GreenValue = g;
         BlueValue = b;
     }
+
+    public int Sum => RedValue + GreenValue + BlueValue;
+    public Color Color => CRUtils.ToColor(this);
+    
     public int RedValue;
     public int GreenValue;
     public int BlueValue;
+    
 }

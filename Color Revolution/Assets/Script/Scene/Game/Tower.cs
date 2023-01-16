@@ -105,7 +105,7 @@ namespace CR.Game
         private void CreateBullet()
         {
             Bullet bullet =  Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            bullet.SetDamage(towerData.AttackDamage);
+            bullet.Initialize(towerData.AttackDamage);
             //bullet.SetColor();
             bullet.SetDestination(enemy.gameObject);
         }
