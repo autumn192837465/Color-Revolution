@@ -27,12 +27,12 @@ namespace CR.Game
         
         public void AddCooldownTime()
         {
-            bulletTimer += deltaTime;
+            cooldownTimer += deltaTime;
         }
         
         public void AddOperatingTime()
         {
-            bulletTimer += deltaTime;
+            operatingTimer += deltaTime;
         }
     }
     
@@ -42,7 +42,7 @@ namespace CR.Game
         [SerializeField] private TowerDataScriptableObject towerDataScriptableObject;
         private TowerData towerData;
         [SerializeField] private Bullet bulletPrefab;
-        [SerializeField] private Enemy enemy;
+        
         
         private readonly TowerTimer timer = new ();
 
@@ -70,13 +70,13 @@ namespace CR.Game
             switch (currentState)
             {
                 case TowerState.Idle:
-                    if (enemy != null)
+                    if (GameManager.Instance.tempEnemy != null)
                     {
                         currentState = TowerState.Operating;
                     }
                     break;
                 case TowerState.Operating:
-                    if (enemy == null)
+                    if (GameManager.Instance.tempEnemy == null)
                     {
                         currentState = TowerState.Idle;
                         break;
@@ -93,7 +93,7 @@ namespace CR.Game
                     timer.AddCooldownTime();
                     if (IsCooldownOver())
                     {
-                        if (enemy != null)
+                        if (GameManager.Instance.tempEnemy != null)
                         {
                             currentState = TowerState.Operating;
                         }
@@ -113,7 +113,7 @@ namespace CR.Game
             Bullet bullet =  Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             bullet.Initialize(towerData.AttackDamage);
             //bullet.SetColor();
-            bullet.SetDestination(enemy.gameObject);
+            bullet.SetDestination(GameManager.Instance.tempEnemy.gameObject);
         }
 
      

@@ -4,34 +4,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Node : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+namespace CR.Game
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Node : MonoBehaviour
     {
+        [SerializeField] private Transform towerRoot;
+        public bool HasTower = false;
+        public Action<Node> OnClickNode;
+
+
+        private void Awake()
+        {
+            
+        }
+
+        void Start()
+        {
         
-    }
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+        // Update is called once per frame
+        void Update()
+        {
         
-    }
+        }
 
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        print("Down");
-    }
+        private void OnMouseDown()
+        {
+            OnClickNode?.Invoke(this);
+        }
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        print("up");
-    }
 
-    private void OnMouseDown()
-    {
-        print("Down");
+        public void PlaceTower(Tower tower)
+        {
+            tower.transform.SetParent(towerRoot);
+            tower.transform.localPosition = Vector3.zero;
+            HasTower = true;
+        }
+    
     }
     
 }

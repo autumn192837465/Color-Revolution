@@ -15,9 +15,9 @@ MonoBehaviour:
   TowerData:
     AttackDamage:
       RedValue: 0
-      GreenValue: 5
+      GreenValue: 1
       BlueValue: 0
-    AttackSpeed: 1
+    AttackSpeed: 5
     AttackRange: 0
     CriticalRate: 50
     HitRate: 90

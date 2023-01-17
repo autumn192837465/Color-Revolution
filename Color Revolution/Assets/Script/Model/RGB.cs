@@ -23,7 +23,7 @@ namespace CR.Model
             float redRatio = RedValue / sum;
             float greenRatio = GreenValue / sum;
             float blueRatio = BlueValue / sum;
-            return new Color(redRatio, blueRatio, greenRatio);
+            return new Color(redRatio, greenRatio, blueRatio);
         }
         
         public int RedValue;
