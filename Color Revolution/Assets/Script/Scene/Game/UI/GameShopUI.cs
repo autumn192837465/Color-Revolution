@@ -10,7 +10,7 @@ public class GameShopUI : MonoBehaviour
     {
         RedTower,
         BlueTower,
-        GreemTower,
+        GreenTower,
     }
 
     [Serializable]

@@ -9,8 +9,12 @@ namespace CR.Game
     public class Node : MonoBehaviour
     {
         [SerializeField] private Transform towerRoot;
-        public bool HasTower = false;
+        [SerializeField] private MeshRenderer _meshRenderer;
+        public bool HasTurret = false;
         public Action<Node> OnClickNode;
+        public Turret PlacingTurret => placingTurret;
+        private Turret placingTurret;
+        
 
 
         private void Awake()
@@ -36,11 +40,13 @@ namespace CR.Game
         }
 
 
-        public void PlaceTower(Tower tower)
+        public void PlaceTower(Turret turret)
         {
-            tower.transform.SetParent(towerRoot);
-            tower.transform.localPosition = Vector3.zero;
-            HasTower = true;
+            placingTurret = turret;
+            turret.transform.SetParent(towerRoot);
+            turret.transform.localPosition = Vector3.zero;
+            HasTurret = true;
+            _meshRenderer.material.color = Color.black;
         }
     
     }

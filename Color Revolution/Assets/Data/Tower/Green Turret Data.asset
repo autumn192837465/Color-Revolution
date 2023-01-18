@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7003e3b1d22e0e41a9ebb7adcc8c896, type: 3}
-  m_Name: GreenTowerData
+  m_Name: Green Turret Data
   m_EditorClassIdentifier: 
-  TowerData:
+  turretData:
     AttackDamage:
       RedValue: 0
       GreenValue: 1
       BlueValue: 0
-    AttackSpeed: 5
-    AttackRange: 0
-    CriticalRate: 50
-    HitRate: 90
+    AttackSpeed: 0.1
+    AttackRange: 5
+    CriticalRate: 0
+    HitRate: 0
     OperatingTime: 10
     CooldownTime: 5
