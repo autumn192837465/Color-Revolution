@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace CR.Game
 {
-    public class TowerTimer
+    public class TurretTimer
     {
-        public TowerTimer()
+        public TurretTimer()
         {
             deltaTime = operatingTimer = cooldownTimer = bulletTimer = 0;
         }
@@ -36,22 +36,23 @@ namespace CR.Game
         }
     }
     
-    public class Tower : MonoBehaviour
+    public class Turret : MonoBehaviour
     {
 
         [SerializeField] private TowerDataScriptableObject towerDataScriptableObject;
-        private TowerData towerData;
+        public TurretData TurretData => _turretData;
+        private TurretData _turretData;
         [SerializeField] private Bullet bulletPrefab;
         
         
-        private readonly TowerTimer timer = new ();
+        private readonly TurretTimer timer = new ();
 
 
         private TowerState currentState = TowerState.Idle;
 
         private void Awake()
         {
-            towerData = towerDataScriptableObject.TowerData.DeepClone();
+            _turretData = towerDataScriptableObject.turretData.DeepClone();
             Initialize();
         }
 
@@ -70,20 +71,21 @@ namespace CR.Game
             switch (currentState)
             {
                 case TowerState.Idle:
-                    if (GameManager.Instance.tempEnemy != null)
+                    if (GameManager.Instance.tempEnemyList != null)
                     {
                         currentState = TowerState.Operating;
                     }
                     break;
                 case TowerState.Operating:
-                    if (GameManager.Instance.tempEnemy == null)
+                    Enemy enemy = GetRandomEnemy();
+                    if (enemy == null)
                     {
                         currentState = TowerState.Idle;
                         break;
                     }
                     timer.AddOperatingTime();
                     timer.AddBulletTime();
-                    AttackIfCan();
+                    AttackIfCan(enemy);
                     if (IsOverHeating())
                     {
                         currentState = TowerState.Cooldown;
@@ -93,7 +95,7 @@ namespace CR.Game
                     timer.AddCooldownTime();
                     if (IsCooldownOver())
                     {
-                        if (GameManager.Instance.tempEnemy != null)
+                        if (GameManager.Instance.tempEnemyList != null)
                         {
                             currentState = TowerState.Operating;
                         }
@@ -108,26 +110,23 @@ namespace CR.Game
             }
         }
 
-        private void CreateBullet()
+        private void CreateBullet(Enemy target)
         {
             Bullet bullet =  Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            bullet.Initialize(towerData.AttackDamage);
-            //bullet.SetColor();
-            bullet.SetDestination(GameManager.Instance.tempEnemy.gameObject);
+            bullet.Initialize(_turretData.AttackDamage);
+            bullet.SetDestination(target.gameObject);
         }
 
-     
-        
-        private void AttackIfCan()
+        private void AttackIfCan(Enemy target)
         {
-            if (timer.bulletTimer < towerData.AttackSpeed)  return;
-            timer.bulletTimer -= towerData.AttackSpeed;
-            CreateBullet();
+            if (timer.bulletTimer < _turretData.AttackSpeed)  return;
+            timer.bulletTimer -= _turretData.AttackSpeed;
+            CreateBullet(target);
         }
 
         private bool IsOverHeating()
         {
-            if (timer.operatingTimer >= towerData.OperatingTime)
+            if (timer.operatingTimer >= _turretData.OperatingTime)
             {
                 timer.operatingTimer = 0;
                 return true;
@@ -138,13 +137,19 @@ namespace CR.Game
 
         private bool IsCooldownOver()
         {
-            if (timer.cooldownTimer >= towerData.CooldownTime)
+            if (timer.cooldownTimer >= _turretData.CooldownTime)
             {
                 timer.cooldownTimer = 0;
                 return true;
             }
 
             return false;
+        }
+
+        private Enemy GetRandomEnemy()
+        {
+            var enemyList = GameManager.Instance.GetInAttackRangeEnemyList(this);
+            return enemyList.GetRandomElement();
         }
         
     }    

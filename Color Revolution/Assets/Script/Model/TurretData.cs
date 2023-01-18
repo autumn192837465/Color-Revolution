@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CB.Model
 {
     [Serializable]
-    public class TowerData
+    public class TurretData
     {
         public RGB AttackDamage;  // 攻擊力
         public float AttackSpeed;   // 攻速

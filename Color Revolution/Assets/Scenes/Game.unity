@@ -3650,9 +3650,9 @@ MonoBehaviour:
   buttonList:
   - Type: 0
     Button: {fileID: 3498899}
-  - Type: 1
-    Button: {fileID: 282549294}
   - Type: 2
+    Button: {fileID: 282549294}
+  - Type: 1
     Button: {fileID: 1283139289}
 --- !u!1001 &1434830839
 PrefabInstance:
@@ -4957,7 +4957,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroy: 0
   tempEnemy: {fileID: 875910702}
-  GameShopUI: {fileID: 0}
+  GameShopUI: {fileID: 1428511812}
   tempRedTower: {fileID: 6530028128586466177, guid: d993b6e2b41e27945b7e37fd52d8aaef,
     type: 3}
   tempBlueTower: {fileID: 6530028128586466177, guid: fc4a61fb6193e874c87fbe8f635ec5a7,

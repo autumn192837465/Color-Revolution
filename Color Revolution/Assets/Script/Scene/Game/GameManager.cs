@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CR.Model;
 using UnityEngine;
 
 namespace CR.Game
@@ -9,15 +10,15 @@ namespace CR.Game
     public class GameManager : Singleton<GameManager>
     {
         private List<Node> NodeList;
-        public Enemy tempEnemy;
+        public List<Enemy> tempEnemyList;
 
         [SerializeField] private GameShopUI GameShopUI;
-        [SerializeField] private Tower tempRedTower;
-        [SerializeField] private Tower tempBlueTower;
-        [SerializeField] private Tower tempGreenTower;
+        [SerializeField] private Turret tempRedTurret;
+        [SerializeField] private Turret tempBlueTurret;
+        [SerializeField] private Turret tempGreenTurret;
 
         
-        private Tower currentSelectingTower;
+        private Turret _currentSelectingTurret;
         protected override void Awake()
         {
             base.Awake();
@@ -25,11 +26,11 @@ namespace CR.Game
             NodeList = FindObjectsOfType<Node>().ToList();
             NodeList.ForEach(x => x.OnClickNode = (node) =>
             {
-                if(currentSelectingTower == null)   return;
+                if(_currentSelectingTurret == null)   return;
                 if(node.HasTower)   return;
-                var tower = Instantiate(currentSelectingTower);
+                var tower = Instantiate(_currentSelectingTurret);
                  node.PlaceTower(tower);
-                 currentSelectingTower = null;
+                 _currentSelectingTurret = null;
             });
             
             
@@ -58,13 +59,13 @@ namespace CR.Game
                 switch (type)
                 {
                     case GameShopUI.ButtonType.RedTower:
-                        currentSelectingTower = tempRedTower;
+                        _currentSelectingTurret = tempRedTurret;
                         break;
                     case GameShopUI.ButtonType.BlueTower:
-                        currentSelectingTower = tempBlueTower;
+                        _currentSelectingTurret = tempBlueTurret;
                         break;
-                    case GameShopUI.ButtonType.GreemTower:
-                        currentSelectingTower = tempGreenTower;
+                    case GameShopUI.ButtonType.GreenTower:
+                        _currentSelectingTurret = tempGreenTurret;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(type), type, null);
