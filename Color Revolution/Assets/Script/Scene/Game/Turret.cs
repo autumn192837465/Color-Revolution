@@ -38,7 +38,7 @@ namespace CR.Game
     
     public class Turret : MonoBehaviour
     {
-        [SerializeField] private TowerDataScriptableObject towerDataScriptableObject;
+        [SerializeField] private TurretDataScriptableObject turretDataScriptableObject;
         [SerializeField] private TurretWorldCanvas worldCanvas;
         public TurretData TurretData => turretData;
         private TurretData turretData;
@@ -49,7 +49,7 @@ namespace CR.Game
         private readonly TurretTimer timer = new ();
 
 
-        private TowerState currentState = TowerState.Idle;
+        private TurretState currentState = TurretState.Idle;
 
         private void Awake()
         {
@@ -59,7 +59,7 @@ namespace CR.Game
 
         private void Initialize()
         {
-            turretData = towerDataScriptableObject.turretData.DeepClone();
+            turretData = turretDataScriptableObject.turretData.DeepClone();
             worldCanvas.Initialize(turretData);
         }
 
@@ -69,17 +69,17 @@ namespace CR.Game
             timer.deltaTime = Time.deltaTime;
             switch (currentState)
             {
-                case TowerState.Idle:
+                case TurretState.Idle:
                     if (GameManager.Instance.tempEnemyList != null)
                     {
-                        currentState = TowerState.Operating;
+                        currentState = TurretState.Operating;
                     }
                     break;
-                case TowerState.Operating:
+                case TurretState.Operating:
                     Enemy enemy = GetRandomEnemy();
                     if (enemy == null)
                     {
-                        currentState = TowerState.Idle;
+                        currentState = TurretState.Idle;
                         break;
                     }
                     timer.AddOperatingTime();
@@ -87,20 +87,20 @@ namespace CR.Game
                     AttackIfCan(enemy);
                     if (IsOverHeating())
                     {
-                        currentState = TowerState.Cooldown;
+                        currentState = TurretState.Cooldown;
                     }
                     break;
-                case TowerState.Cooldown:
+                case TurretState.Cooldown:
                     timer.AddCooldownTime();
                     if (IsCooldownOver())
                     {
                         if (GameManager.Instance.tempEnemyList != null)
                         {
-                            currentState = TowerState.Operating;
+                            currentState = TurretState.Operating;
                         }
                         else
                         {
-                            currentState = TowerState.Idle;
+                            currentState = TurretState.Idle;
                         }
                     }
                     break;

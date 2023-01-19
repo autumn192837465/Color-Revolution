@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Kinopi.Enums;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -31,6 +32,27 @@ namespace CR.Game
         void Update()
         {
         
+        }
+
+        public void Initialize(NodeType nodeType)
+        {
+            switch (nodeType)
+            {
+                case NodeType.Empty:
+                    Destroy(gameObject);
+                    break;
+                case NodeType.Normal:
+                    
+                    break;
+                case NodeType.Start:
+                    _meshRenderer.material.color = Color.white;
+                    break;
+                case NodeType.End:
+                    _meshRenderer.material.color = Color.red;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(nodeType), nodeType, null);
+            }
         }
 
 

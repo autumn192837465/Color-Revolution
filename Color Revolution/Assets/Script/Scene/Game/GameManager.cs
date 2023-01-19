@@ -17,7 +17,7 @@ namespace CR.Game
         [SerializeField] private Turret tempRedTurret;
         [SerializeField] private Turret tempBlueTurret;
         [SerializeField] private Turret tempGreenTurret;
-
+        public MapDataScriptableObject tempMapData;
         
         private Turret _currentSelectingTurret;
         protected override void Awake()
@@ -61,6 +61,8 @@ namespace CR.Game
         private void Initialize()
         {
             AddGameShopUIEvent();
+            
+            MapManager.Instance.CreateMap(tempMapData);
         }
         #region AddUIEvent
 
