@@ -2,11 +2,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Kinopi.Enums;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace CR.Game
 {
+    public class NodeNeighbors
+    {
+        public NodeNeighbors(Node up, Node left, Node right, Node down)
+        {
+            UpNode = up;
+            LeftNode = left;
+            RightNode = right;
+            DownNode = down;
+        }
+        public readonly Node UpNode;
+        public readonly Node LeftNode;
+        public readonly Node RightNode;
+        public readonly Node DownNode;
+    }
+    
     public class Node : MonoBehaviour
     {
         [SerializeField] private Transform towerRoot;
@@ -15,8 +31,10 @@ namespace CR.Game
         public Action<Node> OnClickNode;
         public Turret PlacingTurret => placingTurret;
         private Turret placingTurret;
-        
 
+        public NodeNeighbors Neighbors => neighbors;
+        private NodeNeighbors neighbors;
+        
 
         private void Awake()
         {
@@ -70,7 +88,11 @@ namespace CR.Game
             HasTurret = true;
             _meshRenderer.material.color = Color.black;
         }
-    
+
+        public void SetNeighbors(NodeNeighbors nodeNeighbors)
+        {
+            neighbors = nodeNeighbors;
+        }
     }
     
 }
