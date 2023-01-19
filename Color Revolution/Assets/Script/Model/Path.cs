@@ -7,6 +7,12 @@ namespace CR.Model
 {
     public class Path
     {
-        public List<Node> path;
+        public Path(List<Node> nodes)
+        {
+            points = nodes;
+        }
+
+        public readonly List<Node> points;
+
     }    
 }

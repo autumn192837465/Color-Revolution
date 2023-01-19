@@ -22,7 +22,9 @@ namespace CR.Game
         public readonly Node LeftNode;
         public readonly Node RightNode;
         public readonly Node DownNode;
-         
+
+        public List<Node> AllNeighbors => new() { UpNode, LeftNode, RightNode, DownNode };
+
     }
     
     public class Node : MonoBehaviour
@@ -39,7 +41,8 @@ namespace CR.Game
 
         public NodeNeighbors Neighbors => neighbors;
         private NodeNeighbors neighbors;
-        
+
+        public (int, int) Coord;
 
         private void Awake()
         {
@@ -104,6 +107,11 @@ namespace CR.Game
         public void ShowCost()
         {
             costText.text = RouteCost.ToString();
+        }
+
+        public void SetPath()
+        {
+            _meshRenderer.material.color = Color.green;
         }
     }
     

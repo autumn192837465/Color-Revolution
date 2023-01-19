@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using CR.Game;
 using CR.Model;
 using Kinopi.Enums;
 using Kinopi.Utils;
 using UnityEngine;
+
+
 
 public class MapManager : Singleton<MapManager>
 {
@@ -66,7 +69,7 @@ public class MapManager : Singleton<MapManager>
                 node.Initialize(nodeType);
                 node.transform.position = new Vector3(x + tempOffset * x, 0, y + tempOffset * y);
                 nodeMap[x, y] = node;
-
+                node.Coord = (x, y);
                 
                 if (nodeType == NodeType.Start)
                 {
@@ -94,62 +97,85 @@ public class MapManager : Singleton<MapManager>
             }
         }
         
-        FindPath();
+        SetNodeCost();
         foreach (var node in nodeMap)
         {
             node?.ShowCost();
         }
+
+        List<Path> allPaths = new List<Path>();
+        Stack<Node> stack = new Stack<Node>();
+        FindPath(startNode, stack, allPaths);
+
+        if (allPaths.Count > 0)
+        {
+            foreach (var node in allPaths)
+            {
+                foreach (var m in node.points)
+                {
+                    if(m != endNode)
+                    m.SetPath();    
+                }
+                
+            }
+        }
     }
 
-    private void FindPath()
+    private void SetNodeCost()
     {
-        List<Path> pathList = new List<Path>();
-        List<Node> visited = new List<Node>();
-        Stack<Node> nodeStack = new Stack<Node>();
+        HashSet<Node> visited = new HashSet<Node>();
+        SortedList<int, Node> sortedList = new SortedList<int, Node>(new CRUtils.DuplicateKeyComparator<int>());
+        
         startNode.RouteCost = 0;
-        nodeStack.Push(startNode);
-        while (nodeStack.Count > 0)
+        sortedList.Add(0, startNode);
+        while (sortedList.Count > 0)
         {
-            Node visitingNode = nodeStack.Pop();
+            Node visitingNode = sortedList.First().Value;
+            sortedList.RemoveAt(0);
             if (visitingNode == endNode) continue;
             if (visited.Contains(visitingNode)) continue;
             visited.Add(visitingNode);
             
             int cost = visitingNode.RouteCost + 1;
 
-            Node upNode = visitingNode.Neighbors.UpNode; 
-            Node leftNode = visitingNode.Neighbors.LeftNode; 
-            Node rightNode = visitingNode.Neighbors.RightNode; 
-            Node downNode = visitingNode.Neighbors.DownNode;
+            
 
-            if (upNode != null)
+            foreach (var neighborNode in visitingNode.Neighbors.AllNeighbors)
             {
-                upNode.RouteCost = upNode.RouteCost == Int32.MaxValue ? cost : Mathf.Min(cost, upNode.RouteCost);
-                nodeStack.Push(upNode);
-            }
-
-            if (leftNode != null)
-            {
-                leftNode.RouteCost = leftNode.RouteCost == Int32.MaxValue ? cost : Mathf.Min(cost, leftNode.RouteCost);
-                nodeStack.Push(leftNode);    
-            }
-             
-            if (rightNode != null)
-            {
-                rightNode.RouteCost = rightNode.RouteCost == Int32.MaxValue ? cost : Mathf.Min(cost, rightNode.RouteCost);
-                nodeStack.Push(rightNode);    
-            }
-            if (downNode != null)
-            {
-                downNode.RouteCost = downNode.RouteCost == Int32.MaxValue ? cost : Mathf.Min(cost, downNode.RouteCost);
-                nodeStack.Push(downNode);
+                if (neighborNode != null && !visited.Contains(neighborNode))
+                {
+                    neighborNode.RouteCost = neighborNode.RouteCost == Int32.MaxValue ? cost : Mathf.Min(cost, neighborNode.RouteCost);
+                    sortedList.Add(neighborNode.RouteCost, neighborNode);
+                }
             }
         }
-        
-        //
-        
     }
-    
+
+
+    private void FindPath(Node currentNode, Stack<Node> stack, List<Path> possiblePath)
+    {
+        stack.Push(currentNode);
+        if (currentNode == endNode)
+        {
+            Path path = new Path(stack.ToList());
+            possiblePath.Add(path);
+            return;
+        }
+
+        int cost = currentNode.RouteCost;
+
+        foreach (var neighborNode in currentNode.Neighbors.AllNeighbors)
+        {
+            if (neighborNode != null && neighborNode.RouteCost ==  cost + 1)
+            {
+                FindPath(neighborNode, stack, possiblePath);
+            }    
+        }
+        
+
+        stack.Pop();
+
+    } 
     private bool IsAvailableCoordinate(int x, int y)
     {
         if (x >= mapWidth) return false;
