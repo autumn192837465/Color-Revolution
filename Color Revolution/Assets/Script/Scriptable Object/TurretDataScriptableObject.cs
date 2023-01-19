@@ -2,7 +2,7 @@ using CB.Model;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "TowerData", menuName = "ScriptableObjects/TowerData", order = 1)]
+[CreateAssetMenu(fileName = "TurretData", menuName = "ScriptableObjects/TurretData", order = 1)]
 public class TowerDataScriptableObject : ScriptableObject
 {
     public TurretData turretData;
