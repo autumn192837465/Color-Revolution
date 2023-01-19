@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Kinopi.Enums;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,12 +22,16 @@ namespace CR.Game
         public readonly Node LeftNode;
         public readonly Node RightNode;
         public readonly Node DownNode;
+         
     }
     
     public class Node : MonoBehaviour
     {
         [SerializeField] private Transform towerRoot;
         [SerializeField] private MeshRenderer _meshRenderer;
+
+        public TextMeshPro costText;
+        public int RouteCost = 0;
         public bool HasTurret = false;
         public Action<Node> OnClickNode;
         public Turret PlacingTurret => placingTurret;
@@ -71,6 +76,8 @@ namespace CR.Game
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nodeType), nodeType, null);
             }
+
+            RouteCost = int.MaxValue;
         }
 
 
@@ -92,6 +99,11 @@ namespace CR.Game
         public void SetNeighbors(NodeNeighbors nodeNeighbors)
         {
             neighbors = nodeNeighbors;
+        }
+
+        public void ShowCost()
+        {
+            costText.text = RouteCost.ToString();
         }
     }
     

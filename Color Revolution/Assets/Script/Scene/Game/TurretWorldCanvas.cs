@@ -5,7 +5,7 @@ using Kinopi.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TurretWorldCanvas : UnitWorldCanvas
+public class TurretWorldCanvas : ObjectWorldCanvas
 {
 
     [SerializeField] private RectTransform attackRangeImage;

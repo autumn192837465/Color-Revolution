@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using CR.Game;
 using UnityEngine;
 
-public class UnitWorldCanvas : MonoBehaviour
+public class ObjectWorldCanvas : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
 
