@@ -54,4 +54,10 @@ public class Enemy : MonoBehaviour
     }
 
     private bool IsDead => enemyData.Health.IsDead;
+
+    public Action<Enemy> OnEnemyDeath;
+    public void OnDestroy()
+    {
+        OnEnemyDeath?.Invoke(this);
+    }
 }

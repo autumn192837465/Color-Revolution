@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using CR.Game;
 using CR.Model;
@@ -16,14 +17,16 @@ public class MapManager : Singleton<MapManager>
     [SerializeField] private Node nodePrefab;
     [SerializeField] private Transform mapRoot;
 
+    
     private const float tempOffset = 0.1f; 
     private int mapHeight;
     private int mapWidth;
 
-    private Node[,] nodeMap;
-    private Node startNode;
-    private Node endNode;
-    
+    public Node[,] nodeMap;
+    public Node startNode;
+    public Node endNode;
+    public ReadOnlyCollection<Path> AllPaths => allPaths.AsReadOnly();
+    private List<Path> allPaths = new List<Path>();
     
     protected override void Awake()
     {
@@ -102,25 +105,17 @@ public class MapManager : Singleton<MapManager>
         {
             node?.ShowCost();
         }
-
-        List<Path> allPaths = new List<Path>();
-        Stack<Node> stack = new Stack<Node>();
-        FindPath(startNode, stack, allPaths);
-
-        if (allPaths.Count > 0)
-        {
-            foreach (var node in allPaths)
-            {
-                foreach (var m in node.points)
-                {
-                    if(m != endNode)
-                    m.SetPath();    
-                }
-                
-            }
-        }
+        
+        CalculateAllPossiblePath();
     }
 
+    private void CalculateAllPossiblePath()
+    {
+        allPaths = new List<Path>();
+        Stack<Node> stack = new Stack<Node>();
+        FindPath(startNode, stack, allPaths);
+    }
+    
     private void SetNodeCost()
     {
         HashSet<Node> visited = new HashSet<Node>();

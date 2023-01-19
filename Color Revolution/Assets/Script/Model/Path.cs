@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using CR.Game;
 using UnityEngine;
 
@@ -9,10 +10,11 @@ namespace CR.Model
     {
         public Path(List<Node> nodes)
         {
-            points = nodes;
+            Nodes = nodes.AsReadOnly();
         }
 
-        public readonly List<Node> points;
+        
+        public ReadOnlyCollection<Node> Nodes;
 
     }    
 }

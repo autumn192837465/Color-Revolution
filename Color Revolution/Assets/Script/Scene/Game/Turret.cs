@@ -70,7 +70,7 @@ namespace CR.Game
             switch (currentState)
             {
                 case TurretState.Idle:
-                    if (GameManager.Instance.tempEnemyList != null)
+                    if (GameManager.Instance.EnemyList != null)
                     {
                         currentState = TurretState.Operating;
                     }
@@ -94,7 +94,7 @@ namespace CR.Game
                     timer.AddCooldownTime();
                     if (IsCooldownOver())
                     {
-                        if (GameManager.Instance.tempEnemyList != null)
+                        if (GetRandomEnemy() != null)
                         {
                             currentState = TurretState.Operating;
                         }

@@ -10,10 +10,14 @@ namespace CR.Game
     public class GameManager : Singleton<GameManager>
     {
         private List<Node> NodeList;
-        public List<Enemy> tempEnemyList;
+        
+        public Enemy enemyPrefab;
 
+        
+        public List<Enemy> EnemyList;
         public Camera MainCamera;
         [SerializeField] private GameShopUI GameShopUI;
+        [SerializeField] private Transform enemyRoot;
         [SerializeField] private Turret tempRedTurret;
         [SerializeField] private Turret tempBlueTurret;
         [SerializeField] private Turret tempGreenTurret;
@@ -24,6 +28,39 @@ namespace CR.Game
         {
             base.Awake();
             if (isDuplicate) return;
+            
+            
+            
+        }
+    
+        void Start()
+        {
+            Initialize();
+        }
+
+
+        private float time = 5;
+        void Update()
+        {
+            time -= Time.deltaTime;
+            if (time <= 0)
+            {
+                time = 5;
+                Enemy enemy = Instantiate(enemyPrefab, enemyRoot);
+                enemy.transform.position = Vector3.up + MapManager.Instance.startNode.transform.position;
+                enemy.OnEnemyDeath = (e) =>
+                {
+                    EnemyList.Remove(enemy);
+                };
+                EnemyList.Add(enemy);
+            }
+        }
+
+        private void Initialize()
+        {
+            AddGameShopUIEvent();
+            
+            MapManager.Instance.CreateMap(tempMapData);
             NodeList = FindObjectsOfType<Node>().ToList();
             NodeList.ForEach(x => x.OnClickNode = (selectedNode) =>
             {
@@ -41,28 +78,11 @@ namespace CR.Game
                 if(_currentSelectingTurret == null)   return;
                 if(selectedNode.HasTurret)   return;
                 var tower = Instantiate(_currentSelectingTurret);
-                 selectedNode.PlaceTower(tower);
-                 _currentSelectingTurret = null;
+                selectedNode.PlaceTower(tower);
+                _currentSelectingTurret = null;
             });
             
             
-        }
-    
-        void Start()
-        {
-            Initialize();
-        }
-    
-        void Update()
-        {
-        
-        }
-
-        private void Initialize()
-        {
-            AddGameShopUIEvent();
-            
-            MapManager.Instance.CreateMap(tempMapData);
         }
         #region AddUIEvent
 
@@ -94,12 +114,12 @@ namespace CR.Game
         public List<Enemy> GetInAttackRangeEnemyList(Turret turret)
         {
             List<Enemy> returnList = new();
-            foreach (var enemy in tempEnemyList)
+            foreach (var enemy in EnemyList)
             {
                 print(Vector3.Distance(enemy.transform.position, turret.transform.position));
                 if (Vector3.Distance(enemy.transform.position, turret.transform.position) <= turret.TurretData.AttackRange)
                 {
-                    
+                                    
                     returnList.Add(enemy);
                 }
             }
