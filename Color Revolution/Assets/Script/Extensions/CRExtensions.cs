@@ -22,6 +22,8 @@ namespace Kinopi.Extensions
             if (currentRgb.GreenValue < 0) currentRgb.GreenValue = 0;
             if (currentRgb.BlueValue < 0) currentRgb.BlueValue = 0;
         }
+
+        public static Vector3 XZPosition(this Vector3 vec) => new Vector3(vec.x, 0, vec.z);
     }
 }
 

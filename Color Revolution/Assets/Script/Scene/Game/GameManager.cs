@@ -3,16 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CR.Model;
+using CR.ScriptableObjects;
+using Kinopi.Enums;
+using Kinopi.Extensions;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CR.Game
 {
     public class GameManager : Singleton<GameManager>
     {
+        [SerializeField] private TextMeshProUGUI timeText;
         private List<Node> NodeList;
-        
-        public Enemy enemyPrefab;
-
         
         public List<Enemy> EnemyList;
         public Camera MainCamera;
@@ -21,8 +24,12 @@ namespace CR.Game
         [SerializeField] private Turret tempRedTurret;
         [SerializeField] private Turret tempBlueTurret;
         [SerializeField] private Turret tempGreenTurret;
-        public MapDataScriptableObject tempMapData;
+
+        [SerializeField] private WaveDataScriptableObject tempWaveData;
         
+        public MapDataScriptableObject tempMapData;
+
+        private GameState currentState = GameState.WaveInterval;
         private Turret _currentSelectingTurret;
         protected override void Awake()
         {
@@ -38,21 +45,60 @@ namespace CR.Game
             Initialize();
         }
 
+        private int waveIndex; 
+        private int spawnGroupIndex; 
+        private int enemyCountIndex; 
+        private float time = 0;
 
-        private float time = 5;
+        private float t = 0;
         void Update()
         {
-            time -= Time.deltaTime;
-            if (time <= 0)
+            t += Time.deltaTime;
+            TimeSpan timeSpan = TimeSpan.FromSeconds(t);
+            timeText.text = $"{timeSpan.Minutes.ToString("00")}:{timeSpan.Seconds.ToString("00")}";
+            
+            
+            if(waveIndex >= tempWaveData.WaveSpawnList.Count)   return;
+
+            time += Time.deltaTime;
+            switch (currentState)
             {
-                time = 5;
-                Enemy enemy = Instantiate(enemyPrefab, enemyRoot);
-                enemy.transform.position = Vector3.up + MapManager.Instance.startNode.transform.position;
-                enemy.OnEnemyDeath = (e) =>
-                {
-                    EnemyList.Remove(enemy);
-                };
-                EnemyList.Add(enemy);
+                case GameState.WaveInterval:
+                    if (time >= tempWaveData.WaveInterval)
+                    {
+                        currentState = GameState.SpawnEnemy;
+                        waveIndex = 0;
+                        spawnGroupIndex = 0;
+                        time = 0;
+                    }
+                    break;
+                case GameState.SpawnEnemy:
+                    if (time >= tempWaveData.WaveSpawnList[waveIndex].EnemySpawnGroupList[spawnGroupIndex].interval)
+                    {
+                        time = 0;
+                        Enemy enemy = Instantiate(tempWaveData.GetEnemy(waveIndex, spawnGroupIndex), enemyRoot);
+                        enemy.transform.position = Vector3.up + MapManager.Instance.startNode.transform.position;
+                        enemy.OnEnemyDeath = (e) =>
+                        {
+                            EnemyList.Remove(enemy);
+                        };
+                        enemy.SetPath(MapManager.Instance.AllPaths.GetRandomElement());
+                        EnemyList.Add(enemy);
+
+                        if (++enemyCountIndex == tempWaveData.WaveSpawnList[waveIndex].EnemySpawnGroupList[spawnGroupIndex].count)
+                        {
+                            enemyCountIndex = 0;
+                            if (++spawnGroupIndex == tempWaveData.WaveSpawnList[waveIndex].EnemySpawnGroupList.Count)
+                            {
+                                spawnGroupIndex = 0;
+                                waveIndex++;
+                                currentState = GameState.WaveInterval;
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -116,7 +162,6 @@ namespace CR.Game
             List<Enemy> returnList = new();
             foreach (var enemy in EnemyList)
             {
-                print(Vector3.Distance(enemy.transform.position, turret.transform.position));
                 if (Vector3.Distance(enemy.transform.position, turret.transform.position) <= turret.TurretData.AttackRange)
                 {
                                     

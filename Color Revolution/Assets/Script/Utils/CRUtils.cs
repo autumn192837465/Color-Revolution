@@ -61,6 +61,11 @@ namespace Kinopi.Utils
                 }
             }
         }
+
+        public static Vector3 GetXZDirection(Vector3 from, Vector3 to)
+        {
+            return new Vector3(to.x - from.x, 0, to.z - from.z);
+        }
     }
     
 

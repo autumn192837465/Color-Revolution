@@ -18,7 +18,7 @@ public class MapManager : Singleton<MapManager>
     [SerializeField] private Transform mapRoot;
 
     
-    private const float tempOffset = 0.1f; 
+    private const float tempOffset = 0.1f;
     private int mapHeight;
     private int mapWidth;
 
@@ -152,8 +152,11 @@ public class MapManager : Singleton<MapManager>
         stack.Push(currentNode);
         if (currentNode == endNode)
         {
-            Path path = new Path(stack.ToList());
+            var nodeList = stack.ToList();
+            nodeList.Reverse();
+            Path path = new Path(nodeList);
             possiblePath.Add(path);
+            stack.Pop();
             return;
         }
 

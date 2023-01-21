@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 using System.Linq;
 using Random = UnityEngine.Random;
@@ -27,6 +28,12 @@ namespace Kinopi.Extensions
             return list[Random.Range(0, list.Count)];
         }
 
+        public static T GetRandomElement<T>(this ReadOnlyCollection<T> list)
+        {
+            if (list.Count == 0) return default(T);
+            return list[Random.Range(0, list.Count)];
+        }
+        
         public static List<T> GetRandomElements<T>(this List<T> list, int count, List<T> exceptList = null)
         {
             List<T> copyList = new List<T>(list);

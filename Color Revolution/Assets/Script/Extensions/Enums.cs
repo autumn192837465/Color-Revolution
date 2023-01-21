@@ -5,19 +5,29 @@ using UnityEngine;
 
 namespace Kinopi.Enums
 {
-      public enum TurretState
-      {
-         Idle,
-         Operating,
-         Cooldown,
-      }
 
-      public enum NodeType
-      {
-          Empty = 0,
-          Normal = 1,
-          Start = 2,
-          End = 3,
-      }
+    public enum GameState
+    {
+        WaveInterval,
+        SpawnEnemy,
+        End,
+    }
+
+    public enum TurretState
+    {
+        Idle,
+        Operating,
+        Cooldown,
+    }
+
+    public enum NodeType
+    {
+        Empty = 0,
+        Normal = 1,
+        Start = 2,
+        End = 3,
+    }
+
+
 
 }

@@ -1,18 +1,30 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using CB.Model;
+using CR.Game;
+using CR.Model;
+using CR.ScriptableObjects;
+using Kinopi.Enums;
 using Kinopi.Extensions;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : UnitBase
 {
     [SerializeField] private MeshRenderer meshRenderer;
 
 
     [SerializeField] private EnemyDataScriptableObject enemyDataScriptableObject;
+    private Path path;
     private EnemyData enemyData;
 
+    private int nodeIndex = 0;
+    private float speed = 1;
+    private Vector3 movingDirection;
+    
+    private Vector3 offset = new Vector3(0, 1, 0);
+    private Node destinationNode => path.Nodes[nodeIndex];
+
+
+    
     private void Awake()
     {
         enemyData = enemyDataScriptableObject.EnemyData.DeepClone();
@@ -25,10 +37,43 @@ public class Enemy : MonoBehaviour
     
     void Update()
     {
-        Vector3 dir = new Vector3(1, 0, 0);
-        transform.Translate(dir * Time.deltaTime);
+
+        
+        Vector3 nextPosition = transform.position + movingDirection * (Time.deltaTime * speed);
+        if (Vector3.Dot((destinationNode.transform.position - nextPosition).XZPosition(), movingDirection) < 0)
+        {
+            // Todo : to node position
+            transform.position = nextPosition;
+            if (destinationNode == path.EndNode)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                movingDirection = path.GetDirection(nodeIndex++);
+            }
+        }
+        else
+        {
+            transform.position = nextPosition;
+        }
+        
+
+
+
     }
 
+    public void SetPath(Path path)
+    {
+        this.path = path;
+        nodeIndex = 0;
+        transform.localPosition = path.StartNode.transform.position.XZPosition() + offset;
+        movingDirection = path.GetDirection(nodeIndex++); 
+        
+    }
+
+    
+    
     private void OnTriggerEnter(Collider other)
     {
         var bullet = other.GetComponent<Bullet>();
@@ -46,8 +91,6 @@ public class Enemy : MonoBehaviour
         Destroy(bullet.gameObject);
     }
     
-    
-
     private void SetColor()
     {
         meshRenderer.material.color = enemyData.Health.GetColor();
