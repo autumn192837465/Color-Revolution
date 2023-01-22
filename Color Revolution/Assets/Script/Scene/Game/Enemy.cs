@@ -17,7 +17,7 @@ public class Enemy : UnitBase
     private EnemyData enemyData;
 
     private int nodeIndex = 0;
-    private float speed = 1;
+    private float speed => enemyData.Speed;
     private Vector3 movingDirection;
     
     private Vector3 offset = new Vector3(0, 1, 0);
@@ -37,8 +37,6 @@ public class Enemy : UnitBase
     
     void Update()
     {
-
-        
         Vector3 nextPosition = transform.position + movingDirection * (Time.deltaTime * speed);
         if (Vector3.Dot((destinationNode.transform.position - nextPosition).XZPosition(), movingDirection) < 0)
         {
