@@ -22,9 +22,9 @@ public class TurretWorldCanvas : ObjectWorldCanvas
         
     }
 
-    public void Initialize(TurretData data)
+    public void Initialize(TurretBasicData basicData)
     {
-        attackRangeImage.localScale = new Vector2(data.AttackRange * 2, data.AttackRange * 2);
+        attackRangeImage.localScale = new Vector2(basicData.AttackRange * 2, basicData.AttackRange * 2);
     }
 
     public void ShowAttackRange()

@@ -38,10 +38,10 @@ namespace CR.Game
     
     public class Turret : MonoBehaviour
     {
-        [SerializeField] private TurretDataScriptableObject turretDataScriptableObject;
+        [SerializeField] private TurretBasicDataScriptableObject turretBasicDataScriptableObject;
         [SerializeField] private TurretWorldCanvas worldCanvas;
-        public TurretData TurretData => turretData;
-        private TurretData turretData;
+        public TurretBasicData TurretBasicData => turretBasicData;
+        private TurretBasicData turretBasicData;
         [SerializeField] private Bullet bulletPrefab;
         public bool IsShowingTurretAttackRange => worldCanvas.IsShowingTurretAttackRange;
         
@@ -59,8 +59,8 @@ namespace CR.Game
 
         private void Initialize()
         {
-            turretData = turretDataScriptableObject.turretData.DeepClone();
-            worldCanvas.Initialize(turretData);
+            turretBasicData = turretBasicDataScriptableObject.BasicData.DeepClone();
+            worldCanvas.Initialize(turretBasicData);
         }
 
 
@@ -112,20 +112,20 @@ namespace CR.Game
         private void CreateBullet(Enemy target)
         {
             Bullet bullet =  Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            bullet.Initialize(turretData.AttackDamage);
+            bullet.Initialize(turretBasicData.AttackDamage);
             bullet.SetDestination(target.gameObject);
         }
 
         private void AttackIfCan(Enemy target)
         {
-            if (timer.bulletTimer < turretData.AttackSpeed)  return;
-            timer.bulletTimer -= turretData.AttackSpeed;
+            if (timer.bulletTimer < turretBasicData.AttackSpeed)  return;
+            timer.bulletTimer -= turretBasicData.AttackSpeed;
             CreateBullet(target);
         }
 
         private bool IsOverHeating()
         {
-            if (timer.operatingTimer >= turretData.OperatingTime)
+            if (timer.operatingTimer >= turretBasicData.OperatingTime)
             {
                 timer.operatingTimer = 0;
                 return true;
@@ -136,7 +136,7 @@ namespace CR.Game
 
         private bool IsCooldownOver()
         {
-            if (timer.cooldownTimer >= turretData.CooldownTime)
+            if (timer.cooldownTimer >= turretBasicData.CooldownTime)
             {
                 timer.cooldownTimer = 0;
                 return true;

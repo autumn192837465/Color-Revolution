@@ -85,5 +85,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 867fd1b9d84ed66478e7bdbb966f349c,
         type: 2}
+    - target: {fileID: 6530028128586466177, guid: 576a500e2856aab45a4092691ef58814,
+        type: 3}
+      propertyPath: turretBasicDataScriptableObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 02e748009bd06694eb808ecc5774285d,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 576a500e2856aab45a4092691ef58814, type: 3}

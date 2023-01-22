@@ -20,9 +20,7 @@ namespace CR.Game
         [SerializeField] private GameShopUI GameShopUI;
         [SerializeField] private GameUI GameUI;
         [SerializeField] private Transform enemyRoot;
-        [SerializeField] private Turret tempRedTurret;
-        [SerializeField] private Turret tempBlueTurret;
-        [SerializeField] private Turret tempGreenTurret;
+        
 
         [SerializeField] private WaveDataScriptableObject tempWaveData;
         
@@ -30,6 +28,7 @@ namespace CR.Game
 
         private GameState currentState = GameState.Initialize;
         private Node currentSelectingNode;
+
         private Turret currentSelectingTurret;
         protected override void Awake()
         {
@@ -133,20 +132,24 @@ namespace CR.Game
             GameShopUI.OnClickButton = (type) =>
             {
                 ShowPlaceable();
+                Sprite sprite = null;
+                TurretData data = null;
                 switch (type)
                 {
                     case GameShopUI.ButtonType.RedTower:
-                        currentSelectingTurret = tempRedTurret;
+                        data = DataManager.Instance.GetTurretData(TurretType.RedTurret);
                         break;
                     case GameShopUI.ButtonType.BlueTower:
-                        currentSelectingTurret = tempBlueTurret;
+                        data = DataManager.Instance.GetTurretData(TurretType.BlueTurret);
                         break;
                     case GameShopUI.ButtonType.GreenTower:
-                        currentSelectingTurret = tempGreenTurret;
+                        data = DataManager.Instance.GetTurretData(TurretType.GreenTurret);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(type), type, null);
                 }
+                GameUI.SetSelectingTurretSprite(data.Sprite);
+                currentSelectingTurret = data.Turret;
             };
         }
         
@@ -225,7 +228,7 @@ namespace CR.Game
             List<Enemy> returnList = new();
             foreach (var enemy in EnemyList)
             {
-                if (Vector3.Distance(enemy.transform.position, turret.transform.position) <= turret.TurretData.AttackRange)
+                if (Vector3.Distance(enemy.transform.position, turret.transform.position) <= turret.TurretBasicData.AttackRange)
                 {
                                     
                     returnList.Add(enemy);
@@ -268,6 +271,9 @@ namespace CR.Game
             }
 
         }
+        
+        
+        
         
        
         

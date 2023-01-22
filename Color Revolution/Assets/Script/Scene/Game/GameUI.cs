@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Kinopi.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ public class GameUI : MonoBehaviour
         SkipPreparing
     }
 
+    [SerializeField] private Image selectingTurretImage;
+    
     [Serializable]
     public class ButtonInfo
     {
@@ -41,5 +44,15 @@ public class GameUI : MonoBehaviour
     public void InitializeUI()
     {
 
+    }
+
+    public void SetSelectingTurretSprite(Sprite sprite)
+    {
+        if(sprite is null)  selectingTurretImage.SetActive(false);
+        else
+        {
+            selectingTurretImage.SetActive(true);
+            selectingTurretImage.sprite = sprite;
+        }
     }
 }

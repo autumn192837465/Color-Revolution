@@ -29,6 +29,12 @@ namespace Kinopi.Enums
         End = 3,
     }
 
+    public enum TurretType
+    {
+        RedTurret,
+        BlueTurret,
+        GreenTurret,
+    }
 
 
 }
