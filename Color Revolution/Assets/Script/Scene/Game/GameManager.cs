@@ -14,8 +14,6 @@ namespace CR.Game
 {
     public class GameManager : Singleton<GameManager>
     {
-        [SerializeField] private TextMeshProUGUI timeText;
-        private List<Node> NodeList;
         
         public List<Enemy> EnemyList;
         public Camera MainCamera;
@@ -29,21 +27,17 @@ namespace CR.Game
         
         public MapDataScriptableObject tempMapData;
 
-        private GameState currentState = GameState.WaveInterval;
+        private GameState currentState = GameState.Initialize;
         private Turret _currentSelectingTurret;
         protected override void Awake()
         {
             base.Awake();
             if (isDuplicate) return;
             
-            
+            Initialize();
             
         }
     
-        void Start()
-        {
-            Initialize();
-        }
 
         private int waveIndex; 
         private int spawnGroupIndex; 
@@ -52,20 +46,18 @@ namespace CR.Game
         
         void Update()
         {
-         
-         
-            
-            
             if(waveIndex >= tempWaveData.WaveSpawnList.Count)   return;
 
             timer += Time.deltaTime;
             switch (currentState)
             {
-                case GameState.WaveInterval:
+                case GameState.PlayerPreparing:
                     if (timer >= tempWaveData.WaveInterval)
                     {
-                        currentState = GameState.SpawnEnemy;
                         timer = 0;
+
+                        MapManager.Instance.CalculateAllPossiblePath();
+                        currentState = GameState.SpawnEnemy;
                     }
                     break;
                 case GameState.SpawnEnemy:
@@ -77,6 +69,7 @@ namespace CR.Game
                         enemy.OnEnemyDeath = (e) =>
                         {
                             EnemyList.Remove(enemy);
+                            
                         };
                         enemy.SetPath(MapManager.Instance.AllPaths.GetRandomElement());
                         EnemyList.Add(enemy);
@@ -88,27 +81,57 @@ namespace CR.Game
                             {
                                 spawnGroupIndex = 0;
                                 waveIndex++;
-                                currentState = GameState.WaveInterval;
+                                currentState = GameState.PlayerPreparing;
                             }
                         }
                     }
+                    break;
+                case GameState.Initialize:
+                case GameState.End:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
+        private void ToState(GameState state)
+        {
+            switch (state)
+            {
+                case GameState.Initialize:
+                    currentState = GameState.Initialize;
+                    break;
+                case GameState.PlayerPreparing:
+                    currentState = GameState.PlayerPreparing;
+                    break;
+                case GameState.SpawnEnemy:
+                    currentState = GameState.SpawnEnemy;
+                    break;
+                case GameState.End:
+                    currentState = GameState.End;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(state), state, null);
+            }
+        }
+        
         private void Initialize()
         {
             AddGameShopUIEvent();
             
-            MapManager.Instance.CreateMap(tempMapData);
-            NodeList = FindObjectsOfType<Node>().ToList();
-            NodeList.ForEach(x => x.OnClickNode = (selectedNode) =>
+            var nodeMap =  MapManager.Instance.CreateMap(tempMapData);
+            var nodeList = new List<Node>();
+            foreach (var node in nodeMap)
+            {
+                if(node is null)    continue;
+                nodeList.Add(node);
+            }
+            
+            nodeList.ForEach(x => x.OnClickNode = (selectedNode) =>
             {
                 if (selectedNode.HasTurret)
                 {
-                    foreach (var node in NodeList.Where(node => node != selectedNode && node.HasTurret))
+                    foreach (var node in nodeList.Where(node => node != selectedNode && node.HasTurret))
                     {
                         node.PlacingTurret.HideAttackRange();
                     }
@@ -122,7 +145,9 @@ namespace CR.Game
                 var tower = Instantiate(_currentSelectingTurret);
                 selectedNode.PlaceTower(tower);
                 _currentSelectingTurret = null;
-            });
+            });    
+            
+            ToState(GameState.PlayerPreparing);
             
             
         }

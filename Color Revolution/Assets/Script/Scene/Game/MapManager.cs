@@ -22,7 +22,7 @@ public class MapManager : Singleton<MapManager>
     private int mapHeight;
     private int mapWidth;
 
-    public Node[,] nodeMap;
+    private Node[,] nodeMap;
     public Node startNode;
     public Node endNode;
     public ReadOnlyCollection<Path> AllPaths => allPaths.AsReadOnly();
@@ -43,7 +43,7 @@ public class MapManager : Singleton<MapManager>
     ///  0 x1 x2 x3 x4 x5 width 
     /// </summary>
     /// <param name="rawMapData"></param>
-    public void CreateMap(MapDataScriptableObject rawMapData)
+    public Node[,] CreateMap(MapDataScriptableObject rawMapData)
     {
         foreach (Transform tf in mapRoot)
         {
@@ -106,10 +106,12 @@ public class MapManager : Singleton<MapManager>
             node?.ShowCost();
         }
         
-        CalculateAllPossiblePath();
+        return nodeMap;
     }
 
-    private void CalculateAllPossiblePath()
+    
+    
+    public void CalculateAllPossiblePath()
     {
         allPaths = new List<Path>();
         Stack<Node> stack = new Stack<Node>();
@@ -164,7 +166,7 @@ public class MapManager : Singleton<MapManager>
 
         foreach (var neighborNode in currentNode.Neighbors.AllNeighbors)
         {
-            if (neighborNode != null && neighborNode.RouteCost ==  cost + 1)
+            if (neighborNode != null && !neighborNode.HasTurret && neighborNode.RouteCost ==  cost + 1)
             {
                 FindPath(neighborNode, stack, possiblePath);
             }    

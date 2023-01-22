@@ -57,10 +57,6 @@ public class Enemy : UnitBase
         {
             transform.position = nextPosition;
         }
-        
-
-
-
     }
 
     public void SetPath(Path path)

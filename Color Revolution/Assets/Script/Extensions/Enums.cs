@@ -8,8 +8,9 @@ namespace Kinopi.Enums
 
     public enum GameState
     {
-        WaveInterval,
+        Initialize,
         SpawnEnemy,
+        PlayerPreparing,
         End,
     }
 

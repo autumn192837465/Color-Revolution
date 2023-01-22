@@ -34,7 +34,7 @@ namespace CR.Game
 
         public TextMeshPro costText;
         public int RouteCost = 0;
-        public bool HasTurret = false;
+        public bool HasTurret => placingTurret != null;
         public Action<Node> OnClickNode;
         public Turret PlacingTurret => placingTurret;
         private Turret placingTurret;
@@ -95,7 +95,6 @@ namespace CR.Game
             placingTurret = turret;
             turret.transform.SetParent(towerRoot);
             turret.transform.localPosition = Vector3.zero;
-            HasTurret = true;
             _meshRenderer.material.color = Color.black;
         }
 
