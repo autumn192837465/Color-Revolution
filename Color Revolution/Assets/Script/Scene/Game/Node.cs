@@ -29,8 +29,8 @@ namespace CR.Game
     
     public class Node : MonoBehaviour
     {
-        [SerializeField] private Transform towerRoot;
-        [SerializeField] private MeshRenderer _meshRenderer;
+        [SerializeField] private Transform turretRoot;
+        
 
         public TextMeshPro costText;
         public bool CanPlace;
@@ -45,9 +45,10 @@ namespace CR.Game
 
         public (int, int) Coord;
 
+        
         private void Awake()
         {
-            
+
         }
 
         void Start()
@@ -69,13 +70,13 @@ namespace CR.Game
                     Destroy(gameObject);
                     break;
                 case NodeType.Normal:
-                    
+                    SetColor(Color.white);
                     break;
                 case NodeType.Start:
-                    _meshRenderer.material.color = Color.white;
+                    SetColor(Color.red);
                     break;
                 case NodeType.End:
-                    _meshRenderer.material.color = Color.red;
+                    SetColor(Color.blue);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nodeType), nodeType, null);
@@ -92,9 +93,9 @@ namespace CR.Game
         public void PlaceTower(Turret turret)
         {
             placingTurret = turret;
-            turret.transform.SetParent(towerRoot);
+            turret.transform.SetParent(turretRoot);
             turret.transform.localPosition = Vector3.zero;
-            _meshRenderer.material.color = Color.black;
+            //SetColor(Color.cyan);
         }
 
         public void SetNeighbors(NodeNeighbors nodeNeighbors)
@@ -109,17 +110,23 @@ namespace CR.Game
 
         public void ShowPlaceable()
         {
-            if(CanPlace)
-                _meshRenderer.material.color = Color.yellow;
-            else
-                _meshRenderer.material.color = Color.blue;
+            SetColor(CanPlace ? Color.white : Color.gray);
         }
         
-        public void SetPath()
+        public void HidePlaceable()
         {
-            _meshRenderer.material.color = Color.green;
+            SetColor(Color.white);
         }
         
+
+
+        private void SetColor(Color color)
+        {
+            foreach (var renderer in GetComponentsInChildren<Renderer>())
+            {
+                renderer.material.color = color;
+            }
+        }
         
     }
     

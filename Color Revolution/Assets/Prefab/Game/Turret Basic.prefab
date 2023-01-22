@@ -46,8 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e2e6d1535faf841b17464c791ab898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerDataScriptableObject: {fileID: 11400000, guid: 102b1ac6f335f4d47966c95d166c8184,
-    type: 2}
+  turretDataScriptableObject: {fileID: 0}
   worldCanvas: {fileID: 3862160820094226371}
   bulletPrefab: {fileID: 4195354500949105516, guid: 8aa530424a5aee843b82338497d240a0,
     type: 3}
@@ -281,7 +280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1724755848863545033
 RectTransform:
   m_ObjectHideFlags: 0

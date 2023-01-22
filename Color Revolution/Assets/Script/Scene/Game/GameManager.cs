@@ -18,6 +18,7 @@ namespace CR.Game
         public List<Enemy> EnemyList;
         public Camera MainCamera;
         [SerializeField] private GameShopUI GameShopUI;
+        [SerializeField] private GameUI GameUI;
         [SerializeField] private Transform enemyRoot;
         [SerializeField] private Turret tempRedTurret;
         [SerializeField] private Turret tempBlueTurret;
@@ -55,7 +56,6 @@ namespace CR.Game
                     if (timer >= tempWaveData.WaveInterval)
                     {
                         timer = 0;
-
                         MapManager.Instance.CalculateAllNearestPath();
                         currentState = GameState.SpawnEnemy;
                     }
@@ -118,7 +118,7 @@ namespace CR.Game
         private void Initialize()
         {
             AddGameShopUIEvent();
-            
+            AddGameUIEvent();
             var nodeMap =  MapManager.Instance.CreateMap(tempMapData);
             var nodeList = new List<Node>();
             foreach (var node in nodeMap)
@@ -146,12 +146,15 @@ namespace CR.Game
                 {
                     if(currentState != GameState.PlayerPreparing)   return;
                     if (currentSelectingTurret is null) return;
+                    if(!selectedNode.CanPlace)  return;
                     
+                    HidePlaceable();
                     // Todo : check if has available path
                     
                     var tower = Instantiate(currentSelectingTurret);
                     selectedNode.PlaceTower(tower);
-                    
+                    MapManager.Instance.SetNodePlaceable();
+
                     // Todo : check cost
                     //currentSelectingTurret = null;
                 }
@@ -171,6 +174,7 @@ namespace CR.Game
         {
             GameShopUI.OnClickButton = (type) =>
             {
+                ShowPlaceable();
                 switch (type)
                 {
                     case GameShopUI.ButtonType.RedTower:
@@ -190,8 +194,45 @@ namespace CR.Game
         #endregion
 
         #region RemoveUIEvent
+
+        private void AddGameUIEvent()
+        {
+            bool showing = false;
+            GameUI.showPlaceableButton.onClick.AddListener(() =>
+            {
+                if (showing)
+                {
+                    ShowPlaceable();
+                }
+                else
+                {
+                   HidePlaceable();
+                }
+
+                showing = !showing;
+            });   
+        }
+        
         #endregion
 
+        private void ShowPlaceable()
+        {
+            foreach (var node in MapManager.Instance.NodeList)
+            {
+                if(node != MapManager.Instance.startNode && node != MapManager.Instance.endNode && !node.HasTurret)
+                    node.ShowPlaceable();
+            }
+        }
+
+        private void HidePlaceable()
+        {
+            foreach (var node in MapManager.Instance.NodeList)
+            {
+                if(node != MapManager.Instance.startNode && node != MapManager.Instance.endNode && !node.HasTurret)
+                    node.HidePlaceable();
+            }
+        }
+        
         public List<Enemy> GetInAttackRangeEnemyList(Turret turret)
         {
             List<Enemy> returnList = new();
@@ -208,5 +249,7 @@ namespace CR.Game
         }
         
        
+        
+        
     }    
 }

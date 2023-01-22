@@ -25,8 +25,8 @@ public class MapManager : Singleton<MapManager>
     private Node[,] nodeMap;
     public ReadOnlyCollection<Node> NodeList => nodeList.AsReadOnly();
     private List<Node> nodeList;
-    public Node startNode;
-    public Node endNode;
+    [HideInInspector] public Node startNode;
+    [HideInInspector] public Node endNode;
     public ReadOnlyCollection<Path> AllPaths => allNearestPaths.AsReadOnly();
     private List<Path> allNearestPaths = new List<Path>();
     
@@ -119,7 +119,7 @@ public class MapManager : Singleton<MapManager>
 
     // 1. find all path
     // 2. 
-    private void SetNodePlaceable()
+    public void SetNodePlaceable()
     {
         List<Path> allPath = new List<Path>();
         
@@ -145,11 +145,8 @@ public class MapManager : Singleton<MapManager>
         int pathCount = allPath.Count;
         foreach (var node in nodeList)
         {
-            node.CanPlace = (passedCount.GetValueOrDefault(node, 0) == pathCount);
-            node.ShowPlaceable();
+            node.CanPlace = (passedCount.GetValueOrDefault(node, 0) != pathCount);
         }
-        
-        
     }
 
 
