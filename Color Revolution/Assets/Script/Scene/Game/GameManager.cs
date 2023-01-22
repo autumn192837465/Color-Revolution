@@ -48,34 +48,30 @@ namespace CR.Game
         private int waveIndex; 
         private int spawnGroupIndex; 
         private int enemyCountIndex; 
-        private float time = 0;
-
-        private float t = 0;
+        private float timer = 0;
+        
         void Update()
         {
-            t += Time.deltaTime;
-            TimeSpan timeSpan = TimeSpan.FromSeconds(t);
-            timeText.text = $"{timeSpan.Minutes.ToString("00")}:{timeSpan.Seconds.ToString("00")}";
+         
+         
             
             
             if(waveIndex >= tempWaveData.WaveSpawnList.Count)   return;
 
-            time += Time.deltaTime;
+            timer += Time.deltaTime;
             switch (currentState)
             {
                 case GameState.WaveInterval:
-                    if (time >= tempWaveData.WaveInterval)
+                    if (timer >= tempWaveData.WaveInterval)
                     {
                         currentState = GameState.SpawnEnemy;
-                        waveIndex = 0;
-                        spawnGroupIndex = 0;
-                        time = 0;
+                        timer = 0;
                     }
                     break;
                 case GameState.SpawnEnemy:
-                    if (time >= tempWaveData.WaveSpawnList[waveIndex].EnemySpawnGroupList[spawnGroupIndex].interval)
+                    if (timer >= tempWaveData.WaveSpawnList[waveIndex].EnemySpawnGroupList[spawnGroupIndex].interval)
                     {
-                        time = 0;
+                        timer = 0;
                         Enemy enemy = Instantiate(tempWaveData.GetEnemy(waveIndex, spawnGroupIndex), enemyRoot);
                         enemy.transform.position = Vector3.up + MapManager.Instance.startNode.transform.position;
                         enemy.OnEnemyDeath = (e) =>
