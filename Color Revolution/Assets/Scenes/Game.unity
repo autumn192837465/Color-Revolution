@@ -744,6 +744,7 @@ GameObject:
   - component: {fileID: 1077896724}
   - component: {fileID: 1077896726}
   - component: {fileID: 1077896725}
+  - component: {fileID: 1077896727}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -868,6 +869,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1077896723}
   m_CullTransparentMesh: 1
+--- !u!114 &1077896727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077896723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448b5e1b0f0cf75438610c4cca924c27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeText: {fileID: 1077896725}
 --- !u!1 &1235873123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,7 +1375,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroy: 0
-  timeText: {fileID: 1077896725}
   EnemyList: []
   MainCamera: {fileID: 963194227}
   GameShopUI: {fileID: 1428511812}

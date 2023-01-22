@@ -28,7 +28,7 @@ namespace CR.Game
         public MapDataScriptableObject tempMapData;
 
         private GameState currentState = GameState.Initialize;
-        private Turret _currentSelectingTurret;
+        private Turret currentSelectingTurret;
         protected override void Awake()
         {
             base.Awake();
@@ -56,7 +56,7 @@ namespace CR.Game
                     {
                         timer = 0;
 
-                        MapManager.Instance.CalculateAllPossiblePath();
+                        MapManager.Instance.CalculateAllNearestPath();
                         currentState = GameState.SpawnEnemy;
                     }
                     break;
@@ -131,6 +131,9 @@ namespace CR.Game
             {
                 if (selectedNode.HasTurret)
                 {
+                    // Todo : Show attack range and detail
+                    
+                    
                     foreach (var node in nodeList.Where(node => node != selectedNode && node.HasTurret))
                     {
                         node.PlacingTurret.HideAttackRange();
@@ -139,12 +142,23 @@ namespace CR.Game
                     if(selectedNode.PlacingTurret.IsShowingTurretAttackRange) selectedNode.PlacingTurret.HideAttackRange();
                     else selectedNode.PlacingTurret.ShowAttackRange();
                 }
+                else
+                {
+                    if(currentState != GameState.PlayerPreparing)   return;
+                    if (currentSelectingTurret is null) return;
+                    
+                    // Todo : check if has available path
+                    
+                    var tower = Instantiate(currentSelectingTurret);
+                    selectedNode.PlaceTower(tower);
+                    
+                    // Todo : check cost
+                    //currentSelectingTurret = null;
+                }
                 
-                if(_currentSelectingTurret == null)   return;
-                if(selectedNode.HasTurret)   return;
-                var tower = Instantiate(_currentSelectingTurret);
-                selectedNode.PlaceTower(tower);
-                _currentSelectingTurret = null;
+                
+                
+                
             });    
             
             ToState(GameState.PlayerPreparing);
@@ -160,13 +174,13 @@ namespace CR.Game
                 switch (type)
                 {
                     case GameShopUI.ButtonType.RedTower:
-                        _currentSelectingTurret = tempRedTurret;
+                        currentSelectingTurret = tempRedTurret;
                         break;
                     case GameShopUI.ButtonType.BlueTower:
-                        _currentSelectingTurret = tempBlueTurret;
+                        currentSelectingTurret = tempBlueTurret;
                         break;
                     case GameShopUI.ButtonType.GreenTower:
-                        _currentSelectingTurret = tempGreenTurret;
+                        currentSelectingTurret = tempGreenTurret;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -191,6 +205,8 @@ namespace CR.Game
             }
             
             return returnList;
-        } 
+        }
+        
+       
     }    
 }

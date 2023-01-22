@@ -22,4 +22,4 @@ MonoBehaviour:
         RedValue: 255
         GreenValue: 255
         BlueValue: 255
-    Speed: 255
+    Speed: 1

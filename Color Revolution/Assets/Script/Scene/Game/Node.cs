@@ -33,6 +33,7 @@ namespace CR.Game
         [SerializeField] private MeshRenderer _meshRenderer;
 
         public TextMeshPro costText;
+        public bool CanPlace;
         public int RouteCost = 0;
         public bool HasTurret => placingTurret != null;
         public Action<Node> OnClickNode;
@@ -79,8 +80,6 @@ namespace CR.Game
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nodeType), nodeType, null);
             }
-
-            RouteCost = int.MaxValue;
         }
 
 
@@ -108,10 +107,20 @@ namespace CR.Game
             costText.text = RouteCost.ToString();
         }
 
+        public void ShowPlaceable()
+        {
+            if(CanPlace)
+                _meshRenderer.material.color = Color.yellow;
+            else
+                _meshRenderer.material.color = Color.blue;
+        }
+        
         public void SetPath()
         {
             _meshRenderer.material.color = Color.green;
         }
+        
+        
     }
     
 }
