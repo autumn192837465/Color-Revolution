@@ -18,6 +18,21 @@ namespace CR.ScriptableObjects
         {
             return WaveSpawnList[spawnIndex].EnemySpawnGroupList[enemyIndex].enemy;
         }
+
+        public float GetEnemySpawnGroupInterval(int waveIndex, int spawnGroupIndex)
+        {
+            return WaveSpawnList[waveIndex].EnemySpawnGroupList[spawnGroupIndex].interval;
+        }
+
+        public int GetSpawnGroupEnemyCount(int waveIndex, int spawnGroupIndex)
+        {
+            return WaveSpawnList[waveIndex].EnemySpawnGroupList[spawnGroupIndex].count;
+        }
+
+        public int GetEnemySpawnGroupCount(int waveIndex)
+        {
+            return WaveSpawnList[waveIndex].EnemySpawnGroupList.Count;
+        }
         
 
         [Serializable]

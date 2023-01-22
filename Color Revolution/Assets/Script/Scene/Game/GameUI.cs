@@ -10,7 +10,7 @@ public class GameUI : MonoBehaviour
     
     public enum ButtonType
     {
-        
+        SkipPreparing
     }
 
     [Serializable]

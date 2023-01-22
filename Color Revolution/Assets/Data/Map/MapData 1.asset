@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc673a9ba7464e14ca486f5633c19777, type: 3}
   m_Name: MapData 1
   m_EditorClassIdentifier: 
-  mapData: '211111
+  mapData: '2111111
 
-    111011
+    1110101
 
-    111113'
+    1111113'

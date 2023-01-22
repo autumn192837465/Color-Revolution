@@ -29,6 +29,7 @@ namespace CR.Game
         public MapDataScriptableObject tempMapData;
 
         private GameState currentState = GameState.Initialize;
+        private Node currentSelectingNode;
         private Turret currentSelectingTurret;
         protected override void Awake()
         {
@@ -61,26 +62,18 @@ namespace CR.Game
                     }
                     break;
                 case GameState.SpawnEnemy:
-                    if (timer >= tempWaveData.WaveSpawnList[waveIndex].EnemySpawnGroupList[spawnGroupIndex].interval)
+                    if (timer >= tempWaveData.GetEnemySpawnGroupInterval(waveIndex, spawnGroupIndex))
                     {
                         timer = 0;
-                        Enemy enemy = Instantiate(tempWaveData.GetEnemy(waveIndex, spawnGroupIndex), enemyRoot);
-                        enemy.transform.position = Vector3.up + MapManager.Instance.startNode.transform.position;
-                        enemy.OnEnemyDeath = (e) =>
-                        {
-                            EnemyList.Remove(enemy);
-                            
-                        };
-                        enemy.SetPath(MapManager.Instance.AllPaths.GetRandomElement());
-                        EnemyList.Add(enemy);
+                        SpawnEnemy(tempWaveData.GetEnemy(waveIndex, spawnGroupIndex));
 
-                        if (++enemyCountIndex == tempWaveData.WaveSpawnList[waveIndex].EnemySpawnGroupList[spawnGroupIndex].count)
+                        if (++enemyCountIndex == tempWaveData.GetSpawnGroupEnemyCount(waveIndex, spawnGroupIndex))
                         {
                             enemyCountIndex = 0;
-                            if (++spawnGroupIndex == tempWaveData.WaveSpawnList[waveIndex].EnemySpawnGroupList.Count)
+                            if (++spawnGroupIndex == tempWaveData.GetEnemySpawnGroupCount(waveIndex))
                             {
-                                spawnGroupIndex = 0;
                                 waveIndex++;
+                                spawnGroupIndex = 0;
                                 currentState = GameState.PlayerPreparing;
                             }
                         }
@@ -126,43 +119,8 @@ namespace CR.Game
                 if(node is null)    continue;
                 nodeList.Add(node);
             }
-            
-            nodeList.ForEach(x => x.OnClickNode = (selectedNode) =>
-            {
-                if (selectedNode.HasTurret)
-                {
-                    // Todo : Show attack range and detail
-                    
-                    
-                    foreach (var node in nodeList.Where(node => node != selectedNode && node.HasTurret))
-                    {
-                        node.PlacingTurret.HideAttackRange();
-                    }
 
-                    if(selectedNode.PlacingTurret.IsShowingTurretAttackRange) selectedNode.PlacingTurret.HideAttackRange();
-                    else selectedNode.PlacingTurret.ShowAttackRange();
-                }
-                else
-                {
-                    if(currentState != GameState.PlayerPreparing)   return;
-                    if (currentSelectingTurret is null) return;
-                    if(!selectedNode.CanPlace)  return;
-                    
-                    HidePlaceable();
-                    // Todo : check if has available path
-                    
-                    var tower = Instantiate(currentSelectingTurret);
-                    selectedNode.PlaceTower(tower);
-                    MapManager.Instance.SetNodePlaceable();
-
-                    // Todo : check cost
-                    //currentSelectingTurret = null;
-                }
-                
-                
-                
-                
-            });    
+            nodeList.ForEach(x => x.OnClickNode = OnSelectNode);
             
             ToState(GameState.PlayerPreparing);
             
@@ -191,13 +149,23 @@ namespace CR.Game
                 }
             };
         }
-        #endregion
-
-        #region RemoveUIEvent
-
+        
         private void AddGameUIEvent()
         {
             bool showing = false;
+            GameUI.OnClickButton = (type) =>
+            {
+                switch (type)
+                {
+                    case GameUI.ButtonType.SkipPreparing:
+                        if (currentState != GameState.PlayerPreparing) return;
+                        timer = tempWaveData.WaveInterval;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                }
+            };
+            
             GameUI.showPlaceableButton.onClick.AddListener(() =>
             {
                 if (showing)
@@ -206,7 +174,7 @@ namespace CR.Game
                 }
                 else
                 {
-                   HidePlaceable();
+                    HidePlaceable();
                 }
 
                 showing = !showing;
@@ -215,6 +183,25 @@ namespace CR.Game
         
         #endregion
 
+        #region RemoveUIEvent
+
+
+        
+        #endregion
+
+        private void SpawnEnemy(Enemy enemyPrefab)
+        {
+            Enemy enemy = Instantiate(enemyPrefab, enemyRoot);
+            enemy.transform.position = Vector3.up + MapManager.Instance.startNode.transform.position;
+            enemy.OnEnemyDeath = (e) =>
+            {
+                EnemyList.Remove(enemy);
+                            
+            };;
+            enemy.SetPath(MapManager.Instance.AllPaths.GetRandomElement());
+            EnemyList.Add(enemy);
+        }
+        
         private void ShowPlaceable()
         {
             foreach (var node in MapManager.Instance.NodeList)
@@ -246,6 +233,40 @@ namespace CR.Game
             }
             
             return returnList;
+        }
+
+        private void OnSelectNode(Node selectedNode)
+        {
+            if (selectedNode.HasTurret)
+            {
+                // Todo : Show attack range and detail
+
+
+                if (currentSelectingNode != null)
+                {
+                    currentSelectingNode.HideAttackRange();
+                }
+                
+                if(selectedNode.PlacingTurret.IsShowingTurretAttackRange) selectedNode.HideAttackRange();
+                else selectedNode.ShowAttackRange();
+                
+                currentSelectingNode = selectedNode;
+            }
+            else
+            {
+                if(currentState != GameState.PlayerPreparing)   return;
+                if (currentSelectingTurret is null) return;
+                if(!selectedNode.CanPlace)  return;
+                    
+                HidePlaceable();
+                var tower = Instantiate(currentSelectingTurret);
+                selectedNode.PlaceTower(tower);
+                MapManager.Instance.SetNodePlaceable();
+
+                // Todo : check cost
+                //currentSelectingTurret = null;
+            }
+
         }
         
        

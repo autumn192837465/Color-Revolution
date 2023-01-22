@@ -111,14 +111,6 @@ public class MapManager : Singleton<MapManager>
 
    
 
-    /// <summary>
-    /// xxxnxx
-    /// oxxxxx
-    /// xxxnox
-    /// </summary>
-
-    // 1. find all path
-    // 2. 
     public void SetNodePlaceable()
     {
         List<Path> allPath = new List<Path>();

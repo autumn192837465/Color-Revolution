@@ -127,6 +127,16 @@ namespace CR.Game
                 renderer.material.color = color;
             }
         }
+
+        public void ShowAttackRange()
+        {
+            PlacingTurret?.ShowAttackRange();
+        }
+        
+        public void HideAttackRange()
+        {
+            PlacingTurret?.HideAttackRange();
+        }
         
     }
     
