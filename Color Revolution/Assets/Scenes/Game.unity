@@ -487,7 +487,7 @@ GameObject:
   - component: {fileID: 560546439}
   - component: {fileID: 560546438}
   m_Layer: 0
-  m_Name: MapManager
+  m_Name: MapCreator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -505,12 +505,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561276e5c0cdf4c41a674760e312fbec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroy: 0
   nodePrefab: {fileID: 8805686408626442826, guid: 4c43af73d4710ea489fdfe16f8bade09,
     type: 3}
   mapRoot: {fileID: 235590742}
-  startNode: {fileID: 0}
-  endNode: {fileID: 0}
 --- !u!4 &560546439
 Transform:
   m_ObjectHideFlags: 0
@@ -1677,9 +1674,9 @@ MonoBehaviour:
   dontDestroy: 0
   EnemyList: []
   MainCamera: {fileID: 963194227}
-  GameShopUI: {fileID: 0}
   GameUI: {fileID: 789920375}
   enemyRoot: {fileID: 259779444}
+  MapCreator: {fileID: 560546438}
   tempWaveData: {fileID: 11400000, guid: a249fd92f5019ad42ae460511d943075, type: 2}
   tempMapData: {fileID: 11400000, guid: 72cbd42cf9f3c69439bf7e97af9c2662, type: 2}
 --- !u!1 &1855122756

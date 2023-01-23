@@ -19,13 +19,13 @@ namespace CR.Game
         public Camera MainCamera;
         [SerializeField] private GameUI GameUI;
         [SerializeField] private Transform enemyRoot;
-        
+        [SerializeField] private MapCreator MapCreator;
 
         [SerializeField] private WaveDataScriptableObject tempWaveData;
         
         public MapDataScriptableObject tempMapData;
 
-        private GameState currentState = GameState.Initialize;
+        public static GameState CurrentState = GameState.Initialize;
         private Node currentSelectingNode;
         
         protected override void Awake()
@@ -48,14 +48,14 @@ namespace CR.Game
             if(waveIndex >= tempWaveData.WaveSpawnList.Count)   return;
 
             timer += Time.deltaTime;
-            switch (currentState)
+            switch (CurrentState)
             {
                 case GameState.PlayerPreparing:
                     if (timer >= tempWaveData.WaveInterval)
                     {
                         timer = 0;
-                        MapManager.Instance.CalculateAllNearestPath();
-                        currentState = GameState.SpawnEnemy;
+                        MapCreator.CalculateAllNearestPath();
+                        CurrentState = GameState.SpawnEnemy;
                     }
                     break;
                 case GameState.SpawnEnemy:
@@ -71,7 +71,7 @@ namespace CR.Game
                             {
                                 waveIndex++;
                                 spawnGroupIndex = 0;
-                                currentState = GameState.PlayerPreparing;
+                                CurrentState = GameState.PlayerPreparing;
                             }
                         }
                     }
@@ -89,16 +89,16 @@ namespace CR.Game
             switch (state)
             {
                 case GameState.Initialize:
-                    currentState = GameState.Initialize;
+                    CurrentState = GameState.Initialize;
                     break;
                 case GameState.PlayerPreparing:
-                    currentState = GameState.PlayerPreparing;
+                    CurrentState = GameState.PlayerPreparing;
                     break;
                 case GameState.SpawnEnemy:
-                    currentState = GameState.SpawnEnemy;
+                    CurrentState = GameState.SpawnEnemy;
                     break;
                 case GameState.End:
-                    currentState = GameState.End;
+                    CurrentState = GameState.End;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -108,17 +108,10 @@ namespace CR.Game
         private void Initialize()
         {
             GameUI.InitializeUI();
-            AddGameShopUIEvent();
+            AddGMapCreatorEvent();
             AddGameUIEvent();
-            var nodeMap =  MapManager.Instance.CreateMap(tempMapData);
-            var nodeList = new List<Node>();
-            foreach (var node in nodeMap)
-            {
-                if(node is null)    continue;
-                nodeList.Add(node);
-            }
-
-            nodeList.ForEach(x => x.OnClickNode = OnSelectNode);
+            
+            MapCreator.CreateMap(tempMapData);
             
             ToState(GameState.PlayerPreparing);
             
@@ -126,40 +119,38 @@ namespace CR.Game
         }
         #region AddUIEvent
 
-        private void AddGameShopUIEvent()
+        private void AddGMapCreatorEvent()
         {
-            
+            MapCreator.OnSelectAvailableEmptyNode = OnSelectEmptyNode;
         }
         
         private void AddGameUIEvent()
         {
-            bool showing = false;
             GameUI.OnClickButton = (type) =>
             {
                 switch (type)
                 {
                     case GameUI.ButtonType.SkipPreparing:
-                        if (currentState != GameState.PlayerPreparing) return;
+                        if (CurrentState != GameState.PlayerPreparing) return;
                         timer = tempWaveData.WaveInterval;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(type), type, null);
                 }
             };
-            
-            GameUI.showPlaceableButton.onClick.AddListener(() =>
-            {
-                if (showing)
-                {
-                    ShowPlaceable();
-                }
-                else
-                {
-                    HidePlaceable();
-                }
 
-                showing = !showing;
-            });   
+            GameUI.OnSelectTurret = () =>
+            {
+                MapCreator.ShowPlaceable();
+                
+            };
+            
+            GameUI.OnCancelSelection = () =>
+            {
+                MapCreator.HidePlaceable();
+            };
+            
+
         }
         
         #endregion
@@ -173,33 +164,17 @@ namespace CR.Game
         private void SpawnEnemy(Enemy enemyPrefab)
         {
             Enemy enemy = Instantiate(enemyPrefab, enemyRoot);
-            enemy.transform.position = Vector3.up + MapManager.Instance.startNode.transform.position;
+            enemy.transform.position = Vector3.up + MapCreator.StartNode.transform.position;
             enemy.OnEnemyDeath = (e) =>
             {
                 EnemyList.Remove(enemy);
                             
             };;
-            enemy.SetPath(MapManager.Instance.AllPaths.GetRandomElement());
+            enemy.SetPath(MapCreator.AllPaths.GetRandomElement());
             EnemyList.Add(enemy);
         }
         
-        private void ShowPlaceable()
-        {
-            foreach (var node in MapManager.Instance.NodeList)
-            {
-                if(node != MapManager.Instance.startNode && node != MapManager.Instance.endNode && !node.HasTurret)
-                    node.ShowPlaceable();
-            }
-        }
 
-        private void HidePlaceable()
-        {
-            foreach (var node in MapManager.Instance.NodeList)
-            {
-                if(node != MapManager.Instance.startNode && node != MapManager.Instance.endNode && !node.HasTurret)
-                    node.HidePlaceable();
-            }
-        }
         
         public List<Enemy> GetInAttackRangeEnemyList(Turret turret)
         {
@@ -216,37 +191,17 @@ namespace CR.Game
             return returnList;
         }
 
-        private void OnSelectNode(Node selectedNode)
+        private void OnSelectEmptyNode(Node selectedNode)
         {
-            if (selectedNode.HasTurret)
-            {
-                // Todo : Show attack range and detail
-
-
-                if (currentSelectingNode != null)
-                {
-                    currentSelectingNode.HideAttackRange();
-                }
-                
-                if(selectedNode.PlacingTurret.IsShowingTurretAttackRange) selectedNode.HideAttackRange();
-                else selectedNode.ShowAttackRange();
-                
-                currentSelectingNode = selectedNode;
-            }
-            else
-            {
-                if(currentState != GameState.PlayerPreparing)   return;
-                if (GameUI.SelectingTurret is null) return;
-                if(!selectedNode.CanPlace)  return;
-                    
-                HidePlaceable();
-                var tower = Instantiate(GameUI.SelectingTurret);
-                selectedNode.PlaceTower(tower);
-                MapManager.Instance.SetNodePlaceable();
-
-                // Todo : check cost
-                //currentSelectingTurret = null;
-            }
+            if (GameUI.SelectingTurret is null) return;
+            
+            var tower = Instantiate(GameUI.SelectingTurret);
+            selectedNode.PlaceTower(tower);
+            MapCreator.SetNodePlaceable();
+            MapCreator.ShowPlaceable();
+            
+            // Todo : check cost
+            //currentSelectingTurret = null;
 
         }
         

@@ -45,7 +45,7 @@ public class GameUI : MonoBehaviour
 
         foreach (GameShopTurretButtonUI turretButton in turretButtonList)
         {
-            turretButton.OnClickTurret = OnSelectTurret;
+            turretButton.OnClickTurret = SelectTurret;
         }
         cancelSelectingButton.onClick.AddListener(CancelSelection);
     }
@@ -73,18 +73,22 @@ public class GameUI : MonoBehaviour
         }*/
     }
 
-    private void OnSelectTurret(GameShopTurretButtonUI turretButton)
+    public Action OnSelectTurret;
+    private void SelectTurret(GameShopTurretButtonUI turretButton)
     {
         // Todo : check cost
         selectingTurretImage.SetActive(true);
         selectingTurretImage.sprite = turretButton.TurretData.Sprite;
         SelectingTurret = turretButton.TurretData.Turret;
+        OnSelectTurret?.Invoke();    
     }
 
+    public Action OnCancelSelection;
     private void CancelSelection()
     {
         selectingTurretImage.SetActive(false);
         SelectingTurret = null;
+        OnCancelSelection?.Invoke();
     }
     
     

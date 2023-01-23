@@ -11,7 +11,7 @@ using UnityEngine;
 
 
 
-public class MapManager : Singleton<MapManager>
+public class MapCreator : MonoBehaviour
 {
 
     [SerializeField] private Node nodePrefab;
@@ -25,16 +25,13 @@ public class MapManager : Singleton<MapManager>
     private Node[,] nodeMap;
     public ReadOnlyCollection<Node> NodeList => nodeList.AsReadOnly();
     private List<Node> nodeList;
-    [HideInInspector] public Node startNode;
-    [HideInInspector] public Node endNode;
+    public Node StartNode { get; private set; }
+    public Node EndNode { get; private set; }
     public ReadOnlyCollection<Path> AllPaths => allNearestPaths.AsReadOnly();
     private List<Path> allNearestPaths = new List<Path>();
     
-    protected override void Awake()
-    {
-        base.Awake();
-        if (isDuplicate) return;        
-    }
+    
+    public Node SelectingNode { get; private set; }
     
     /// <summary>
     ///
@@ -75,14 +72,15 @@ public class MapManager : Singleton<MapManager>
                 node.transform.position = new Vector3(x + tempOffset * x, 0, y + tempOffset * y);
                 nodeMap[x, y] = node;
                 node.Coord = (x, y);
+                node.OnClickNode = OnSelectNode;
                 
                 if (nodeType == NodeType.Start)
                 {
-                    startNode = node;
+                    StartNode = node;
                 }
                 else if (nodeType == NodeType.End)
                 {
-                    endNode = node;
+                    EndNode = node;
                 }
                 nodeList.Add(node);
             }
@@ -109,14 +107,74 @@ public class MapManager : Singleton<MapManager>
         return nodeMap;
     }
 
-   
+
+    public Action<Node> OnSelectAvailableEmptyNode;
+    private void OnSelectNode(Node node)
+    {
+
+        if (SelectingNode != node)
+        {
+            ClearSelecting();
+        }
+        
+        
+
+        SelectingNode = node;
+        
+        if (SelectingNode.HasTurret)
+        {
+            // Todo : Show attack range and detail
+
+            if(SelectingNode.PlacingTurret.IsShowingTurretAttackRange) SelectingNode.HideAttackRange();
+            else SelectingNode.ShowAttackRange();
+        }
+        else
+        {
+            if(!SelectingNode.CanPlace)  return;
+            if(GameManager.CurrentState != GameState.PlayerPreparing)   return;
+            OnSelectAvailableEmptyNode?.Invoke(SelectingNode);
+
+            // Todo : check cost
+            //currentSelectingTurret = null;
+        }
+    }
+
+    public void ShowPlaceable()
+    {
+        foreach (var node in NodeList)
+        {
+            if(node != StartNode && node != EndNode && !node.HasTurret)
+                node.ShowPlaceable();
+        }
+    }
+
+    public void HidePlaceable()
+    {
+        foreach (var node in NodeList)
+        {
+            if(node != StartNode && node != EndNode && !node.HasTurret)
+                node.HidePlaceable();
+        }
+    }
+    
+
+    public void ClearSelecting()
+    {
+        if (SelectingNode != null)
+        {
+            SelectingNode.HideAttackRange();
+        }
+
+        SelectingNode = null;
+    }
+    
 
     public void SetNodePlaceable()
     {
         List<Path> allPath = new List<Path>();
         
         Stack<Node> stack = new Stack<Node>();
-        FindAllPath(startNode, stack, allPath);
+        FindAllPath(StartNode, stack, allPath);
 
         Dictionary<Node, int> passedCount = new Dictionary<Node, int>();
         foreach (var path in allPath)
@@ -145,7 +203,7 @@ public class MapManager : Singleton<MapManager>
     private void FindAllPath(Node currentNode, Stack<Node> stack, List<Path> allPath)
     {
         stack.Push(currentNode);
-        if (currentNode == endNode)
+        if (currentNode == EndNode)
         {
             var nodeList = stack.ToList();
             nodeList.Reverse();
@@ -173,7 +231,7 @@ public class MapManager : Singleton<MapManager>
     {
         allNearestPaths = new List<Path>();
         Stack<Node> stack = new Stack<Node>();
-        FindNearestPath(startNode, stack, allNearestPaths);
+        FindNearestPath(StartNode, stack, allNearestPaths);
       
     }
     
@@ -184,13 +242,13 @@ public class MapManager : Singleton<MapManager>
 
         nodeList.ForEach(x => x.RouteCost = Int32.MaxValue);
         
-        startNode.RouteCost = 0;
-        sortedList.Add(0, startNode);
+        StartNode.RouteCost = 0;
+        sortedList.Add(0, StartNode);
         while (sortedList.Count > 0)
         {
             Node visitingNode = sortedList.First().Value;
             sortedList.RemoveAt(0);
-            if (visitingNode == endNode) continue;
+            if (visitingNode == EndNode) continue;
             if (visited.Contains(visitingNode)) continue;
             visited.Add(visitingNode);
             
@@ -219,7 +277,7 @@ public class MapManager : Singleton<MapManager>
     private void FindNearestPath(Node currentNode, Stack<Node> stack, List<Path> possiblePath)
     {
         stack.Push(currentNode);
-        if (currentNode == endNode)
+        if (currentNode == EndNode)
         {
             var nodeList = stack.ToList();
             nodeList.Reverse();
@@ -252,9 +310,5 @@ public class MapManager : Singleton<MapManager>
         return true;
     }
     
-    #region AddUIEvent
-    #endregion
 
-    #region RemoveUIEvent
-    #endregion
 }
