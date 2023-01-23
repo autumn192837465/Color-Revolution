@@ -17,7 +17,6 @@ namespace CR.Game
         
         public List<Enemy> EnemyList;
         public Camera MainCamera;
-        [SerializeField] private GameShopUI GameShopUI;
         [SerializeField] private GameUI GameUI;
         [SerializeField] private Transform enemyRoot;
         
@@ -28,8 +27,7 @@ namespace CR.Game
 
         private GameState currentState = GameState.Initialize;
         private Node currentSelectingNode;
-
-        private Turret currentSelectingTurret;
+        
         protected override void Awake()
         {
             base.Awake();
@@ -109,6 +107,7 @@ namespace CR.Game
         
         private void Initialize()
         {
+            GameUI.InitializeUI();
             AddGameShopUIEvent();
             AddGameUIEvent();
             var nodeMap =  MapManager.Instance.CreateMap(tempMapData);
@@ -129,28 +128,7 @@ namespace CR.Game
 
         private void AddGameShopUIEvent()
         {
-            GameShopUI.OnClickButton = (type) =>
-            {
-                ShowPlaceable();
-                Sprite sprite = null;
-                TurretData data = null;
-                switch (type)
-                {
-                    case GameShopUI.ButtonType.RedTower:
-                        data = DataManager.Instance.GetTurretData(TurretType.RedTurret);
-                        break;
-                    case GameShopUI.ButtonType.BlueTower:
-                        data = DataManager.Instance.GetTurretData(TurretType.BlueTurret);
-                        break;
-                    case GameShopUI.ButtonType.GreenTower:
-                        data = DataManager.Instance.GetTurretData(TurretType.GreenTurret);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(type), type, null);
-                }
-                GameUI.SetSelectingTurretSprite(data.Sprite);
-                currentSelectingTurret = data.Turret;
-            };
+            
         }
         
         private void AddGameUIEvent()
@@ -258,11 +236,11 @@ namespace CR.Game
             else
             {
                 if(currentState != GameState.PlayerPreparing)   return;
-                if (currentSelectingTurret is null) return;
+                if (GameUI.SelectingTurret is null) return;
                 if(!selectedNode.CanPlace)  return;
                     
                 HidePlaceable();
-                var tower = Instantiate(currentSelectingTurret);
+                var tower = Instantiate(GameUI.SelectingTurret);
                 selectedNode.PlaceTower(tower);
                 MapManager.Instance.SetNodePlaceable();
 
