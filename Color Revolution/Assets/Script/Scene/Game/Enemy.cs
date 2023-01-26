@@ -23,11 +23,12 @@ public class Enemy : UnitBase
     private Vector3 offset = new Vector3(0, 1, 0);
     private Node destinationNode => path.Nodes[nodeIndex];
 
+    [HideInInspector] public bool HitEndNode;
 
-    
     private void Awake()
     {
         enemyData = enemyDataScriptableObject.EnemyData.DeepClone();
+        HitEndNode = false;
     }
 
     void Start()
@@ -44,6 +45,7 @@ public class Enemy : UnitBase
             transform.position = nextPosition;
             if (destinationNode == path.EndNode)
             {
+                HitEndNode = true;
                 Destroy(gameObject);
             }
             else
@@ -93,6 +95,7 @@ public class Enemy : UnitBase
     private bool IsDead => enemyData.Health.IsDead;
 
     public Action<Enemy> OnEnemyDeath;
+    
     public void OnDestroy()
     {
         OnEnemyDeath?.Invoke(this);

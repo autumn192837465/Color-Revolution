@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CB.Model;
 using CR.Model;
 using CR.ScriptableObjects;
 using Kinopi.Enums;
@@ -20,13 +21,16 @@ namespace CR.Game
         [SerializeField] private GameUI GameUI;
         [SerializeField] private Transform enemyRoot;
         [SerializeField] private MapCreator MapCreator;
-
         [SerializeField] private WaveDataScriptableObject tempWaveData;
         
         public MapDataScriptableObject tempMapData;
 
         public static GameState CurrentState = GameState.Initialize;
-        private Node currentSelectingNode;
+        public int PlayerCoin => playerData.Coin;
+        public int PlayerHp => playerData.Hp;
+        
+
+        private PlayerGameData playerData;
         
         protected override void Awake()
         {
@@ -107,6 +111,14 @@ namespace CR.Game
         
         private void Initialize()
         {
+            // Todo : create data from common
+            playerData = new PlayerGameData()
+            {
+                Hp = 1,
+                Coin = 1000,
+            };
+            
+            
             GameUI.InitializeUI();
             AddGMapCreatorEvent();
             AddGameUIEvent();
@@ -168,7 +180,10 @@ namespace CR.Game
             enemy.OnEnemyDeath = (e) =>
             {
                 EnemyList.Remove(enemy);
-                            
+                if (enemy.HitEndNode)
+                {
+                    ReducePlayerHP(1);
+                }
             };;
             enemy.SetPath(MapCreator.AllPaths.GetRandomElement());
             EnemyList.Add(enemy);
@@ -204,10 +219,46 @@ namespace CR.Game
             //currentSelectingTurret = null;
 
         }
+
+
+        #region Player Status
+        private void AddPlayerHP(int amount)
+        {
+            playerData.Hp += amount;
+            GameUI.RefreshHp();
+        }
         
+        private void AddPlayerCoin(int amount)
+        {
+            playerData.Coin += amount;
+            GameUI.RefreshCoin();
+        }
         
+        private void ReducePlayerHP(int amount)
+        {
+            playerData.Hp -= amount;
+            if (playerData.Hp <= 0)
+            {
+                playerData.Hp = 0;
+                CurrentState = GameState.End;
+                
+            }
+            GameUI.RefreshHp();
+        }
         
-        
+        private void ReducePlayerCoin(int amount)
+        {
+            playerData.Coin -= amount;
+            if (playerData.Coin < 0)
+            {
+                playerData.Coin = 0;
+                CurrentState = GameState.End;
+                Debug.LogError("Coin is negative!!");
+                
+            }
+            GameUI.RefreshCoin();
+        }
+        #endregion
        
         
         

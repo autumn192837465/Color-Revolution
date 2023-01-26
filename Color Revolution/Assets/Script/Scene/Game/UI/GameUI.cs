@@ -30,6 +30,9 @@ public class GameUI : MonoBehaviour
 
     public Turret SelectingTurret { get; private set; }
 
+    [SerializeField] private IconWithTextUI hpIcon;
+    [SerializeField] private IconWithTextUI coinIcon;
+    
     [SerializeField] private Button cancelSelectingButton;
     [SerializeField] private Image selectingTurretImage;
     [SerializeField] private List<GameShopTurretButtonUI> turretButtonList;
@@ -60,6 +63,8 @@ public class GameUI : MonoBehaviour
         turretButtonList[0].InitializeUI(DataManager.Instance.GetTurretData(TurretType.RedTurret));
         turretButtonList[1].InitializeUI(DataManager.Instance.GetTurretData(TurretType.BlueTurret));
         turretButtonList[2].InitializeUI(DataManager.Instance.GetTurretData(TurretType.GreenTurret));
+        RefreshCoin();
+        RefreshHp();
     }
 
     public void SetSelectingTurretSprite(Sprite sprite)
@@ -90,7 +95,14 @@ public class GameUI : MonoBehaviour
         SelectingTurret = null;
         OnCancelSelection?.Invoke();
     }
+
+    public void RefreshCoin()
+    {
+        coinIcon.SetText(GameManager.Instance.PlayerCoin);
+    }
     
-    
-    
+    public void RefreshHp()
+    {
+        hpIcon.SetText(GameManager.Instance.PlayerHp);
+    }
 }
