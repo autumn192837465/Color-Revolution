@@ -90,7 +90,7 @@ namespace CR.Game
         }
 
 
-        public void PlaceTower(Turret turret)
+        public void PlaceTurret(Turret turret)
         {
             placingTurret = turret;
             turret.transform.SetParent(turretRoot);

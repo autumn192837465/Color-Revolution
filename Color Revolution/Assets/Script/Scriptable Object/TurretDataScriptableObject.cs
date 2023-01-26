@@ -29,4 +29,5 @@ public class TurretData
     public Sprite Sprite;
     public Turret Turret;
     public TurretBasicDataScriptableObject BasicDataScriptableObject;
+    public int Cost;
 }

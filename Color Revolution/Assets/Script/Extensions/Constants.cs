@@ -8,7 +8,7 @@ namespace Kinopi.Constants
 {
     public static class Constants
     {
-
+        public static Color DisableColor = new Color32(255, 36, 68, 255);
     }
 
 

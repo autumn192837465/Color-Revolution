@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
+using TMPro;
+using Kinopi.Constants;
 
 namespace CR.Game
 {
@@ -9,7 +11,9 @@ namespace CR.Game
     {
         [SerializeField] private Image image;
         [SerializeField] private Button button;
+        [SerializeField] private IconWithTextUI costIcon;
 
+        
         public TurretData TurretData { get; private set; }
 
 
@@ -23,6 +27,13 @@ namespace CR.Game
         {
             TurretData = data;
             image.sprite = data.Sprite;
-        }   
+            costIcon.SetText(data.Cost);
+        }
+
+        public void RefreshCostTextColor()
+        {
+            bool canBuy = GameManager.Instance.PlayerCoin >= TurretData.Cost; 
+            costIcon.SetTextColor(canBuy ? Color.white : Constants.DisableColor);
+        }
     }    
 }

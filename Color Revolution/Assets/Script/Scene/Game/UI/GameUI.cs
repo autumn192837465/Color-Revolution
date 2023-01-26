@@ -28,7 +28,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] private List<ButtonInfo> buttonList;
     public Action<ButtonType> OnClickButton;
 
-    public Turret SelectingTurret { get; private set; }
+    public TurretData SelectingTurretData { get; private set; }
 
     [SerializeField] private IconWithTextUI hpIcon;
     [SerializeField] private IconWithTextUI coinIcon;
@@ -84,7 +84,7 @@ public class GameUI : MonoBehaviour
         // Todo : check cost
         selectingTurretImage.SetActive(true);
         selectingTurretImage.sprite = turretButton.TurretData.Sprite;
-        SelectingTurret = turretButton.TurretData.Turret;
+        SelectingTurretData = turretButton.TurretData;
         OnSelectTurret?.Invoke();    
     }
 
@@ -92,17 +92,23 @@ public class GameUI : MonoBehaviour
     private void CancelSelection()
     {
         selectingTurretImage.SetActive(false);
-        SelectingTurret = null;
+        SelectingTurretData = null;
         OnCancelSelection?.Invoke();
     }
 
     public void RefreshCoin()
     {
         coinIcon.SetText(GameManager.Instance.PlayerCoin);
+        RefreshTurretButtonCostColor();
     }
     
     public void RefreshHp()
     {
         hpIcon.SetText(GameManager.Instance.PlayerHp);
+    }
+
+    private void RefreshTurretButtonCostColor()
+    {
+        turretButtonList.ForEach(x => x.RefreshCostTextColor());
     }
 }

@@ -208,10 +208,14 @@ namespace CR.Game
 
         private void OnSelectEmptyNode(Node selectedNode)
         {
-            if (GameUI.SelectingTurret is null) return;
+            if (GameUI.SelectingTurretData is null) return;
             
-            var tower = Instantiate(GameUI.SelectingTurret);
-            selectedNode.PlaceTower(tower);
+            var selectingTurretData = GameUI.SelectingTurretData;
+            int cost = selectingTurretData.Cost;
+            if(cost > PlayerCoin)   return;
+            ReducePlayerCoin(cost);
+            var turret = Instantiate(selectingTurretData.Turret);
+            selectedNode.PlaceTurret(turret);
             MapCreator.SetNodePlaceable();
             MapCreator.ShowPlaceable();
             
