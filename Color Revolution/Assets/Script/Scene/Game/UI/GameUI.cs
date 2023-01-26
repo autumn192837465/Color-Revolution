@@ -13,7 +13,8 @@ public class GameUI : MonoBehaviour
     
     public enum ButtonType
     {
-        SkipPreparing
+        SkipPreparing,
+        DrawCard,
     }
 
    
@@ -111,4 +112,38 @@ public class GameUI : MonoBehaviour
     {
         turretButtonList.ForEach(x => x.RefreshCostTextColor());
     }
+
+    #region Card
+
+    [SerializeField] private Transform cardRoot;
+    [SerializeField] private CardUI cardUIPrefab;
+    private List<CardUI> cardList = new();
+    public void DrawCards()
+    {
+        for (int i = cardList.Count; i < 2; i++)
+        {
+            var card = Instantiate(cardUIPrefab, cardRoot);
+            cardList.Add(card);
+            
+        }
+
+        var drawnCardTypes = GameManager.Instance.PlayerCards.GetRandomElements(2);
+        for (int i = 0; i < cardList.Count; i++)
+        {
+            var card = cardList[i];
+            if (i >= drawnCardTypes.Count)
+            {
+                card.SetActive(false);
+                continue;
+            }
+            
+            card.SetActive(true);
+            card.InitializeUI(DataManager.Instance.GetCardData(drawnCardTypes[i]));
+        }
+    }
+
+    #endregion
+    
+    
+    
 }

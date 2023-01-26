@@ -36,5 +36,14 @@ namespace Kinopi.Enums
         GreenTurret,
     }
 
+    public enum CardType
+    {
+        AddRedAttack,
+        AddBlueAttack,
+        AddGreenAttack,
+        AddAttackRange,
+        AddAttackSpeed,
+    }
+
 
 }

@@ -17,9 +17,10 @@ public class DataManager : Singleton<DataManager>
         InitializeData();
     }
 
-    public void InitializeData()
+    private void InitializeData()
     {
         TurretData.InitializeTurretData();
+        CardData.InitializeCardData();
     }
 
 
@@ -29,7 +30,15 @@ public class DataManager : Singleton<DataManager>
     {
         return TurretData.turretDataCache.GetValue(type);
     }
-
+    #endregion
+    
+    
+    #region Card
+    [SerializeField] private CardDataScriptableObject CardData;
+    public CardData GetCardData(CardType type)
+    {
+        return CardData.cardDataCache.GetValue(type);
+    }
     #endregion
    
 

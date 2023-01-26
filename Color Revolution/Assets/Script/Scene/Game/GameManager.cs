@@ -5,6 +5,7 @@ using System.Linq;
 using CB.Model;
 using CR.Model;
 using CR.ScriptableObjects;
+using Kinopi.Constants;
 using Kinopi.Enums;
 using Kinopi.Extensions;
 using TMPro;
@@ -28,6 +29,8 @@ namespace CR.Game
         public static GameState CurrentState = GameState.Initialize;
         public int PlayerCoin => playerData.Coin;
         public int PlayerHp => playerData.Hp;
+        public List<CardType> PlayerCards => playerData.CardList;
+        
         
 
         private PlayerGameData playerData;
@@ -116,6 +119,14 @@ namespace CR.Game
             {
                 Hp = 1,
                 Coin = 1000,
+                CardList = new List<CardType>()
+                {
+                    CardType.AddRedAttack,
+                    CardType.AddBlueAttack,
+                    CardType.AddGreenAttack,
+                    CardType.AddAttackRange,
+                    CardType.AddAttackSpeed,
+                }
             };
             
             
@@ -145,6 +156,11 @@ namespace CR.Game
                     case GameUI.ButtonType.SkipPreparing:
                         if (CurrentState != GameState.PlayerPreparing) return;
                         timer = tempWaveData.WaveInterval;
+                        break;
+                    case GameUI.ButtonType.DrawCard:
+                        if(PlayerCoin < Constants.DrawCost) return;
+                        ReducePlayerCoin(Constants.DrawCost);
+                        GameUI.DrawCards();
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(type), type, null);
