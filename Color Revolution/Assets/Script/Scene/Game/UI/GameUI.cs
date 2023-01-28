@@ -17,7 +17,7 @@ namespace CR.Game
 
         public enum ButtonType
         {
-            SkipPreparing,
+            Ready,
             DrawCard,
         }
 

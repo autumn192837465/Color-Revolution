@@ -9,6 +9,7 @@ using Kinopi.Constants;
 using Kinopi.Enums;
 using Kinopi.Extensions;
 using TMPro;
+using Unity.Profiling.LowLevel.Unsafe;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,6 +25,7 @@ namespace CR.Game
         [SerializeField] private Transform enemyRoot;
         [SerializeField] private MapCreator MapCreator;
         [SerializeField] private WaveDataScriptableObject tempWaveData;
+        [SerializeField] private TextMeshProUGUI logText;
         
         public MapDataScriptableObject tempMapData;
 
@@ -55,18 +57,15 @@ namespace CR.Game
         {
             if(waveIndex >= tempWaveData.WaveSpawnList.Count)   return;
 
-            timer += Time.deltaTime;
+            
             switch (CurrentState)
             {
                 case GameState.PlayerPreparing:
-                    if (timer >= tempWaveData.WaveInterval)
-                    {
-                        timer = 0;
-                        MapCreator.CalculateAllNearestPath();
-                        CurrentState = GameState.SpawnEnemy;
-                    }
+                    
                     break;
                 case GameState.SpawnEnemy:
+                    if(hasSpawnedAll)   return;
+                    timer += Time.deltaTime;
                     if (timer >= tempWaveData.GetEnemySpawnGroupInterval(waveIndex, spawnGroupIndex))
                     {
                         timer = 0;
@@ -77,9 +76,10 @@ namespace CR.Game
                             enemyCountIndex = 0;
                             if (++spawnGroupIndex == tempWaveData.GetEnemySpawnGroupCount(waveIndex))
                             {
+                                print("aa");
                                 waveIndex++;
                                 spawnGroupIndex = 0;
-                                CurrentState = GameState.PlayerPreparing;
+                                hasSpawnedAll = true;
                             }
                         }
                     }
@@ -98,15 +98,19 @@ namespace CR.Game
             {
                 case GameState.Initialize:
                     CurrentState = GameState.Initialize;
+                    logText.text = "Initialize";
                     break;
                 case GameState.PlayerPreparing:
                     CurrentState = GameState.PlayerPreparing;
+                    logText.text = "PlayerPreparing";
                     break;
                 case GameState.SpawnEnemy:
                     CurrentState = GameState.SpawnEnemy;
+                    logText.text = "SpawnEnemy";
                     break;
                 case GameState.End:
                     CurrentState = GameState.End;
+                    logText.text = "End";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -118,7 +122,7 @@ namespace CR.Game
             // Todo : create data from common
             playerData = new PlayerGameData()
             {
-                Hp = 1,
+                Hp = 20,
                 Coin = 1000,
                 CardList = new List<CardType>()
                 {
@@ -147,16 +151,21 @@ namespace CR.Game
         {
             MapCreator.OnSelectAvailableEmptyNode = OnSelectEmptyNode;
         }
-        
+
+
+        private bool hasSpawnedAll;
         private void AddGameUIEvent()
         {
             GameUI.OnClickButton = (type) =>
             {
                 switch (type)
                 {
-                    case GameUI.ButtonType.SkipPreparing:
+                    case GameUI.ButtonType.Ready:
                         if (CurrentState != GameState.PlayerPreparing) return;
-                        timer = tempWaveData.WaveInterval;
+                        timer = 0;
+                        MapCreator.CalculateAllNearestPath();
+                        hasSpawnedAll = false;
+                        ToState(GameState.SpawnEnemy);
                         break;
                     case GameUI.ButtonType.DrawCard:
                         if(PlayerCoin < Constants.DrawCost) return;
@@ -235,6 +244,11 @@ namespace CR.Game
                 {
                     ReducePlayerHP(1);
                 }
+
+                if (EnemyList.Count == 0 && hasSpawnedAll)
+                {
+                    ToState(GameState.PlayerPreparing);
+                }
             };;
             enemy.SetPath(MapCreator.AllPaths.GetRandomElement());
             EnemyList.Add(enemy);
@@ -295,7 +309,7 @@ namespace CR.Game
             if (playerData.Hp <= 0)
             {
                 playerData.Hp = 0;
-                CurrentState = GameState.End;
+                ToState(GameState.End);
                 
             }
             GameUI.RefreshHp();
@@ -307,7 +321,6 @@ namespace CR.Game
             if (playerData.Coin < 0)
             {
                 playerData.Coin = 0;
-                CurrentState = GameState.End;
                 Debug.LogError("Coin is negative!!");
                 
             }

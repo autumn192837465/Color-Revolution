@@ -9,10 +9,7 @@ namespace CR.ScriptableObjects
     [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Wave Data", order = 1)]
     public class WaveDataScriptableObject : ScriptableObject
     {
-
-        public float WaveInterval;
         public List<WaveSpawnData> WaveSpawnList;
-
 
         public Enemy GetEnemy(int spawnIndex, int enemyIndex)
         {

@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 87048619}
   - component: {fileID: 87048618}
   m_Layer: 5
-  m_Name: 'Skip Button '
+  m_Name: 'Ready Button '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2802,7 +2802,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Skip
+  m_Text: Ready
 --- !u!222 &1880645839
 CanvasRenderer:
   m_ObjectHideFlags: 0
