@@ -42,7 +42,7 @@ public class MapCreator : MonoBehaviour
     ///  0 x1 x2 x3 x4 x5 width 
     /// </summary>
     /// <param name="rawMapData"></param>
-    public Node[,] CreateMap(MapDataScriptableObject rawMapData)
+    public void CreateMap(MapDataScriptableObject rawMapData)
     {
         foreach (Transform tf in mapRoot)
         {
@@ -101,22 +101,18 @@ public class MapCreator : MonoBehaviour
             }
         }
         
-        SetNodeCost();
-        SetNodePlaceable();
         
-        return nodeMap;
+        SetNodePlaceable();
     }
 
 
     public Action<Node> OnSelectAvailableEmptyNode;
     private void OnSelectNode(Node node)
     {
-
         if (SelectingNode != node)
         {
             ClearSelecting();
         }
-        
         
 
         SelectingNode = node;
@@ -158,7 +154,7 @@ public class MapCreator : MonoBehaviour
     }
     
 
-    public void ClearSelecting()
+    private void ClearSelecting()
     {
         if (SelectingNode != null)
         {
@@ -229,6 +225,7 @@ public class MapCreator : MonoBehaviour
     
     public void CalculateAllNearestPath()
     {
+        SetNodeCost();
         allNearestPaths = new List<Path>();
         Stack<Node> stack = new Stack<Node>();
         FindNearestPath(StartNode, stack, allNearestPaths);
@@ -295,7 +292,7 @@ public class MapCreator : MonoBehaviour
             {
                 FindNearestPath(neighborNode, stack, possiblePath);
             }    
-        }
+            }
         
 
         stack.Pop();

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BasicData:
     AttackDamage:
-      RedValue: 1
-      GreenValue: 0
-      BlueValue: 0
+      RedValue: 300
+      GreenValue: 300
+      BlueValue: 300
     AttackSpeed: 1
     AttackRange: 5
     CriticalRate: 0
