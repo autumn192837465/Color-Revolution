@@ -89,7 +89,6 @@ namespace CR.Game
             OnClickNode?.Invoke(this);
         }
 
-
         public void PlaceTurret(Turret turret)
         {
             placingTurret = turret;
@@ -120,7 +119,7 @@ namespace CR.Game
         
 
 
-        private void SetColor(Color color)
+        public void SetColor(Color color)
         {
             foreach (var renderer in GetComponentsInChildren<Renderer>())
             {

@@ -9,6 +9,7 @@ using Kinopi.Constants;
 using Kinopi.Enums;
 using Kinopi.Extensions;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -177,7 +178,41 @@ namespace CR.Game
             {
                 MapCreator.HidePlaceable();
             };
-            
+
+            GameUI.OnDropCard = (collider, cardData) =>
+            {
+                if (collider.CompareTag("Node"))
+                {
+                    Node node = collider.GetComponent<Node>();
+                    if (node is null || !node.HasTurret) return false;
+                    switch (cardData.CardType)
+                    {
+                        case CardType.AddRedAttack:
+                            node.PlacingTurret.AddRedAttack(1);
+                            break;
+                        case CardType.AddBlueAttack:
+                            node.PlacingTurret.AddBlueAttack(1);
+                            break;
+                        case CardType.AddGreenAttack:
+                            node.PlacingTurret.AddGreenAttack(1);
+                            break;
+                        case CardType.AddAttackRange:
+                            node.PlacingTurret.AddAttackRange(100);
+                            break;
+                        case CardType.AddAttackSpeed:
+                            node.PlacingTurret.AddAttackSpeed(1);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    node.SetColor(Color.cyan);
+                    ReducePlayerCoin(cardData.Cost);
+                    return true;
+                }
+
+                return false;
+            };
+
 
         }
         

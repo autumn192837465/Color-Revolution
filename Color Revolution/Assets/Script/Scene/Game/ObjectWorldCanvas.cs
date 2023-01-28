@@ -22,6 +22,7 @@ public class ObjectWorldCanvas : MonoBehaviour
     {
         
     }
+    
 
     private void OnValidate()
     {

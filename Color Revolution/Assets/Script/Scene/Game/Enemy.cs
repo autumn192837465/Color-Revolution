@@ -11,7 +11,7 @@ public class Enemy : UnitBase
 {
     [SerializeField] private MeshRenderer meshRenderer;
 
-
+    [SerializeField] private EnemyWorldCanvas enemyWorldCanvas;
     [SerializeField] private EnemyDataScriptableObject enemyDataScriptableObject;
     private Path path;
     private EnemyData enemyData;
@@ -29,6 +29,7 @@ public class Enemy : UnitBase
     {
         enemyData = enemyDataScriptableObject.EnemyData.DeepClone();
         HitEndNode = false;
+        enemyWorldCanvas.Initialize(enemyData);
     }
 
     void Start()
@@ -76,7 +77,7 @@ public class Enemy : UnitBase
         if(bullet == null) return;
 
         enemyData.Health.ReduceHealth(bullet.AttackDamage);
-
+        enemyWorldCanvas.RefreshUI();
         if (IsDead)
         {
             Destroy(gameObject);

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2008649629270992646}
   - component: {fileID: 2008649629270992665}
   m_Layer: 5
-  m_Name: Game Shop Card Cell
+  m_Name: Card Cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

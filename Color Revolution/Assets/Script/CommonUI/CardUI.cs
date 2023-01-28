@@ -12,7 +12,7 @@ public class CardUI : MonoBehaviour
     
     public CardData CardData { get; private set; }
     
-    public void InitializeUI(CardData data)
+    public virtual void InitializeUI(CardData data)
     {
         CardData = data;
         descriptionText.text = CardData.Description;

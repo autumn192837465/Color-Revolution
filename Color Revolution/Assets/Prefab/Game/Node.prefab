@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 327398986517169985}
   m_Layer: 0
   m_Name: Node
-  m_TagString: Untagged
+  m_TagString: Node
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -282,7 +282,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretRoot: {fileID: 4700786108941094054}
-  renderer: {fileID: 8164243056562208294}
   costText: {fileID: 5489154081678399260}
   CanPlace: 0
   RouteCost: 0

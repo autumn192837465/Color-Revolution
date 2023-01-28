@@ -160,5 +160,31 @@ namespace CR.Game
         {
             worldCanvas.HideAttackRange();
         }
+
+        public void AddAttackRange(int amount)
+        {
+            turretBasicData.AttackRange += amount;
+            worldCanvas.Initialize(turretBasicData);
+        }
+
+        public void AddRedAttack(int amount)
+        {
+            turretBasicData.AttackDamage.RedValue += amount;
+        }
+        public void AddBlueAttack(int amount)
+        {
+            turretBasicData.AttackDamage.BlueValue += amount;
+        }
+        public void AddGreenAttack(int amount)
+        {
+            turretBasicData.AttackDamage.GreenValue += amount;
+        }
+        
+        public void AddAttackSpeed(int amount)
+        {
+            turretBasicData.AttackSpeed += amount;
+            
+        }
+        
     }
 }
