@@ -2,6 +2,7 @@ using System;
 using CB.Model;
 using Kinopi.Enums;
 using Kinopi.Extensions;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 namespace CR.Game
@@ -40,6 +41,8 @@ namespace CR.Game
     {
         [SerializeField] private TurretBasicDataScriptableObject turretBasicDataScriptableObject;
         [SerializeField] private TurretWorldCanvas worldCanvas;
+        [SerializeField] private MMF_Player enhanceFeedbacks;
+        
         public TurretBasicData TurretBasicData => turretBasicData;
         private TurretBasicData turretBasicData;
         [SerializeField] private Bullet bulletPrefab;
@@ -184,6 +187,11 @@ namespace CR.Game
         {
             turretBasicData.AttackSpeed += amount;
             
+        }
+
+        public void PlayEnhanceFeedbacks()
+        {
+            enhanceFeedbacks.PlayFeedbacks();
         }
         
     }
