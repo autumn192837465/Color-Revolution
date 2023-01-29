@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using CB.Model;
 using CR.Model;
@@ -13,6 +14,7 @@ using Unity.Profiling.LowLevel.Unsafe;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 namespace CR.Game
 {
@@ -140,7 +142,6 @@ namespace CR.Game
             AddGameUIEvent();
             
             MapCreator.CreateMap(tempMapData);
-            
             ToState(GameState.PlayerPreparing);
             
             

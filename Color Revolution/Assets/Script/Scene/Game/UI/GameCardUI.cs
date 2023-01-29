@@ -1,5 +1,6 @@
 using System;
 using CB.Model;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,19 +15,22 @@ namespace CR.Game
     public Action<GameCardUI, PointerEventData> OnEndDragCard;*/
 
         [SerializeField] private GameObject cover;
-
+        
+        
         public Action<GameCardUI, PointerEventData> OnPointerDownCard;
         public Action<GameCardUI, PointerEventData> OnPointerUpCard;
 
 
         private void Awake()
         {
+            SetCoverActive(false);
         }
 
         public override void InitializeUI(CardData data)
         {
             base.InitializeUI(data);
             SetCoverActive(false);
+            
         }
 
         public void OnPointerDown(PointerEventData eventData)

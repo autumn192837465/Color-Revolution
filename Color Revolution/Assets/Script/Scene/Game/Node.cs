@@ -45,22 +45,6 @@ namespace CR.Game
 
         public (int, int) Coord;
 
-        
-        private void Awake()
-        {
-
-        }
-
-        void Start()
-        {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
 
         public void Initialize(NodeType nodeType)
         {

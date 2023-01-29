@@ -5,6 +5,7 @@ using CB.Model;
 using CR.Game;
 using Kinopi.Enums;
 using Kinopi.Extensions;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -40,6 +41,7 @@ namespace CR.Game
         [SerializeField] private Button cancelSelectingButton;
         [SerializeField] private Image selectingTurretImage;
         [SerializeField] private List<GameShopTurretButtonUI> turretButtonList;
+        [SerializeField] private MMF_Player cardRevealFeedbacks;
 
 
         private void Awake()
@@ -74,19 +76,23 @@ namespace CR.Game
             turretButtonList[0].InitializeUI(DataManager.Instance.GetTurretData(TurretType.RedTurret));
             turretButtonList[1].InitializeUI(DataManager.Instance.GetTurretData(TurretType.BlueTurret));
             turretButtonList[2].InitializeUI(DataManager.Instance.GetTurretData(TurretType.GreenTurret));
+            
+            CreateCards();
             RefreshCoin();
             RefreshHp();
         }
 
-        public void SetSelectingTurretSprite(Sprite sprite)
+        private void CreateCards()
         {
-            /*
-            if(sprite is null)  selectingTurretImage.SetActive(false);
-            else
+            for (int i = cardList.Count; i < 2; i++)
             {
-                selectingTurretImage.SetActive(true);
-                selectingTurretImage.sprite = sprite;
-            }*/
+                var card = Instantiate(cardUIPrefab, cardRoot);
+                card.OnPointerDownCard = OnPointerDownCard;
+                card.OnPointerUpCard = OnPointerUpCard;
+                cardList.Add(card);
+            }
+            Canvas.ForceUpdateCanvases();
+            cardList.ForEach(x => x.SetActive(false));
         }
 
         public Action OnSelectTurret;
@@ -135,14 +141,7 @@ namespace CR.Game
 
         public void DrawCards()
         {
-            for (int i = cardList.Count; i < 2; i++)
-            {
-                var card = Instantiate(cardUIPrefab, cardRoot);
-                card.OnPointerDownCard = OnPointerDownCard;
-                card.OnPointerUpCard = OnPointerUpCard;
-                cardList.Add(card);
-            }
-
+            
             var drawnCardTypes = GameManager.Instance.PlayerCards.GetRandomElements(2);
             for (int i = 0; i < cardList.Count; i++)
             {
@@ -156,6 +155,8 @@ namespace CR.Game
                 card.SetActive(true);
                 card.InitializeUI(DataManager.Instance.GetCardData(drawnCardTypes[i]));
             }
+            Canvas.ForceUpdateCanvases();
+            cardRevealFeedbacks.PlayFeedbacks();
         }
 
         /*private void OnBeginDragCard(GameCardUI card, PointerEventData pointerEventData)
@@ -195,7 +196,7 @@ namespace CR.Game
             isDraggingCard = false;
             draggingCard.SetActive(false);
             RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main!.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 100))
             {
                 
@@ -203,10 +204,6 @@ namespace CR.Game
                 {
                     card.SetActive(false);
                 }
-            }
-            else
-            {
-                print("Not put");
             }
 
             card.SetCoverActive(false);

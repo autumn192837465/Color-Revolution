@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using CR.Game;
 using CR.Model;
@@ -44,6 +45,7 @@ public class MapCreator : MonoBehaviour
     /// <param name="rawMapData"></param>
     public void CreateMap(MapDataScriptableObject rawMapData)
     {
+
         foreach (Transform tf in mapRoot)
         {
             Destroy(tf.gameObject);
