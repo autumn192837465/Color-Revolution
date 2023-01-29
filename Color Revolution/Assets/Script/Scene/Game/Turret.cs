@@ -43,6 +43,8 @@ namespace CR.Game
         [SerializeField] private TurretWorldCanvas worldCanvas;
         [SerializeField] private MMF_Player enhanceFeedbacks;
         
+        // Todo : delete
+        public Sprite TempSprite;
         public TurretBasicData TurretBasicData => turretBasicData;
         private TurretBasicData turretBasicData;
         

@@ -138,7 +138,7 @@ namespace CR.Game
             
             
             GameUI.InitializeUI();
-            AddGMapCreatorEvent();
+            AddMapCreatorEvent();
             AddGameUIEvent();
             
             MapCreator.CreateMap(tempMapData);
@@ -148,9 +148,20 @@ namespace CR.Game
         }
         #region AddUIEvent
 
-        private void AddGMapCreatorEvent()
+        private void AddMapCreatorEvent()
         {
             MapCreator.OnSelectAvailableEmptyNode = OnSelectEmptyNode;
+            MapCreator.OnSelectNode = (node) =>
+            {
+                if (node.HasTurret)
+                {
+                    GameUI.InitializeTurretPanel(node.PlacingTurret.TempSprite, node.PlacingTurret.TurretBasicData);
+                }
+                else
+                {
+                    GameUI.ClearTurretPanel();
+                }
+            };
         }
 
 

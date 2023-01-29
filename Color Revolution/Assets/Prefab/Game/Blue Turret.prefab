@@ -75,6 +75,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6530028128586466177, guid: 576a500e2856aab45a4092691ef58814,
         type: 3}
+      propertyPath: TempSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bfbd866315892bc49b4bec68551a9bbe,
+        type: 3}
+    - target: {fileID: 6530028128586466177, guid: 576a500e2856aab45a4092691ef58814,
+        type: 3}
       propertyPath: towerDataScriptableObject
       value: 
       objectReference: {fileID: 11400000, guid: 35ad3ac3f4af4f245a41a580ea831c19,

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace CR.ScriptableObjects
 {
@@ -53,10 +52,12 @@ namespace CR.ScriptableObjects
         
         private void OnValidate()
         {
+#if UNITY_EDITOR
             for (int i = 0; i < WaveSpawnList.Count; i++)
             {
                 WaveSpawnList[i].Name = $"Wave {i + 1}";
             }
+#endif
         }
         
     }

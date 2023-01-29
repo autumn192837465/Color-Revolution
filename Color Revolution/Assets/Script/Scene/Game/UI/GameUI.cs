@@ -37,7 +37,7 @@ namespace CR.Game
 
         [SerializeField] private IconWithTextUI hpIcon;
         [SerializeField] private IconWithTextUI coinIcon;
-        
+        [SerializeField] private TurretPanelUI turretPanelUI;
 
 
         private void Awake()
@@ -79,6 +79,7 @@ namespace CR.Game
             CreateCards();
             RefreshCoin();
             RefreshHp();
+            ClearTurretPanel();
         }
 
         private void CreateCards()
@@ -104,6 +105,17 @@ namespace CR.Game
         {
             hpIcon.SetText(GameManager.Instance.PlayerHp);
         }
+
+        public void InitializeTurretPanel(Sprite sprite, TurretBasicData basicData)
+        {
+            turretPanelUI.SetActive(true);
+            turretPanelUI.InitializeUI(sprite, basicData);
+        }
+        public void ClearTurretPanel()
+        {
+            turretPanelUI.SetActive(false);
+        }
+        
 
         #region Turret
         [SerializeField] private Transform draggingTurret;

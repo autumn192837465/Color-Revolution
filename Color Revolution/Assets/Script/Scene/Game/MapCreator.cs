@@ -74,7 +74,7 @@ public class MapCreator : MonoBehaviour
                 node.transform.position = new Vector3(x + tempOffset * x, 0, y + tempOffset * y);
                 nodeMap[x, y] = node;
                 node.Coord = (x, y);
-                node.OnClickNode = OnSelectNode;
+                node.OnClickNode = SelectNode;
                 
                 if (nodeType == NodeType.Start)
                 {
@@ -109,7 +109,8 @@ public class MapCreator : MonoBehaviour
 
 
     public Action<Node> OnSelectAvailableEmptyNode;
-    private void OnSelectNode(Node node)
+    public Action<Node> OnSelectNode;
+    private void SelectNode(Node node)
     {
         if (SelectingNode != node)
         {
@@ -123,8 +124,10 @@ public class MapCreator : MonoBehaviour
         {
             // Todo : Show attack range and detail
 
+            
             if(SelectingNode.PlacingTurret.IsShowingTurretAttackRange) SelectingNode.HideAttackRange();
             else SelectingNode.ShowAttackRange();
+            
         }
         else
         {
@@ -135,6 +138,7 @@ public class MapCreator : MonoBehaviour
             // Todo : check cost
             //currentSelectingTurret = null;
         }
+        OnSelectNode?.Invoke(SelectingNode);
     }
 
     public void ShowPlaceable()
