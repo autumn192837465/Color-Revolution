@@ -17,7 +17,7 @@ MonoBehaviour:
       RedValue: 0
       GreenValue: 1
       BlueValue: 0
-    AttackSpeed: 1
+    AttackSpeed: 10
     AttackRange: 5
     CriticalRate: 0
     HitRate: 0

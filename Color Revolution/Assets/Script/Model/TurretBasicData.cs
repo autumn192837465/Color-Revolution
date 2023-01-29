@@ -9,7 +9,7 @@ namespace CB.Model
     {
         public RGB AttackDamage;  // 攻擊力
         // Todo : to 1 sec how many bullet
-        public float AttackSpeed;   // 攻速
+        public float BulletPerSecond;   // 攻速   x bullet/sec
         public float AttackRange;   // 攻擊範圍
         public float CriticalRate;  // 爆擊率
         public float HitRate;       // 命中率

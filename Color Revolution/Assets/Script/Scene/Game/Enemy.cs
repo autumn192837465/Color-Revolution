@@ -9,21 +9,41 @@ using UnityEngine;
 
 public class Enemy : UnitBase
 {
-    [SerializeField] private MeshRenderer meshRenderer;
+    [Serializable]
+    public class SpriteSet
+    {
+        public SpriteRenderer Sprite;
+        public Color FinalColor;
+    }
 
+    
     [SerializeField] private EnemyWorldCanvas enemyWorldCanvas;
     [SerializeField] private EnemyDataScriptableObject enemyDataScriptableObject;
+    
+    [Header("Sprite Set")] 
+    [SerializeField] private SpriteSet redSpriteSet;
+    [SerializeField] private SpriteSet blueSpriteSet;
+    [SerializeField] private SpriteSet greenSpriteSet;
+    
+    
     private Path path;
     private EnemyData enemyData;
 
     private int nodeIndex = 0;
     private float speed => enemyData.Speed;
     private Vector3 movingDirection;
-    
-    private Vector3 offset = new Vector3(0, 1, 0);
+
+    private Vector3 offset = new(0, 1, 0);
     private Node destinationNode => path.Nodes[nodeIndex];
+    private bool IsDead => enemyData.Health.IsDead;
+    private RGB MaxHealth => enemyData.Health.MaxHealth;
+    private RGB CurrentHealth => enemyData.Health.CurrentHealth;
+
+    public Action<Enemy> OnEnemyDeath;
 
     [HideInInspector] public bool HitEndNode;
+
+   
 
     private void Awake()
     {
@@ -34,9 +54,8 @@ public class Enemy : UnitBase
 
     void Start()
     {
-        
     }
-    
+
     void Update()
     {
         Vector3 nextPosition = transform.position + movingDirection * (Time.deltaTime * speed);
@@ -65,38 +84,47 @@ public class Enemy : UnitBase
         this.path = path;
         nodeIndex = 0;
         transform.localPosition = path.StartNode.transform.position.XZPosition() + offset;
-        movingDirection = path.GetDirection(nodeIndex++); 
-        
+        movingDirection = path.GetDirection(nodeIndex++);
     }
 
-    
-    
+
     private void OnTriggerEnter(Collider other)
     {
         var bullet = other.GetComponent<Bullet>();
-        if(bullet == null) return;
+        if (bullet == null) return;
 
         enemyData.Health.ReduceHealth(bullet.AttackDamage);
         enemyWorldCanvas.RefreshUI();
         if (IsDead)
         {
             Destroy(gameObject);
-            
         }
-        
+
         SetColor();
         Destroy(bullet.gameObject);
     }
-    
+
+
     private void SetColor()
     {
-        meshRenderer.material.color = enemyData.Health.GetColor();
+        if (redSpriteSet.Sprite != null)
+        {
+            redSpriteSet.Sprite.color = Color.Lerp(Color.white, redSpriteSet.FinalColor,
+                (float)(MaxHealth.RedValue - CurrentHealth.RedValue) / MaxHealth.RedValue);
+        }
+        if (greenSpriteSet.Sprite != null)
+        {
+            greenSpriteSet.Sprite.color = Color.Lerp(Color.white, greenSpriteSet.FinalColor,
+                (float)(MaxHealth.GreenValue - CurrentHealth.GreenValue) / MaxHealth.GreenValue);
+        }
+        if (blueSpriteSet.Sprite != null)
+        {
+            blueSpriteSet.Sprite.color = Color.Lerp(Color.white, blueSpriteSet.FinalColor,
+                (float)(MaxHealth.BlueValue - CurrentHealth.BlueValue) / MaxHealth.BlueValue);
+        }
     }
 
-    private bool IsDead => enemyData.Health.IsDead;
 
-    public Action<Enemy> OnEnemyDeath;
-    
     public void OnDestroy()
     {
         OnEnemyDeath?.Invoke(this);

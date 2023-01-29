@@ -45,6 +45,8 @@ namespace CR.Game
         
         public TurretBasicData TurretBasicData => turretBasicData;
         private TurretBasicData turretBasicData;
+        
+        
         [SerializeField] private Bullet bulletPrefab;
         public bool IsShowingTurretAttackRange => worldCanvas.IsShowingTurretAttackRange;
         
@@ -121,8 +123,10 @@ namespace CR.Game
 
         private void AttackIfCan(Enemy target)
         {
-            if (timer.bulletTimer < turretBasicData.AttackSpeed)  return;
-            timer.bulletTimer -= turretBasicData.AttackSpeed;
+            // Todo : enhance performance
+            float time = 1.0f / turretBasicData.BulletPerSecond;
+            if (timer.bulletTimer < time)  return;
+            timer.bulletTimer -= time;
             CreateBullet(target);
         }
 
@@ -185,7 +189,7 @@ namespace CR.Game
         
         public void AddAttackSpeed(int amount)
         {
-            turretBasicData.AttackSpeed += amount;
+            turretBasicData.BulletPerSecond += amount;
             
         }
 
