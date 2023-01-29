@@ -188,6 +188,20 @@ namespace CR.Game
             {
                 MapCreator.HidePlaceable();
             };
+            
+            GameUI.OnDropTurret= (collider, turretData) =>
+            {
+                if (collider.CompareTag("Node"))
+                {
+                    Node node = collider.GetComponent<Node>();
+                    if (node is null || node.HasTurret || !node.CanPlace) return false;
+
+                    OnSelectEmptyNode(node);
+                    return true;
+                }
+
+                return false;
+            }; 
 
             GameUI.OnDropCard = (collider, cardData) =>
             {

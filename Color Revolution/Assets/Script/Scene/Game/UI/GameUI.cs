@@ -37,11 +37,7 @@ namespace CR.Game
 
         [SerializeField] private IconWithTextUI hpIcon;
         [SerializeField] private IconWithTextUI coinIcon;
-
-        [SerializeField] private Button cancelSelectingButton;
-        [SerializeField] private Image selectingTurretImage;
-        [SerializeField] private List<GameShopTurretButtonUI> turretButtonList;
-        [SerializeField] private MMF_Player cardRevealFeedbacks;
+        
 
 
         private void Awake()
@@ -51,12 +47,12 @@ namespace CR.Game
                 buttonInfo.Button.onClick.AddListener(() => OnClickButton?.Invoke(buttonInfo.Type));
             }
 
-            foreach (GameShopTurretButtonUI turretButton in turretButtonList)
+            foreach (GameTurretUI turretButton in turretButtonList)
             {
                 turretButton.OnClickTurret = SelectTurret;
             }
 
-            cancelSelectingButton.onClick.AddListener(CancelSelection);
+            cancelTurretSelectingButton.onClick.AddListener(CancelSelection);
         }
 
         void Start()
@@ -69,14 +65,17 @@ namespace CR.Game
             {
                 draggingCard.transform.position = Input.mousePosition;
             }
+            
+            if (isDraggingTurret)
+            {
+                draggingTurret.transform.position = Input.mousePosition;
+            }
         }
 
         public void InitializeUI()
         {
-            turretButtonList[0].InitializeUI(DataManager.Instance.GetTurretData(TurretType.RedTurret));
-            turretButtonList[1].InitializeUI(DataManager.Instance.GetTurretData(TurretType.BlueTurret));
-            turretButtonList[2].InitializeUI(DataManager.Instance.GetTurretData(TurretType.GreenTurret));
             
+            InitializeTurret();   
             CreateCards();
             RefreshCoin();
             RefreshHp();
@@ -94,15 +93,47 @@ namespace CR.Game
             Canvas.ForceUpdateCanvases();
             cardList.ForEach(x => x.SetActive(false));
         }
+        
+        public void RefreshCoin()
+        {
+            coinIcon.SetText(GameManager.Instance.PlayerCoin);
+            RefreshTurretButtonCostColor();
+        }
 
+        public void RefreshHp()
+        {
+            hpIcon.SetText(GameManager.Instance.PlayerHp);
+        }
+
+        #region Turret
+        [SerializeField] private Transform draggingTurret;
+        [SerializeField] private Button cancelTurretSelectingButton;
+        [SerializeField] private Image selectingTurretImage;
+        [SerializeField] private List<GameTurretUI> turretButtonList;
+        public Func<Collider, TurretData, bool> OnDropTurret;
         public Action OnSelectTurret;
 
-        private void SelectTurret(GameShopTurretButtonUI turretButton)
+
+        private void InitializeTurret()
+        {
+            turretButtonList[0].InitializeUI(DataManager.Instance.GetTurretData(TurretType.RedTurret));
+            turretButtonList[1].InitializeUI(DataManager.Instance.GetTurretData(TurretType.BlueTurret));
+            turretButtonList[2].InitializeUI(DataManager.Instance.GetTurretData(TurretType.GreenTurret));
+            
+            foreach (var gameTurretUI in turretButtonList)
+            {
+                gameTurretUI.OnPointerDownTurret = OnPointerDownTurret;
+                gameTurretUI.OnPointerUpTurret = OnPointerUpTurret;
+            }
+        }
+        
+        
+        private void SelectTurret(GameTurretUI turret)
         {
             // Todo : check cost
             selectingTurretImage.SetActive(true);
-            selectingTurretImage.sprite = turretButton.TurretData.Sprite;
-            SelectingTurretData = turretButton.TurretData;
+            selectingTurretImage.sprite = turret.TurretData.Sprite;
+            SelectingTurretData = turret.TurretData;
             OnSelectTurret?.Invoke();
         }
 
@@ -115,30 +146,62 @@ namespace CR.Game
             OnCancelSelection?.Invoke();
         }
 
-        public void RefreshCoin()
-        {
-            coinIcon.SetText(GameManager.Instance.PlayerCoin);
-            RefreshTurretButtonCostColor();
-        }
 
-        public void RefreshHp()
-        {
-            hpIcon.SetText(GameManager.Instance.PlayerHp);
-        }
 
         private void RefreshTurretButtonCostColor()
         {
             turretButtonList.ForEach(x => x.RefreshCostTextColor());
         }
+        
+        private bool isDraggingTurret = false;
+        private void OnPointerDownTurret(GameTurretUI turret, PointerEventData pointerEventData)
+        {
+            if(GameManager.CurrentState != GameState.PlayerPreparing)   return;
+            if (GameManager.Instance.PlayerCoin < turret.TurretData.Cost)
+            {
+                // Todo : play feedbacks
+                return;
+            }
+
+            isDraggingTurret = true;
+            SelectTurret(turret);
+            draggingTurret.SetActive(true);
+        }
+
+        private void OnPointerUpTurret(GameTurretUI turret, PointerEventData pointerEventData)
+        {
+            if (!isDraggingTurret) return;
+            isDraggingTurret = false;
+            draggingTurret.SetActive(false);
+            RaycastHit hit;
+            
+            Ray ray = Camera.main!.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                
+                if (OnDropTurret?.Invoke(hit.collider, turret.TurretData)?? false)
+                {
+                    
+                }
+            }
+            CancelSelection();
+        }
+
+        #endregion
+
+       
 
         #region Card
 
+        [Header("Card")]
         [SerializeField] private Transform draggingCard;
         [SerializeField] private Transform cardRoot;
         [SerializeField] private GameCardUI cardUIPrefab;
-        public Func<Collider, CardData, bool> OnDropCard;
+        [SerializeField] private MMF_Player cardRevealFeedbacks;
         private List<GameCardUI> cardList = new();
-
+        private bool isDraggingCard = false;
+        public Func<Collider, CardData, bool> OnDropCard;
+        
         public void DrawCards()
         {
             
@@ -158,24 +221,8 @@ namespace CR.Game
             Canvas.ForceUpdateCanvases();
             cardRevealFeedbacks.PlayFeedbacks();
         }
-
-        /*private void OnBeginDragCard(GameCardUI card, PointerEventData pointerEventData)
-        {
-            card.transform.SetParent(draggingRoot);
-            print("Begin Dragging card");
-        }
-
-        private void OnDraggingCard(GameCardUI card, PointerEventData pointerEventData)
-        {
-            print("Dragging card");
-            card.transform.position = Input.mousePosition;
-        }
-        private void OnEndDragCard(GameCardUI card, PointerEventData pointerEventData)
-        {
-            print("End drag card");
-        }*/
-        private bool isDraggingCard = false;
-
+        
+        
         private void OnPointerDownCard(GameCardUI card, PointerEventData pointerEventData)
         {
             if (GameManager.Instance.PlayerCoin < card.CardData.Cost)
@@ -208,7 +255,6 @@ namespace CR.Game
 
             card.SetCoverActive(false);
         }
-
         #endregion
     }
 }
