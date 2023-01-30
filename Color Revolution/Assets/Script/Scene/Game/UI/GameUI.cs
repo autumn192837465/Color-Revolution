@@ -53,7 +53,7 @@ namespace CR.Game
                 turretButton.OnClickTurret = SelectTurret;
             }
 
-            cancelTurretSelectingButton.onClick.AddListener(CancelSelection);
+            cancelTurretSelectingButton.onClick.AddListener(CancelTurretSelection);
         }
 
         void Start()
@@ -81,6 +81,7 @@ namespace CR.Game
             RefreshCoin();
             RefreshHp();
             ClearTurretPanel();
+            CancelTurretSelection();
         }
 
         private void CreateCards()
@@ -123,6 +124,9 @@ namespace CR.Game
         [SerializeField] private Button cancelTurretSelectingButton;
         [SerializeField] private Image selectingTurretImage;
         [SerializeField] private List<GameTurretUI> turretButtonList;
+        
+        
+        
         public Func<Collider, TurretData, bool> OnDropTurret;
         public Action OnSelectTurret;
 
@@ -144,19 +148,19 @@ namespace CR.Game
         private void SelectTurret(GameTurretUI turret)
         {
             // Todo : check cost
-            selectingTurretImage.SetActive(true);
             selectingTurretImage.sprite = turret.TurretData.Sprite;
             SelectingTurretData = turret.TurretData;
             OnSelectTurret?.Invoke();
+            selectingTurretImage.transform.parent.SetActive(true);
         }
 
         public Action OnCancelSelection;
 
-        private void CancelSelection()
+        private void CancelTurretSelection()
         {
-            selectingTurretImage.SetActive(false);
             SelectingTurretData = null;
             OnCancelSelection?.Invoke();
+            selectingTurretImage.transform.parent.SetActive(false);
         }
 
 
@@ -197,7 +201,7 @@ namespace CR.Game
                     
                 }
             }
-            CancelSelection();
+            CancelTurretSelection();
         }
 
         #endregion
