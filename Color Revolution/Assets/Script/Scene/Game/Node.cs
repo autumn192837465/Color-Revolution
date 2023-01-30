@@ -76,9 +76,15 @@ namespace CR.Game
         public void PlaceTurret(Turret turret)
         {
             placingTurret = turret;
-            turret.transform.SetParent(turretRoot);
-            turret.transform.localPosition = Vector3.zero;
+            placingTurret.transform.SetParent(turretRoot);
+            placingTurret.transform.localPosition = Vector3.zero;
             //SetColor(Color.cyan);
+        }
+
+        public void DestroyTurret()
+        {
+            Destroy(placingTurret.gameObject);
+            placingTurret = null;
         }
 
         public void SetNeighbors(NodeNeighbors nodeNeighbors)
@@ -113,12 +119,12 @@ namespace CR.Game
 
         public void ShowAttackRange()
         {
-            PlacingTurret?.ShowAttackRange();
+            if(placingTurret != null) PlacingTurret.ShowAttackRange();
         }
         
         public void HideAttackRange()
         {
-            PlacingTurret?.HideAttackRange();
+            if(placingTurret != null) PlacingTurret.HideAttackRange();
         }
         
     }

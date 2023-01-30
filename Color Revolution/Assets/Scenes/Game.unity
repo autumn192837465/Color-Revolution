@@ -1829,6 +1829,8 @@ MonoBehaviour:
     Button: {fileID: 87048618}
   - Type: 1
     Button: {fileID: 1287787685}
+  - Type: 2
+    Button: {fileID: 1644005921}
   hpIcon: {fileID: 1965719989}
   coinIcon: {fileID: 1371686204}
   turretPanelUI: {fileID: 726121721}

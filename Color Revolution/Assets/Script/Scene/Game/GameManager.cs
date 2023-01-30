@@ -159,6 +159,8 @@ namespace CR.Game
         private bool hasSpawnedAll;
         private void AddGameUIEvent()
         {
+            
+            
             GameUI.OnClickButton = (type) =>
             {
                 switch (type)
@@ -174,6 +176,19 @@ namespace CR.Game
                         if(PlayerCoin < Constants.DrawCost) return;
                         ReducePlayerCoin(Constants.DrawCost);
                         GameUI.DrawCards();
+                        break;
+                    case GameUI.ButtonType.SellTurret:
+                        if (selectingNode is null)
+                        {
+                            Debug.LogError("No selecting node!");
+                            return;
+                        }
+                        AddPlayerCoin(selectingNode.PlacingTurret.SellCost);
+                        selectingNode.DestroyTurret();
+                        DeselectNode();
+                        MapCreator.SetNodePlaceable();
+                        if(GameUI.SelectingTurretData != null)  MapCreator.ShowPlaceable();
+                        else MapCreator.HidePlaceable();
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -236,7 +251,7 @@ namespace CR.Game
                     node.PlacingTurret.AddTurretValue(cardData.Cost);
                     node.PlacingTurret.PlayEnhanceFeedbacks();
                     ReducePlayerCoin(cardData.Cost);
-                    GameUI.InitializeTurretPanel(node.PlacingTurret);
+                    SetSelectingNode(node);
                     return true;
                 }
 
