@@ -39,16 +39,19 @@ namespace CR.Game
     
     public class Turret : MonoBehaviour
     {
-        [SerializeField] private TurretBasicDataScriptableObject turretBasicDataScriptableObject;
+        public TurretType TurretType;
         [SerializeField] private TurretWorldCanvas worldCanvas;
         [SerializeField] private MMF_Player enhanceFeedbacks;
-        
-        // Todo : delete
-        public Sprite TempSprite;
+
+        public TurretData TurretData { get; private set; }
         public TurretBasicData TurretBasicData => turretBasicData;
         private TurretBasicData turretBasicData;
-        
-        
+
+
+        private int turretCost;
+        public int SellCost => turretCost / 2;
+
+
         [SerializeField] private Bullet bulletPrefab;
         public bool IsShowingTurretAttackRange => worldCanvas.IsShowingTurretAttackRange;
         
@@ -66,8 +69,10 @@ namespace CR.Game
 
         private void Initialize()
         {
-            turretBasicData = turretBasicDataScriptableObject.BasicData.DeepClone();
+            TurretData = DataManager.Instance.GetTurretData(TurretType);
+            turretBasicData = TurretData.BasicDataScriptableObject.BasicData.DeepClone();
             worldCanvas.Initialize(turretBasicData);
+            turretCost = TurretData.Cost;
         }
 
 
@@ -170,6 +175,11 @@ namespace CR.Game
             worldCanvas.HideAttackRange();
         }
 
+        public void AddTurretValue(int amount)
+        {
+            turretCost += amount;
+        }
+        
         public void AddAttackRange(int amount)
         {
             turretBasicData.AttackRange += amount;

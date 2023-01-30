@@ -231,9 +231,12 @@ namespace CR.Game
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
+                    
                     node.SetColor(Color.cyan);
+                    node.PlacingTurret.AddTurretValue(cardData.Cost);
                     node.PlacingTurret.PlayEnhanceFeedbacks();
                     ReducePlayerCoin(cardData.Cost);
+                    GameUI.InitializeTurretPanel(node.PlacingTurret);
                     return true;
                 }
 
@@ -334,7 +337,7 @@ namespace CR.Game
             if (selectingNode != null) selectingNode.HideAttackRange();
             selectingNode = node;
             selectingNode.ShowAttackRange();
-            GameUI.InitializeTurretPanel(selectingNode.PlacingTurret.TempSprite, selectingNode.PlacingTurret.TurretBasicData);
+            GameUI.InitializeTurretPanel(selectingNode.PlacingTurret);
         }
         
         private void DeselectNode()

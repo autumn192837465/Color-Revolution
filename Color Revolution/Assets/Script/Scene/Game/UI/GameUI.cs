@@ -20,6 +20,7 @@ namespace CR.Game
         {
             Ready,
             DrawCard,
+            SellTurret,
         }
 
 
@@ -38,7 +39,7 @@ namespace CR.Game
         [SerializeField] private IconWithTextUI hpIcon;
         [SerializeField] private IconWithTextUI coinIcon;
         [SerializeField] private TurretPanelUI turretPanelUI;
-
+        public Action OnSellTurret;
 
         private void Awake()
         {
@@ -106,10 +107,10 @@ namespace CR.Game
             hpIcon.SetText(GameManager.Instance.PlayerHp);
         }
 
-        public void InitializeTurretPanel(Sprite sprite, TurretBasicData basicData)
+        public void InitializeTurretPanel(Turret turret)
         {
             turretPanelUI.SetActive(true);
-            turretPanelUI.InitializeUI(sprite, basicData);
+            turretPanelUI.InitializeUI(turret);
         }
         public void ClearTurretPanel()
         {
