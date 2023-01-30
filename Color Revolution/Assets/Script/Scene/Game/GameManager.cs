@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using CB.Model;
 using CR.Model;
 using CR.ScriptableObjects;
@@ -35,7 +36,7 @@ namespace CR.Game
         public int PlayerCoin => playerData.Coin;
         public int PlayerHp => playerData.Hp;
         public List<CardType> PlayerCards => playerData.CardList;
-        
+        private Node selectingNode;
         
 
         private PlayerGameData playerData;
@@ -150,18 +151,8 @@ namespace CR.Game
 
         private void AddMapCreatorEvent()
         {
-            MapCreator.OnSelectAvailableEmptyNode = OnSelectEmptyNode;
-            MapCreator.OnSelectNode = (node) =>
-            {
-                if (node.HasTurret)
-                {
-                    GameUI.InitializeTurretPanel(node.PlacingTurret.TempSprite, node.PlacingTurret.TurretBasicData);
-                }
-                else
-                {
-                    GameUI.ClearTurretPanel();
-                }
-            };
+            MapCreator.OnSelectNode = OnSelectNode;
+
         }
 
 
@@ -207,7 +198,7 @@ namespace CR.Game
                     Node node = collider.GetComponent<Node>();
                     if (node is null || node.HasTurret || !node.CanPlace) return false;
 
-                    OnSelectEmptyNode(node);
+                    OnSelectNode(node);
                     return true;
                 }
 
@@ -298,24 +289,60 @@ namespace CR.Game
             return returnList;
         }
 
-        private void OnSelectEmptyNode(Node selectedNode)
+        private void OnSelectNode(Node node)
         {
-            if (GameUI.SelectingTurretData is null) return;
-            
-            var selectingTurretData = GameUI.SelectingTurretData;
-            int cost = selectingTurretData.Cost;
-            if(cost > PlayerCoin)   return;
-            ReducePlayerCoin(cost);
-            var turret = Instantiate(selectingTurretData.Turret);
-            selectedNode.PlaceTurret(turret);
-            MapCreator.SetNodePlaceable();
-            MapCreator.ShowPlaceable();
-            
-            // Todo : check cost
-            //currentSelectingTurret = null;
+            if (node.HasTurret)
+            {
+                if (node == selectingNode)
+                {
+                    DeselectNode();
+                    return;
+                }
 
+                SetSelectingNode(node);
+            }
+            else
+            {
+                var selectingTurretData = GameUI.SelectingTurretData; 
+                if (selectingTurretData == null)
+                {
+                    DeselectNode();
+                    return;
+                }
+                
+                if (CurrentState != GameState.PlayerPreparing || !node.CanPlace || selectingTurretData.Cost > PlayerCoin)
+                {
+                    DeselectNode();
+                    return;
+                }
+                
+                
+                
+                
+                ReducePlayerCoin(selectingTurretData.Cost);
+                var turret = Instantiate(selectingTurretData.Turret);
+                node.PlaceTurret(turret);
+                MapCreator.SetNodePlaceable();
+                MapCreator.ShowPlaceable();
+                
+                SetSelectingNode(node);
+            }
         }
 
+        private void SetSelectingNode(Node node)
+        {
+            if (selectingNode != null) selectingNode.HideAttackRange();
+            selectingNode = node;
+            selectingNode.ShowAttackRange();
+            GameUI.InitializeTurretPanel(selectingNode.PlacingTurret.TempSprite, selectingNode.PlacingTurret.TurretBasicData);
+        }
+        
+        private void DeselectNode()
+        {
+            if (selectingNode != null) selectingNode.HideAttackRange();
+            GameUI.ClearTurretPanel();
+            selectingNode = null;
+        }
 
         #region Player Status
         private void AddPlayerHP(int amount)
@@ -359,3 +386,12 @@ namespace CR.Game
         
     }    
 }
+
+/*
+1. 選空白的node 
+    正在選擇Turret => 放置turret 
+    沒有正在選擇Turret => 甚麼都沒發生 SelectingNode = null
+2. 選有turret的node 
+    正在選擇中 => 取消選擇
+    不是正在選擇中 => 取消攻擊範圍, 並秀出資訊
+    */

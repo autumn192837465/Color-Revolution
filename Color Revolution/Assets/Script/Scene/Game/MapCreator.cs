@@ -32,7 +32,7 @@ public class MapCreator : MonoBehaviour
     private List<Path> allNearestPaths = new List<Path>();
     
     
-    public Node SelectingNode { get; private set; }
+    
     
     /// <summary>
     ///
@@ -74,7 +74,7 @@ public class MapCreator : MonoBehaviour
                 node.transform.position = new Vector3(x + tempOffset * x, 0, y + tempOffset * y);
                 nodeMap[x, y] = node;
                 node.Coord = (x, y);
-                node.OnClickNode = SelectNode;
+                node.OnClickNode = (selectedNode) => OnSelectNode?.Invoke(selectedNode);
                 
                 if (nodeType == NodeType.Start)
                 {
@@ -108,37 +108,16 @@ public class MapCreator : MonoBehaviour
     }
 
 
-    public Action<Node> OnSelectAvailableEmptyNode;
+    //public Action<Node> OnSelectAvailableEmptyNode;
     public Action<Node> OnSelectNode;
     private void SelectNode(Node node)
     {
-        if (SelectingNode != node)
-        {
-            ClearSelecting();
-        }
         
-
-        SelectingNode = node;
         
-        if (SelectingNode.HasTurret)
-        {
-            // Todo : Show attack range and detail
-
-            
-            if(SelectingNode.PlacingTurret.IsShowingTurretAttackRange) SelectingNode.HideAttackRange();
-            else SelectingNode.ShowAttackRange();
-            
-        }
-        else
-        {
-            if(!SelectingNode.CanPlace)  return;
-            if(GameManager.CurrentState != GameState.PlayerPreparing)   return;
-            OnSelectAvailableEmptyNode?.Invoke(SelectingNode);
-
-            // Todo : check cost
-            //currentSelectingTurret = null;
-        }
-        OnSelectNode?.Invoke(SelectingNode);
+        OnSelectNode(node);
+        
+        return;
+       
     }
 
     public void ShowPlaceable()
@@ -160,14 +139,9 @@ public class MapCreator : MonoBehaviour
     }
     
 
-    private void ClearSelecting()
+    public void ClearSelecting()
     {
-        if (SelectingNode != null)
-        {
-            SelectingNode.HideAttackRange();
-        }
-
-        SelectingNode = null;
+        
     }
     
 
