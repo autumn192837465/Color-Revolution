@@ -36,8 +36,10 @@ namespace CR.Game
 
         public TurretData SelectingTurretData { get; private set; }
 
+        [SerializeField] private IconWithTextUI waveIcon;
         [SerializeField] private IconWithTextUI hpIcon;
         [SerializeField] private IconWithTextUI coinIcon;
+        
         [SerializeField] private TurretPanelUI turretPanelUI;
         public Action OnSellTurret;
 
@@ -78,6 +80,7 @@ namespace CR.Game
             
             InitializeTurret();   
             CreateCards();
+            RefreshWaveText();
             RefreshCoin();
             RefreshHp();
             ClearTurretPanel();
@@ -96,7 +99,12 @@ namespace CR.Game
             Canvas.ForceUpdateCanvases();
             cardList.ForEach(x => x.SetActive(false));
         }
-        
+
+        public void RefreshWaveText()
+        {
+            waveIcon.SetText($"{GameManager.WaveIndex + 1}/{GameManager.MaxWaveCount}");
+        }
+
         public void RefreshCoin()
         {
             coinIcon.SetText(GameManager.Instance.PlayerCoin);

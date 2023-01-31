@@ -39,6 +39,7 @@ namespace CR.Game
         private Node selectingNode;
         
 
+        
         private PlayerGameData playerData;
         
         protected override void Awake()
@@ -51,36 +52,35 @@ namespace CR.Game
         }
     
 
-        private int waveIndex; 
+        public static int WaveIndex; 
+        public static int MaxWaveCount; 
         private int spawnGroupIndex; 
         private int enemyCountIndex; 
         private float timer = 0;
         
         void Update()
         {
-            if(waveIndex >= tempWaveData.WaveSpawnList.Count)   return;
+            if(WaveIndex >= tempWaveData.WaveSpawnList.Count)   return;
 
             
             switch (CurrentState)
             {
                 case GameState.PlayerPreparing:
-                    
                     break;
                 case GameState.SpawnEnemy:
                     if(hasSpawnedAll)   return;
                     timer += Time.deltaTime;
-                    if (timer >= tempWaveData.GetEnemySpawnGroupInterval(waveIndex, spawnGroupIndex))
+                    if (timer >= tempWaveData.GetEnemySpawnGroupInterval(WaveIndex, spawnGroupIndex))
                     {
                         timer = 0;
-                        SpawnEnemy(tempWaveData.GetEnemy(waveIndex, spawnGroupIndex));
+                        SpawnEnemy(tempWaveData.GetEnemy(WaveIndex, spawnGroupIndex));
 
-                        if (++enemyCountIndex == tempWaveData.GetSpawnGroupEnemyCount(waveIndex, spawnGroupIndex))
+                        if (++enemyCountIndex == tempWaveData.GetSpawnGroupEnemyCount(WaveIndex, spawnGroupIndex))
                         {
                             enemyCountIndex = 0;
-                            if (++spawnGroupIndex == tempWaveData.GetEnemySpawnGroupCount(waveIndex))
+                            if (++spawnGroupIndex == tempWaveData.GetEnemySpawnGroupCount(WaveIndex))
                             {
-                                print("aa");
-                                waveIndex++;
+                                WaveIndex++;
                                 spawnGroupIndex = 0;
                                 hasSpawnedAll = true;
                             }
@@ -136,8 +136,10 @@ namespace CR.Game
                     CardType.AddAttackSpeed,
                 }
             };
-            
-            
+
+
+            WaveIndex = 0;
+            MaxWaveCount = tempWaveData.MaxWaveCount;
             GameUI.InitializeUI();
             AddMapCreatorEvent();
             AddGameUIEvent();
@@ -170,6 +172,7 @@ namespace CR.Game
                         timer = 0;
                         MapCreator.CalculateAllNearestPath();
                         hasSpawnedAll = false;
+                        GameUI.RefreshWaveText();
                         ToState(GameState.SpawnEnemy);
                         break;
                     case GameUI.ButtonType.DrawCard:
