@@ -19,7 +19,6 @@ namespace CR.Game
 
         public enum ButtonType
         {
-            Ready,
             DrawCard,
             SellTurret,
         }
@@ -41,7 +40,8 @@ namespace CR.Game
         [SerializeField] private IconWithTextUI hpIcon;
         [SerializeField] private IconWithTextUI coinIcon;
         [SerializeField] private TurretPanelUI turretPanelUI;
-
+    
+        
         
         public Action OnSellTurret;
 
@@ -60,11 +60,10 @@ namespace CR.Game
             pausePlayButton.OnClick = OnClickPausePlayButton;
             speedUpButton.OnClick = OnClickSpeedUpButton;
             cancelTurretSelectingButton.onClick.AddListener(CancelTurretSelection);
+            readyButton.OnClick = () => OnClickReady?.Invoke();
         }
 
-        void Start()
-        {
-        }
+  
 
         private void Update()
         {
@@ -177,6 +176,15 @@ namespace CR.Game
             }
         }
         #endregion
+
+        
+        [SerializeField] private FeedbackButton readyButton;
+        public Action OnClickReady;
+        public void SetReadyButtonActive(bool isActive)
+        {
+            readyButton.SetActive(isActive);
+        }
+        
         
         #region Turret
         [SerializeField] private Transform draggingTurret;
@@ -268,8 +276,6 @@ namespace CR.Game
         }
 
         #endregion
-
-       
 
         #region Card
 

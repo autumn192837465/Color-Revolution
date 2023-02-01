@@ -172,15 +172,7 @@ namespace CR.Game
                 if(IsPausing)   return;
                 switch (type)
                 {
-                    case GameUI.ButtonType.Ready:
-                        if (CurrentState != GameState.PlayerPreparing) return;
-                        
-                        timer = 0;
-                        MapCreator.CalculateAllNearestPath();
-                        hasSpawnedAll = false;
-                        GameUI.RefreshWaveText();
-                        ToState(GameState.SpawnEnemy);
-                        break;
+                   
                     case GameUI.ButtonType.DrawCard:
                         if(PlayerCoin < Constants.DrawCost) return;
                         ReducePlayerCoin(Constants.DrawCost);
@@ -204,6 +196,17 @@ namespace CR.Game
                 }
             };
 
+            GameUI.OnClickReady = () =>
+            {
+                if (CurrentState != GameState.PlayerPreparing) return;
+
+                timer = 0;
+                MapCreator.CalculateAllNearestPath();
+                hasSpawnedAll = false;
+                GameUI.RefreshWaveText();
+                GameUI.SetReadyButtonActive(false);
+                ToState(GameState.SpawnEnemy);
+            };
             GameUI.OnClickPlay = PlayGame;
             GameUI.OnClickPause = PauseGame;
             GameUI.OnResumeGameSpeed = ResumeGameSpeed;
@@ -297,6 +300,7 @@ namespace CR.Game
 
                 if (EnemyList.Count == 0 && hasSpawnedAll)
                 {
+                    GameUI.SetReadyButtonActive(true);
                     ToState(GameState.PlayerPreparing);
                 }
             };;

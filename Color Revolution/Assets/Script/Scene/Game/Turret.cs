@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using CB.Model;
+using CR.Model;
 using Kinopi.Enums;
 using Kinopi.Extensions;
 using MoreMountains.Feedbacks;
@@ -161,7 +163,7 @@ namespace CR.Game
 
         private Enemy GetRandomEnemy()
         {
-            var enemyList = GameManager.Instance.GetInAttackRangeEnemyList(this);
+            var enemyList = GameManager.Instance.GetInAttackRangeEnemyList(this).Where(x => x.CanBeAttacked(turretBasicData.AttackDamage)).ToList();
             return enemyList.GetRandomElement();
         }
 

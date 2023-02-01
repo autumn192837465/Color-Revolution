@@ -105,6 +105,10 @@ public class Enemy : UnitBase
     }
 
 
+    public bool CanBeAttacked(RGB rgb) =>(rgb.RedValue > 0 && CurrentHealth.RedValue > 0) ||
+                                         (rgb.GreenValue > 0 && CurrentHealth.GreenValue > 0) ||
+                                         (rgb.BlueValue > 0 && CurrentHealth.BlueValue > 0); 
+    
     private void SetColor()
     {
         if (redSpriteSet.Sprite != null)
@@ -129,4 +133,6 @@ public class Enemy : UnitBase
     {
         OnEnemyDeath?.Invoke(this);
     }
+    
+    
 }

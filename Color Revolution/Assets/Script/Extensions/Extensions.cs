@@ -28,6 +28,7 @@ namespace Kinopi.Extensions
             return list[Random.Range(0, list.Count)];
         }
 
+
         public static T GetRandomElement<T>(this ReadOnlyCollection<T> list)
         {
             if (list.Count == 0) return default(T);

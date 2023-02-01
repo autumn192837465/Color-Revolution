@@ -2089,6 +2089,7 @@ MonoBehaviour:
   greenDamageText: {fileID: 1808639874}
   blueDamageText: {fileID: 1864619053}
   attackRangeDamageText: {fileID: 142958099}
+  attackSpeedText: {fileID: 251915213}
   operatingTimeText: {fileID: 2082933531}
   coolDownTimeText: {fileID: 1526852951}
   sellCostText: {fileID: 1207624373}
@@ -2236,6 +2237,7 @@ MonoBehaviour:
   playSprite: {fileID: 21300000, guid: bc82ffcf042c0c64a8a04c8c0ce07679, type: 3}
   speedUpButton: {fileID: 168984611}
   speedUpButtonImage: {fileID: 168984612}
+  readyButton: {fileID: 1719519974}
   draggingTurret: {fileID: 253261805}
   cancelTurretSelectingButton: {fileID: 1722712375}
   selectingTurretImage: {fileID: 974997257}

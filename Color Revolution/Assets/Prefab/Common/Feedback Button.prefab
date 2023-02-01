@@ -642,7 +642,6 @@ GameObject:
   - component: {fileID: 6171804575696161501}
   - component: {fileID: 6171804575696161500}
   - component: {fileID: 6171804575696161499}
-  - component: {fileID: 6171804575696161503}
   - component: {fileID: 6171804575696161502}
   m_Layer: 5
   m_Name: Feedback Button
@@ -755,18 +754,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!225 &6171804575696161503
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6171804575696161497}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!114 &6171804575696161502
 MonoBehaviour:
   m_ObjectHideFlags: 0
