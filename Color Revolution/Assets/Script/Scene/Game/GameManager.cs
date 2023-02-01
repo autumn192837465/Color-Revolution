@@ -417,7 +417,7 @@ namespace CR.Game
 
         public static bool IsPausing { get;private set; }
         public static bool IsSpeedUp { get;private set; }
-        private float currentGameSpeed;
+        private float currentGameSpeed = 1;
         
         private void PlayGame()
         {
