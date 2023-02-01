@@ -15,6 +15,7 @@ namespace CR.Game
         [SerializeField] private TextMeshProUGUI greenDamageText;
         [SerializeField] private TextMeshProUGUI blueDamageText;
         [SerializeField] private TextMeshProUGUI attackRangeDamageText;
+        [SerializeField] private TextMeshProUGUI attackSpeedText;
         [SerializeField] private TextMeshProUGUI operatingTimeText;
         [SerializeField] private TextMeshProUGUI coolDownTimeText;
         [SerializeField] private TextMeshProUGUI sellCostText;
@@ -31,6 +32,7 @@ namespace CR.Game
             blueDamageText.text = data.AttackDamage.BlueValue.ToString();
 
             attackRangeDamageText.text = data.AttackRange.ToString();
+            attackSpeedText.text = data.BulletPerSecond.ToString();
             operatingTimeText.text = $"{data.OperatingTime} sec";
             coolDownTimeText.text = $"{data.CooldownTime} sec";
 

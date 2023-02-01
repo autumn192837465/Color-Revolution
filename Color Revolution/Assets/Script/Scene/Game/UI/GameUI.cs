@@ -68,6 +68,7 @@ namespace CR.Game
 
         private void Update()
         {
+            if(GameManager.IsPausing)   return;
             if (isDraggingCard)
             {
                 draggingCard.transform.position = Input.mousePosition;
@@ -152,12 +153,12 @@ namespace CR.Game
         {
             if (GameManager.IsPausing)
             {
-                pausePlayButtonImage.sprite = playSprite;
+                pausePlayButtonImage.color = Color.white;;
                 OnClickPlay?.Invoke();
             }
             else
             {
-                pausePlayButtonImage.sprite = pauseSprite;
+                pausePlayButtonImage.color = Color.gray;
                 OnClickPause?.Invoke();
             }
         }
@@ -205,6 +206,7 @@ namespace CR.Game
         
         private void SelectTurret(GameTurretUI turret)
         {
+            if(GameManager.IsPausing)   return;
             // Todo : check cost
             selectingTurretImage.sprite = turret.TurretData.Sprite;
             SelectingTurretData = turret.TurretData;
@@ -216,6 +218,7 @@ namespace CR.Game
 
         private void CancelTurretSelection()
         {
+            if(GameManager.IsPausing)   return;
             SelectingTurretData = null;
             OnCancelSelection?.Invoke();
             selectingTurretImage.transform.parent.SetActive(false);
@@ -231,6 +234,7 @@ namespace CR.Game
         private bool isDraggingTurret = false;
         private void OnPointerDownTurret(GameTurretUI turret, PointerEventData pointerEventData)
         {
+            if(GameManager.IsPausing)   return;
             if(GameManager.CurrentState != GameState.PlayerPreparing)   return;
             if (GameManager.Instance.PlayerCoin < turret.TurretData.Cost)
             {
@@ -280,7 +284,6 @@ namespace CR.Game
         
         public void DrawCards()
         {
-            
             var drawnCardTypes = GameManager.Instance.PlayerCards.GetRandomElements(2);
             for (int i = 0; i < cardList.Count; i++)
             {
@@ -301,6 +304,7 @@ namespace CR.Game
         
         private void OnPointerDownCard(GameCardUI card, PointerEventData pointerEventData)
         {
+            if(GameManager.IsPausing)   return;
             if (GameManager.Instance.PlayerCoin < card.CardData.Cost)
             {
                 // Todo : play feedbacks

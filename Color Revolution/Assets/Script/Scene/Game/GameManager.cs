@@ -169,10 +169,12 @@ namespace CR.Game
         {
             GameUI.OnClickButton = (type) =>
             {
+                if(IsPausing)   return;
                 switch (type)
                 {
                     case GameUI.ButtonType.Ready:
                         if (CurrentState != GameState.PlayerPreparing) return;
+                        
                         timer = 0;
                         MapCreator.CalculateAllNearestPath();
                         hasSpawnedAll = false;
