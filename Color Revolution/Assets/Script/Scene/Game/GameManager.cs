@@ -10,6 +10,7 @@ using CR.ScriptableObjects;
 using Kinopi.Constants;
 using Kinopi.Enums;
 using Kinopi.Extensions;
+using MoreMountains.FeedbacksForThirdParty;
 using TMPro;
 using Unity.Profiling.LowLevel.Unsafe;
 using UnityEditor;
@@ -50,16 +51,21 @@ namespace CR.Game
             Initialize();
             
         }
-    
 
+        public static float DeltaTime;
+        public static int GameSpeed;
+        
+        
         public static int WaveIndex; 
         public static int MaxWaveCount; 
         private int spawnGroupIndex; 
         private int enemyCountIndex; 
         private float timer = 0;
         
+        
         void Update()
         {
+            DeltaTime = Time.deltaTime * GameSpeed; 
             if(WaveIndex >= tempWaveData.WaveSpawnList.Count)   return;
 
             
@@ -161,8 +167,6 @@ namespace CR.Game
         private bool hasSpawnedAll;
         private void AddGameUIEvent()
         {
-            
-            
             GameUI.OnClickButton = (type) =>
             {
                 switch (type)
@@ -197,6 +201,9 @@ namespace CR.Game
                         throw new ArgumentOutOfRangeException(nameof(type), type, null);
                 }
             };
+
+            GameUI.OnClickPlay = PlayGame;
+            GameUI.OnClickPause = PauseGame;
 
             GameUI.OnSelectTurret = () =>
             {
@@ -402,7 +409,26 @@ namespace CR.Game
             GameUI.RefreshCoin();
         }
         #endregion
-       
+
+
+        #region GameSpeed
+
+        public static bool IsPausing { get;private set; }
+
+        public void PlayGame()
+        {
+            IsPausing = false;
+            Time.timeScale = 1;
+        }
+
+        public void PauseGame()
+        {
+            IsPausing = true;
+            Time.timeScale = 0;
+        }
+
+        #endregion
+        
         
         
     }    

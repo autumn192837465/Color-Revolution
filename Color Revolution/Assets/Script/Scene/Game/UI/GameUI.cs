@@ -28,7 +28,7 @@ namespace CR.Game
         public class ButtonInfo
         {
             public ButtonType Type;
-            public Button Button;
+            public FeedbackButton Button;
         }
 
         [SerializeField] private List<ButtonInfo> buttonList;
@@ -39,15 +39,16 @@ namespace CR.Game
         [SerializeField] private IconWithTextUI waveIcon;
         [SerializeField] private IconWithTextUI hpIcon;
         [SerializeField] private IconWithTextUI coinIcon;
-        
         [SerializeField] private TurretPanelUI turretPanelUI;
+
+        
         public Action OnSellTurret;
 
         private void Awake()
         {
             foreach (ButtonInfo buttonInfo in buttonList)
             {
-                buttonInfo.Button.onClick.AddListener(() => OnClickButton?.Invoke(buttonInfo.Type));
+                buttonInfo.Button.OnClick = () => OnClickButton?.Invoke(buttonInfo.Type);
             }
 
             foreach (GameTurretUI turretButton in turretButtonList)
@@ -55,6 +56,7 @@ namespace CR.Game
                 turretButton.OnClickTurret = SelectTurret;
             }
 
+            pausePlayButton.OnClick = OnClickPausePlayButton;
             cancelTurretSelectingButton.onClick.AddListener(CancelTurretSelection);
         }
 
@@ -125,8 +127,34 @@ namespace CR.Game
         {
             turretPanelUI.SetActive(false);
         }
-        
 
+
+        #region Game Speed
+
+        [Header("Game Speed")] 
+        [SerializeField] private FeedbackButton pausePlayButton;
+        [SerializeField] private Image pausePlayButtonImage;
+
+        [SerializeField] private Sprite pauseSprite;
+        [SerializeField] private Sprite playSprite;
+
+        public Action OnClickPause;
+        public Action OnClickPlay;
+        private void OnClickPausePlayButton()
+        {
+            if (GameManager.IsPausing)
+            {
+                pausePlayButtonImage.sprite = playSprite;
+                OnClickPlay?.Invoke();
+            }
+            else
+            {
+                pausePlayButtonImage.sprite = pauseSprite;
+                OnClickPause?.Invoke();
+            }
+        }
+        #endregion
+        
         #region Turret
         [SerializeField] private Transform draggingTurret;
         [SerializeField] private Button cancelTurretSelectingButton;
