@@ -6,6 +6,7 @@ using CR.Game;
 using Kinopi.Enums;
 using Kinopi.Extensions;
 using MoreMountains.Feedbacks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -57,6 +58,7 @@ namespace CR.Game
             }
 
             pausePlayButton.OnClick = OnClickPausePlayButton;
+            speedUpButton.OnClick = OnClickSpeedUpButton;
             cancelTurretSelectingButton.onClick.AddListener(CancelTurretSelection);
         }
 
@@ -138,8 +140,14 @@ namespace CR.Game
         [SerializeField] private Sprite pauseSprite;
         [SerializeField] private Sprite playSprite;
 
+        [SerializeField] private FeedbackButton speedUpButton;
+        [SerializeField] private Image speedUpButtonImage;
+        
         public Action OnClickPause;
         public Action OnClickPlay;
+        
+        public Action OnResumeGameSpeed;
+        public Action OnSpeedUpGame;
         private void OnClickPausePlayButton()
         {
             if (GameManager.IsPausing)
@@ -151,6 +159,20 @@ namespace CR.Game
             {
                 pausePlayButtonImage.sprite = pauseSprite;
                 OnClickPause?.Invoke();
+            }
+        }
+        
+        private void OnClickSpeedUpButton()
+        {
+            if (GameManager.IsSpeedUp)
+            {
+                speedUpButtonImage.color = Color.white;
+                OnResumeGameSpeed?.Invoke();
+            }
+            else
+            {
+                speedUpButtonImage.color = Color.gray;
+                OnSpeedUpGame?.Invoke();
             }
         }
         #endregion

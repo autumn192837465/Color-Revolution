@@ -204,7 +204,9 @@ namespace CR.Game
 
             GameUI.OnClickPlay = PlayGame;
             GameUI.OnClickPause = PauseGame;
-
+            GameUI.OnResumeGameSpeed = ResumeGameSpeed;
+            GameUI.OnSpeedUpGame = SpeedUpGame;
+            
             GameUI.OnSelectTurret = () =>
             {
                 MapCreator.ShowPlaceable();
@@ -414,17 +416,35 @@ namespace CR.Game
         #region GameSpeed
 
         public static bool IsPausing { get;private set; }
-
-        public void PlayGame()
+        public static bool IsSpeedUp { get;private set; }
+        private float currentGameSpeed;
+        
+        private void PlayGame()
         {
             IsPausing = false;
-            Time.timeScale = 1;
+            Time.timeScale = currentGameSpeed;
         }
 
-        public void PauseGame()
+        private void PauseGame()
         {
             IsPausing = true;
             Time.timeScale = 0;
+        }
+
+        private void SpeedUpGame()
+        {
+            IsSpeedUp = true;
+            currentGameSpeed = 2;
+            if(!IsPausing)
+                Time.timeScale = currentGameSpeed;
+        }
+
+        private void ResumeGameSpeed()
+        {
+            IsSpeedUp = false;
+            currentGameSpeed = 1;
+            if(!IsPausing)
+                Time.timeScale = currentGameSpeed;
         }
 
         #endregion
