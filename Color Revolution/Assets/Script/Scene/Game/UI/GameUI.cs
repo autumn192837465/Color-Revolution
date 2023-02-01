@@ -241,6 +241,7 @@ namespace CR.Game
             isDraggingTurret = true;
             SelectTurret(turret);
             draggingTurret.SetActive(true);
+            draggingTurret.GetComponent<Image>().sprite = turret.TurretData.Sprite;
         }
 
         private void OnPointerUpTurret(GameTurretUI turret, PointerEventData pointerEventData)
