@@ -2222,10 +2222,8 @@ MonoBehaviour:
   showPlaceableButton: {fileID: 0}
   buttonList:
   - Type: 0
-    Button: {fileID: 1719519974}
-  - Type: 1
     Button: {fileID: 800356808}
-  - Type: 2
+  - Type: 1
     Button: {fileID: 2014934366}
   waveIcon: {fileID: 1903645219}
   hpIcon: {fileID: 1965719989}
@@ -4534,6 +4532,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f03c4c8dd704604ab33277d5239f47f, type: 3}
+--- !u!21 &1506388297
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &1508535919
 GameObject:
   m_ObjectHideFlags: 0
@@ -4944,12 +4979,12 @@ PrefabInstance:
     - target: {fileID: 6171804575696161498, guid: 1758ccd5b34d50e4cb2551e8d98e6295,
         type: 3}
       propertyPath: m_Pivot.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6171804575696161498, guid: 1758ccd5b34d50e4cb2551e8d98e6295,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6171804575696161498, guid: 1758ccd5b34d50e4cb2551e8d98e6295,
         type: 3}
@@ -5024,12 +5059,12 @@ PrefabInstance:
     - target: {fileID: 6171804575696161498, guid: 1758ccd5b34d50e4cb2551e8d98e6295,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 20
+      value: 95
       objectReference: {fileID: 0}
     - target: {fileID: 6171804575696161498, guid: 1758ccd5b34d50e4cb2551e8d98e6295,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 20
+      value: 95
       objectReference: {fileID: 0}
     - target: {fileID: 6171804575696161498, guid: 1758ccd5b34d50e4cb2551e8d98e6295,
         type: 3}
@@ -5052,6 +5087,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: ae6eebd2d81e4b34195ac1720e165d5c,
         type: 3}
+    - target: {fileID: 6171804575696161500, guid: 1758ccd5b34d50e4cb2551e8d98e6295,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171804575696161500, guid: 1758ccd5b34d50e4cb2551e8d98e6295,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 1506388297}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1758ccd5b34d50e4cb2551e8d98e6295, type: 3}
 --- !u!224 &1719519973 stripped

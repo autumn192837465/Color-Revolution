@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using TMPro;
 using Kinopi.Constants;
+using Kinopi.Extensions;
 using UnityEngine.EventSystems;
 
 namespace CR.Game
@@ -13,6 +14,7 @@ namespace CR.Game
         [SerializeField] private Image image;
         [SerializeField] private Button button;
         [SerializeField] private IconWithTextUI costIcon;
+        [SerializeField] private TurretInfoUI infoUI; 
 
         public Action<GameTurretUI, PointerEventData> OnPointerDownTurret;
         public Action<GameTurretUI, PointerEventData> OnPointerUpTurret;
@@ -30,6 +32,7 @@ namespace CR.Game
             TurretData = data;
             image.sprite = data.Sprite;
             costIcon.SetText(data.Cost);
+            infoUI.InitializeUI(data);
         }
 
         public void RefreshCostTextColor()
@@ -47,5 +50,15 @@ namespace CR.Game
         {
             OnPointerUpTurret?.Invoke(this, eventData);
         }
+
+        public void ShowInfo()
+        {
+            infoUI.SetActive(true);
+        }
+
+        public void HideInfo()
+        {
+            infoUI.SetActive(false);
+        } 
     }    
 }

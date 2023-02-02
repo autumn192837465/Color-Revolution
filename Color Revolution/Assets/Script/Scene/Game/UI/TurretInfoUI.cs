@@ -8,7 +8,7 @@ using TMPro;
 
 namespace CR.Game
 {
-    public class TurretPanelUI : MonoBehaviour
+    public class TurretInfoUI : MonoBehaviour
     {
         [SerializeField] private Image turretImage;
         [SerializeField] private TextMeshProUGUI redDamageText;
@@ -19,7 +19,7 @@ namespace CR.Game
         [SerializeField] private TextMeshProUGUI operatingTimeText;
         [SerializeField] private TextMeshProUGUI coolDownTimeText;
         [SerializeField] private TextMeshProUGUI sellCostText;
-        [SerializeField] private TextMeshProUGUI costText;
+        
 
 
 
@@ -42,7 +42,6 @@ namespace CR.Game
 
         public void InitializeUI(TurretData data)
         {
-            turretImage.sprite = data.Sprite;
             var basicData = data.BasicDataScriptableObject.BasicData;
             redDamageText.text = basicData.AttackDamage.RedValue.ToString();
             greenDamageText.text = basicData.AttackDamage.GreenValue.ToString();
@@ -52,7 +51,6 @@ namespace CR.Game
             attackSpeedText.text = basicData.BulletPerSecond.ToString();
             operatingTimeText.text = $"{basicData.OperatingTime} sec";
             coolDownTimeText.text = $"{basicData.CooldownTime} sec";
-            costText.text = data.Cost.ToString();
         }
     }    
 }
