@@ -37,7 +37,7 @@ public class Enemy : UnitBase
     private Node destinationNode => path.Nodes[nodeIndex];
     private bool IsDead => enemyData.Health.IsDead;
     private RGB MaxHealth => enemyData.Health.MaxHealth;
-    private RGB CurrentHealth => enemyData.Health.CurrentHealth;
+    public RGB CurrentHealth => enemyData.Health.CurrentHealth;
 
     public Action<Enemy> OnEnemyDeath;
 

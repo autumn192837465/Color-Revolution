@@ -44,7 +44,7 @@ namespace CR.Game
         {
             targetPriorityText.text = Turret.TargetPriority switch 
             {
-                TargetPriority.FirstTarget => "First Target",
+                TargetPriority.FirstTarget => "First",
                 TargetPriority.MostRedHealth => "Most Red Health",
                 TargetPriority.MostGreenHealth => "Most Green Health",
                 TargetPriority.MostBlueHealth => "Most Blue Health",

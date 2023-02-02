@@ -88,7 +88,7 @@ namespace Kinopi.Extensions
                 list[i - 1] = value;
             }
         }
-
+        
 
         public static T RandomEnumValue<T>() where T : Enum
         {

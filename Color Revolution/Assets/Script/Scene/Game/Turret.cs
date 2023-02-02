@@ -165,8 +165,26 @@ namespace CR.Game
 
         private Enemy GetRandomEnemy()
         {
-            var enemyList = GameManager.Instance.GetInAttackRangeEnemyList(this).Where(x => x.CanBeAttacked(turretBasicData.AttackDamage)).ToList();
-            return enemyList.GetRandomElement();
+            var enemyList = GameManager.Instance.GetInAttackRangeEnemyList(this).Where(x => x.CanBeAttacked(turretBasicData.AttackDamage));
+            switch (TargetPriority)
+            {
+                case TargetPriority.FirstTarget:
+                    // Todo
+                    return  enemyList.ToList().GetRandomElement();
+                case TargetPriority.MostRedHealth:
+                    return enemyList.Aggregate((x, y) => x.CurrentHealth.RedValue > y.CurrentHealth.RedValue ? x : y);
+                case TargetPriority.MostGreenHealth:
+                    return enemyList.Aggregate((x, y) => x.CurrentHealth.GreenValue > y.CurrentHealth.GreenValue ? x : y);
+                case TargetPriority.MostBlueHealth:
+                    return enemyList.Aggregate((x, y) => x.CurrentHealth.BlueValue > y.CurrentHealth.BlueValue ? x : y);
+                case TargetPriority.Random:
+                    return  enemyList.ToList().GetRandomElement();
+                default:
+                    throw new NotImplementedException();
+            }
+            
+            
+            
         }
 
         public void ShowAttackRange()
