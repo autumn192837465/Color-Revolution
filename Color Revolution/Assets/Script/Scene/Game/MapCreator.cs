@@ -16,6 +16,8 @@ public class MapCreator : MonoBehaviour
 {
 
     [SerializeField] private Node nodePrefab;
+    [SerializeField] private Node startNodePrefab;
+    [SerializeField] private Node endNodePrefab;
     [SerializeField] private Transform mapRoot;
 
     
@@ -71,7 +73,16 @@ public class MapCreator : MonoBehaviour
                     nodeMap[x, y] = null;
                     continue;
                 }
-                var node = Instantiate(nodePrefab, mapRoot);
+
+                var node = nodeType switch
+                {
+                    NodeType.Start => Instantiate(startNodePrefab, mapRoot),
+                    NodeType.End => Instantiate(endNodePrefab, mapRoot),
+                    NodeType.Normal => Instantiate(nodePrefab, mapRoot),
+                    _ => throw new NotImplementedException()
+                };
+                
+                
                 node.Initialize(nodeType);
                 node.transform.position = new Vector3(x + tempOffset * x, 0, y + tempOffset * y);
                 nodeMap[x, y] = node;
