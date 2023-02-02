@@ -319,7 +319,6 @@ namespace CR.Game
 
             isDraggingCard = true;
             draggingCard.SetActive(true);
-            print("Pointer down");
             card.SetCoverActive(true);
         }
 

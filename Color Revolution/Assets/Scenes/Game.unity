@@ -1437,6 +1437,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodePrefab: {fileID: 8805686408626442826, guid: 4c43af73d4710ea489fdfe16f8bade09,
     type: 3}
+  startNodePrefab: {fileID: 8805686408626442826, guid: f668ac827e7166c43b43a811cd28428c,
+    type: 3}
+  endNodePrefab: {fileID: 8805686408626442826, guid: 2fa14d488b208d74ea6b7dcf06ca6aca,
+    type: 3}
   mapRoot: {fileID: 235590742}
 --- !u!4 &560546439
 Transform:
@@ -4399,9 +4403,14 @@ PrefabInstance:
       objectReference: {fileID: 800356810}
     - target: {fileID: 3682289046943235962, guid: d31abbb42e49a8e47af7f24c447d07c0,
         type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3682289046943235962, guid: d31abbb42e49a8e47af7f24c447d07c0,
+        type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0706dff3c03cb054cb0f872b3ecf05a6,
+      objectReference: {fileID: 21300000, guid: 70c1705c5444e704f83d26109b54f4c5,
         type: 3}
     - target: {fileID: 3682289046943235962, guid: d31abbb42e49a8e47af7f24c447d07c0,
         type: 3}
@@ -4491,12 +4500,12 @@ PrefabInstance:
     - target: {fileID: 3682289046943235964, guid: d31abbb42e49a8e47af7f24c447d07c0,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3682289046943235964, guid: d31abbb42e49a8e47af7f24c447d07c0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 3682289046943235964, guid: d31abbb42e49a8e47af7f24c447d07c0,
         type: 3}
