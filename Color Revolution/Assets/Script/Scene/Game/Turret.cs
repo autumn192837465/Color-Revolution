@@ -45,6 +45,8 @@ namespace CR.Game
         [SerializeField] private TurretWorldCanvas worldCanvas;
         [SerializeField] private MMF_Player enhanceFeedbacks;
 
+
+        public TargetPriority TargetPriority;
         public TurretData TurretData { get; private set; }
         public TurretBasicData TurretBasicData => turretBasicData;
         private TurretBasicData turretBasicData;

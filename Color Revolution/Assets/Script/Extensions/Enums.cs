@@ -45,5 +45,14 @@ namespace Kinopi.Enums
         AddAttackSpeed,
     }
 
+    public enum TargetPriority
+    {
+        FirstTarget,
+        MostRedHealth,
+        MostGreenHealth,
+        MostBlueHealth,
+        Random,
+    }
+
 
 }

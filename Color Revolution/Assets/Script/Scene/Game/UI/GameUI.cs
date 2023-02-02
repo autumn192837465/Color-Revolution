@@ -39,7 +39,7 @@ namespace CR.Game
         [SerializeField] private IconWithTextUI waveIcon;
         [SerializeField] private IconWithTextUI hpIcon;
         [SerializeField] private IconWithTextUI coinIcon;
-        [SerializeField] private TurretInfoUI turretInfoUI;
+        [SerializeField] private TurretPanelInfoUI turretPanelInfoUI;
     
         
         
@@ -122,12 +122,12 @@ namespace CR.Game
 
         public void InitializeTurretPanel(Turret turret)
         {
-            turretInfoUI.SetActive(true);
-            turretInfoUI.InitializeUI(turret);
+            turretPanelInfoUI.SetActive(true);
+            turretPanelInfoUI.InitializeUI(turret);
         }
         public void ClearTurretPanel()
         {
-            turretInfoUI.SetActive(false);
+            turretPanelInfoUI.SetActive(false);
         }
 
 

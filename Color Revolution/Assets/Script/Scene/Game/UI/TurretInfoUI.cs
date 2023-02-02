@@ -18,14 +18,13 @@ namespace CR.Game
         [SerializeField] private TextMeshProUGUI attackSpeedText;
         [SerializeField] private TextMeshProUGUI operatingTimeText;
         [SerializeField] private TextMeshProUGUI coolDownTimeText;
-        [SerializeField] private TextMeshProUGUI sellCostText;
         
+        
+       
 
 
-
-        public void InitializeUI(Turret turret)
+        public virtual void InitializeUI(Turret turret)
         {
-
             turretImage.sprite = turret.TurretData.Sprite;
             var data = turret.TurretBasicData;
             redDamageText.text = data.AttackDamage.RedValue.ToString();
@@ -37,7 +36,7 @@ namespace CR.Game
             operatingTimeText.text = $"{data.OperatingTime} sec";
             coolDownTimeText.text = $"{data.CooldownTime} sec";
 
-            sellCostText.text = turret.SellCost.ToString();
+            
         }
 
         public void InitializeUI(TurretData data)
