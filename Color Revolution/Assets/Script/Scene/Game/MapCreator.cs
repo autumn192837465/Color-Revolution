@@ -30,6 +30,8 @@ public class MapCreator : MonoBehaviour
     public Node EndNode { get; private set; }
     public ReadOnlyCollection<Path> AllPaths => allNearestPaths.AsReadOnly();
     private List<Path> allNearestPaths = new List<Path>();
+
+    private Node highlightingNode;
     
     
     
@@ -75,6 +77,20 @@ public class MapCreator : MonoBehaviour
                 nodeMap[x, y] = node;
                 node.Coord = (x, y);
                 node.OnClickNode = (selectedNode) => OnSelectNode?.Invoke(selectedNode);
+                node.OnMouseEnterNode = (n) =>
+                {
+                    if(!node.CanPlace)  return;
+                    if(highlightingNode != null) highlightingNode.SetNormal();
+                    highlightingNode = n;
+                    highlightingNode.SetHighlight();
+                };
+
+                node.OnMouseExitNode = (n) =>
+                {
+                    if(highlightingNode != n || highlightingNode is null)   return;
+                    highlightingNode.SetNormal();
+                    highlightingNode = null;
+                };
                 
                 if (nodeType == NodeType.Start)
                 {

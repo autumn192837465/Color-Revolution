@@ -282,6 +282,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretRoot: {fileID: 4700786108941094054}
+  rendererList:
+  - {fileID: 8163405910683651322}
+  - {fileID: 8164243056562208294}
+  - {fileID: 8164272607610143290}
   costText: {fileID: 5489154081678399260}
   CanPlace: 0
   RouteCost: 0

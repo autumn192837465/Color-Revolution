@@ -30,7 +30,7 @@ namespace CR.Game
     public class Node : MonoBehaviour
     {
         [SerializeField] private Transform turretRoot;
-        
+        [SerializeField] private List<Renderer> rendererList;
 
         public TextMeshPro costText;
         public bool CanPlace;
@@ -42,7 +42,13 @@ namespace CR.Game
 
         public NodeNeighbors Neighbors => neighbors;
         private NodeNeighbors neighbors;
+        
+         
 
+
+        public Action<Node> OnMouseEnterNode;
+        public Action<Node> OnMouseExitNode;
+        
         public (int, int) Coord;
 
 
@@ -50,20 +56,7 @@ namespace CR.Game
         {
             switch (nodeType)
             {
-                case NodeType.Empty:
-                    Destroy(gameObject);
-                    break;
-                case NodeType.Normal:
-                    SetColor(Color.white);
-                    break;
-                case NodeType.Start:
-                    SetColor(Color.red);
-                    break;
-                case NodeType.End:
-                    SetColor(Color.blue);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(nodeType), nodeType, null);
+                
             }
         }
 
@@ -97,25 +90,44 @@ namespace CR.Game
             costText.text = RouteCost.ToString();
         }
 
+        
         public void ShowPlaceable()
         {
-            SetColor(CanPlace ? Color.white : Color.gray);
+            if (!CanPlace)
+            {
+                foreach (var renderer in rendererList)
+                {
+                    renderer.material.color = Color.red;
+                }
+            }
         }
         
         public void HidePlaceable()
         {
-            SetColor(Color.white);
-        }
-        
-
-
-        public void SetColor(Color color)
-        {
-            foreach (var renderer in GetComponentsInChildren<Renderer>())
+            foreach (var renderer in rendererList)
             {
-                renderer.material.color = color;
+                renderer.material.color = Color.white;
             }
         }
+
+
+        public void SetHighlight()
+        {
+            foreach (var renderer in rendererList)
+            {
+                renderer.material.color = Color.gray;
+            }
+        }
+
+        public void SetNormal()
+        {
+            foreach (var renderer in rendererList)
+            {
+                renderer.material.color = Color.white;
+            }
+        }
+
+
 
         public void ShowAttackRange()
         {
@@ -126,7 +138,16 @@ namespace CR.Game
         {
             if(placingTurret != null) PlacingTurret.HideAttackRange();
         }
-        
+
+        private void OnMouseEnter()
+        {
+            OnMouseEnterNode?.Invoke(this);
+        }
+
+        private void OnMouseExit()
+        {
+            OnMouseExitNode?.Invoke(this);
+        }
     }
     
 }

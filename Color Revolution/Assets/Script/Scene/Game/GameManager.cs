@@ -264,7 +264,7 @@ namespace CR.Game
                             throw new ArgumentOutOfRangeException();
                     }
                     
-                    node.SetColor(Color.cyan);
+                    
                     node.PlacingTurret.AddTurretValue(cardData.Cost);
                     node.PlacingTurret.PlayEnhanceFeedbacks();
                     ReducePlayerCoin(cardData.Cost);
