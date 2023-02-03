@@ -40,7 +40,13 @@ public class Enemy : UnitBase
     public RGB CurrentHealth => enemyData.Health.CurrentHealth;
 
     public Action<Enemy> OnEnemyDeath;
-
+    
+    
+    // Timer
+    private float poisonTimer;
+    private float freezeTimer;
+    
+    
     [HideInInspector] public bool HitEndNode;
 
    

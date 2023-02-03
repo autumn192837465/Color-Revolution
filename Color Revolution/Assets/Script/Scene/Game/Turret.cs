@@ -82,6 +82,7 @@ namespace CR.Game
 
         void Update()
         {
+            if(GameManager.CurrentState != GameState.SpawnEnemy)    return;
             timer.deltaTime = Time.deltaTime;
             switch (currentState)
             {
@@ -166,6 +167,7 @@ namespace CR.Game
         private Enemy GetRandomEnemy()
         {
             var enemyList = GameManager.Instance.GetInAttackRangeEnemyList(this).Where(x => x.CanBeAttacked(turretBasicData.AttackDamage));
+            if (!enemyList.Any()) return null;
             switch (TargetPriority)
             {
                 case TargetPriority.FirstTarget:

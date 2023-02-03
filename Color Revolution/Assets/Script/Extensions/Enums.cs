@@ -54,5 +54,11 @@ namespace Kinopi.Enums
         Random,
     }
 
+    public enum Status
+    {
+        Poison,
+        Freeze,
+    }
+    
 
 }
