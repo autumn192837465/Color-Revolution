@@ -59,6 +59,12 @@ namespace Kinopi.Enums
         Poison,
         Freeze,
     }
-    
+
+    public enum MenuType
+    {
+        Main,
+        Deck,
+        Shop,
+    }
 
 }
