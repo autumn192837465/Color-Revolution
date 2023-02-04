@@ -64,6 +64,7 @@ namespace Kinopi.Enums
     {
         Main,
         Deck,
+        Research,
         Shop,
     }
 

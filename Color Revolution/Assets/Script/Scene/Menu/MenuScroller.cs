@@ -83,7 +83,8 @@ public class MenuScroller : MonoBehaviour
         {
             MenuType.Main => new Vector2(anchoredPosition.x, cellHeight * 0),
             MenuType.Deck => new Vector2(anchoredPosition.x, cellHeight * 1),
-            MenuType.Shop => new Vector2(anchoredPosition.x, cellHeight * 2),
+            MenuType.Research => new Vector2(anchoredPosition.x, cellHeight * 2),
+            MenuType.Shop => new Vector2(anchoredPosition.x, cellHeight * 3),
             _ => finalPosition
         };
         
@@ -96,19 +97,17 @@ public class MenuScroller : MonoBehaviour
     }
 
     public void JumpImmediatelyTo(MenuType type)
-    {        
-        switch (type)
+    {
+        var anchoredPosition = Content.anchoredPosition;
+        anchoredPosition = type switch
         {
-            case MenuType.Main:
-                Content.anchoredPosition = new Vector2(Content.anchoredPosition.x, -cellHeight * 0);
-                break;
-            case MenuType.Deck:
-                Content.anchoredPosition =  new Vector2(Content.anchoredPosition.x, -cellHeight * 1);
-                break;
-            case MenuType.Shop:
-                Content.anchoredPosition =  new Vector2(Content.anchoredPosition.x, -cellHeight * 2);
-                break;
-        }
+            MenuType.Main => new Vector2(anchoredPosition.x, -cellHeight * 0),
+            MenuType.Deck => new Vector2(anchoredPosition.x, -cellHeight * 1),
+            MenuType.Research => new Vector2(anchoredPosition.x, -cellHeight * 2),
+            MenuType.Shop => new Vector2(anchoredPosition.x, -cellHeight * 3),
+            _ => anchoredPosition
+        };
+        Content.anchoredPosition = anchoredPosition;
     }
 
 
