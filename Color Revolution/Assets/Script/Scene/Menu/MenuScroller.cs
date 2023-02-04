@@ -23,15 +23,20 @@ public class MenuScroller : MonoBehaviour
     [SerializeField] private Sprite selectingSprite;
     [SerializeField] private Sprite unselectSprite;
     [SerializeField] private List<FooterButtonInfo> footerButtonList;
+    [Range(0f, 1f)] public float SmoothFactor;
+    public RectTransform Content;
+    
     private const int MaxIndex = 3;
     private float cellHeight = 1440f;
-    public RectTransform Content;
-    public float SmoothFactor;
+    
+    
     public Action OnSnapContent;
     private bool snapping = false;
     public Action OpenRaycastBlocker;
     public Action CloseRaycastBlocker;
-
+    
+    private Vector2 finalPosition;
+    private IEnumerator snappingCoroutine;
     
     private void Awake()
     {
@@ -72,18 +77,21 @@ public class MenuScroller : MonoBehaviour
     
     public void JumpTo(MenuType type)
     {
-        if (snapping) return;
-        switch (type)
+        var anchoredPosition = Content.anchoredPosition;
+        
+        finalPosition = type switch
         {
-            case MenuType.Main:
-                StartCoroutine(SnapCoroutine(new Vector2(Content.anchoredPosition.x, cellHeight * 0)));
-                break;
-            case MenuType.Deck:                
-                StartCoroutine(SnapCoroutine(new Vector2(Content.anchoredPosition.x, cellHeight * 1)));
-                break;
-            case MenuType.Shop:
-                StartCoroutine(SnapCoroutine(new Vector2(Content.anchoredPosition.x, cellHeight * 2)));
-                break;
+            MenuType.Main => new Vector2(anchoredPosition.x, cellHeight * 0),
+            MenuType.Deck => new Vector2(anchoredPosition.x, cellHeight * 1),
+            MenuType.Shop => new Vector2(anchoredPosition.x, cellHeight * 2),
+            _ => finalPosition
+        };
+        
+        
+        if (!snapping)
+        {
+            snappingCoroutine = SnapCoroutine();
+            StartCoroutine(snappingCoroutine);
         }
     }
 
@@ -104,7 +112,8 @@ public class MenuScroller : MonoBehaviour
     }
 
 
-    IEnumerator SnapCoroutine(Vector2 finalPosition)
+    
+    private IEnumerator SnapCoroutine()
     {        
         snapping = true;
         OpenRaycastBlocker?.Invoke();
