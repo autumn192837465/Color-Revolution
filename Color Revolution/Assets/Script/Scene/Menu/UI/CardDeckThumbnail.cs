@@ -19,7 +19,7 @@ public class CardDeckThumbnail : MonoBehaviour
     [SerializeField] private GameObject buttonRoot;
     [SerializeField] private Button useRemoveButton;
     [SerializeField] private TextMeshProUGUI useRemoveText;
-    public UCardData UCard { get; private set; }
+    public UCard UCard { get; private set; }
     
     
     public Action OnSelectCard;
@@ -30,7 +30,7 @@ public class CardDeckThumbnail : MonoBehaviour
         useRemoveButton.onClick.AddListener(() => OnClickUseRemoveButton?.Invoke());
     }
 
-    public void InitializeUI(UCardData uCard)
+    public void InitializeUI(UCard uCard)
     {
         UCard = uCard;
         cardUI.InitializeUI(uCard.MCard);

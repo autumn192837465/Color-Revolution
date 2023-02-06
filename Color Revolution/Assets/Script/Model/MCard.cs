@@ -6,7 +6,7 @@ using UnityEngine;
 namespace CB.Model
 {
     [Serializable]
-    public class MCardData
+    public class MCard
     {
         public CardType CardType;
         public Sprite Sprite;

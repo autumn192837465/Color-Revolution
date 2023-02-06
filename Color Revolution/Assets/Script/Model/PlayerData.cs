@@ -13,23 +13,23 @@ namespace CR.Model
     {
         public PlayerData()
         {
-            UCardDataList = new List<UCardData>();
-            UCardData temp = new UCardData();
+            UCardDataList = new List<UCard>();
+            UCard temp = new UCard();
             temp.Level = 1;
             temp.CardType = CardType.AddAttackRange;
             UCardDataList.Add(temp);
             
-            temp = new UCardData();
+            temp = new UCard();
             temp.Level = 1;
             temp.CardType = CardType.AddAttackSpeed;
             UCardDataList.Add(temp);
             
-            CardDeck = new UCardData[Constants.DeckCardCount];
+            CardDeck = new UCard[Constants.DeckCardCount];
             CardDeck[0] = UCardDataList[0];
 
         }
-        public List<UCardData> UCardDataList;
-        public UCardData[] CardDeck;
+        public List<UCard> UCardDataList;
+        public UCard[] CardDeck;
     }    
     
     

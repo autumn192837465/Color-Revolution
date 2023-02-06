@@ -6,10 +6,10 @@ using UnityEngine;
 namespace CB.Model
 {
     [Serializable]
-    public class UCardData
+    public class UCard
     {
         public int Level;
         public CardType CardType;
-        public MCardData MCard => DataManager.Instance.GetCardData(CardType);
+        public MCard MCard => DataManager.Instance.GetCardData(CardType);
     }    
 }

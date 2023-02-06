@@ -28,9 +28,9 @@ public class MenuDeckUI : MonoBehaviour
     [SerializeField] private Transform cardScrollerContent;
     [SerializeField] private CardDeckThumbnail cardDeckThumbnailPrefab;
     private CardDeckThumbnail selectingCardDeckThumbnail;
-    private UCardData[] PlayerCardDeck => PlayerDataManager.Instance.PlayerData.CardDeck;
-    private List<UCardData> PlayerpossessingCards => PlayerDataManager.Instance.PlayerData.UCardDataList;
-    private bool IsInDeck(UCardData uCard) => PlayerCardDeck.ToList().Contains(uCard);
+    private UCard[] PlayerCardDeck => PlayerDataManager.Instance.PlayerData.CardDeck;
+    private List<UCard> PlayerpossessingCards => PlayerDataManager.Instance.PlayerData.UCardDataList;
+    private bool IsInDeck(UCard uCard) => PlayerCardDeck.ToList().Contains(uCard);
     
     private void Awake()
     {

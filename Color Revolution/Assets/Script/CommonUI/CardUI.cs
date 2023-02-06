@@ -10,12 +10,12 @@ public class CardUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private IconWithTextUI costIcon;
     
-    public MCardData MCardData { get; private set; }
+    public MCard MCard { get; private set; }
     
-    public virtual void InitializeUI(MCardData data)
+    public virtual void InitializeUI(MCard data)
     {
-        MCardData = data;
-        descriptionText.text = MCardData.Description;
+        MCard = data;
+        descriptionText.text = MCard.Description;
         costIcon.SetText(data.Cost);
     }   
 }
