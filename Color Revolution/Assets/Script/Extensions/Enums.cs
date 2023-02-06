@@ -68,4 +68,12 @@ namespace Kinopi.Enums
         Shop,
     }
 
+    public enum Language
+    {
+        Undefined,
+        Chinese,
+        English,
+        Japanese,
+    }
+
 }

@@ -10,5 +10,6 @@ namespace CB.Model
     {
         public int Level;
         public CardType CardType;
+        public MCardData MCard => DataManager.Instance.GetCardData(CardType);
     }    
 }

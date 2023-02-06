@@ -13,6 +13,7 @@ namespace Kinopi.Constants
         public const int DrawCost = 5;
      
         public const float EffectTime = 5;
+        public const uint DeckCardCount = 9;
     }
 
 

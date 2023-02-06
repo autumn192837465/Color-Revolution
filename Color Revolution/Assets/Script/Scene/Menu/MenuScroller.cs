@@ -44,7 +44,8 @@ public class MenuScroller : MonoBehaviour
         {
             buttonInfo.Button.OnClick = () => SelectFooter(buttonInfo.Type);
         }
-        SelectFooter(MenuType.Main);
+        
+        SelectFooterWithoutAction(MenuType.Deck);
     }
 
 
@@ -101,10 +102,10 @@ public class MenuScroller : MonoBehaviour
         var anchoredPosition = Content.anchoredPosition;
         anchoredPosition = type switch
         {
-            MenuType.Main => new Vector2(anchoredPosition.x, -cellHeight * 0),
-            MenuType.Deck => new Vector2(anchoredPosition.x, -cellHeight * 1),
-            MenuType.Research => new Vector2(anchoredPosition.x, -cellHeight * 2),
-            MenuType.Shop => new Vector2(anchoredPosition.x, -cellHeight * 3),
+            MenuType.Main => new Vector2(anchoredPosition.x, cellHeight * 0),
+            MenuType.Deck => new Vector2(anchoredPosition.x, cellHeight * 1),
+            MenuType.Research => new Vector2(anchoredPosition.x, cellHeight * 2),
+            MenuType.Shop => new Vector2(anchoredPosition.x, cellHeight * 3),
             _ => anchoredPosition
         };
         Content.anchoredPosition = anchoredPosition;

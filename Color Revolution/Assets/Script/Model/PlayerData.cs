@@ -25,8 +25,7 @@ namespace CR.Model
             UCardDataList.Add(temp);
             
             CardDeck = new UCardData[Constants.DeckCardCount];
-            CardDeck[0] = new UCardData();
-            CardDeck[0].CardType = CardType.AddAttackSpeed;
+            CardDeck[0] = UCardDataList[0];
 
         }
         public List<UCardData> UCardDataList;
