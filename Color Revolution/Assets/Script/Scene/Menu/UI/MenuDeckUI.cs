@@ -27,6 +27,10 @@ public class MenuDeckUI : MonoBehaviour
     [SerializeField] private Transform cardContent;
     [SerializeField] private Transform cardScrollerContent;
     [SerializeField] private CardDeckThumbnail cardDeckThumbnailPrefab;
+    [SerializeField] private GameObject cardSwapRoot;
+    [SerializeField] private Button cardSwapRootCancelButton;
+    [SerializeField] private CardUI swapCardUI;
+    
     private CardDeckThumbnail selectingCardDeckThumbnail;
     private UCard[] PlayerCardDeck => PlayerDataManager.Instance.PlayerData.CardDeck;
     private List<UCard> PlayerpossessingCards => PlayerDataManager.Instance.PlayerData.UCardDataList;
@@ -36,6 +40,7 @@ public class MenuDeckUI : MonoBehaviour
     {
         turretTabButton.onClick.AddListener(OpenTurretPage);
         cardTabButton.onClick.AddListener(OpenCardPage);
+        cardSwapRootCancelButton.onClick.AddListener(CloseCardSwapRoot);
         OpenCardPage();
     }
     
@@ -82,7 +87,6 @@ public class MenuDeckUI : MonoBehaviour
                 {
                     UseCard(cardDeckThumbnail);
                 }
-                
             };
 
         }
@@ -90,6 +94,13 @@ public class MenuDeckUI : MonoBehaviour
 
     private void OnSelectCard(CardDeckThumbnail cardDeckThumbnail)
     {
+        if (isOpeningSwapRoot)
+        {
+            SwapCard(cardDeckThumbnail);
+            return;
+        }
+        
+        
         DeselectingCard();
         if (selectingCardDeckThumbnail == cardDeckThumbnail) return;
         
@@ -102,11 +113,8 @@ public class MenuDeckUI : MonoBehaviour
         if (selectingCardDeckThumbnail != null) selectingCardDeckThumbnail.HideButtonRoot();
         selectingCardDeckThumbnail = null;
     }
-    
-    
 
-   
-
+    private bool isOpeningSwapRoot;
     public void UseCard(CardDeckThumbnail cardDeckThumbnail)
     {
         // Check has empty slot
@@ -118,6 +126,23 @@ public class MenuDeckUI : MonoBehaviour
                 return;
             }
         }
+        
+        OpenCardSwapRoot(cardDeckThumbnail);
+    }
+
+    private void OpenCardSwapRoot(CardDeckThumbnail cardDeckThumbnail)
+    {
+        selectingCardDeckThumbnail = cardDeckThumbnail;
+        cardSwapRoot.SetActive(true);
+        swapCardUI.InitializeUI(selectingCardDeckThumbnail.UCard.MCard);
+        isOpeningSwapRoot = true;
+    }
+
+    private void CloseCardSwapRoot()
+    {
+        DeselectingCard();
+        cardSwapRoot.SetActive(false);
+        isOpeningSwapRoot = false;
     }
 
     private void PlaceCardToSlot(CardSlot slot, int slotIndex, CardDeckThumbnail cardDeckThumbnail)
@@ -129,12 +154,13 @@ public class MenuDeckUI : MonoBehaviour
         PlayerCardDeck[slotIndex] = cardDeckThumbnail.UCard;
     }
 
+    
+    
     private void RemoveCard(CardDeckThumbnail cardDeckThumbnail)
     {
         // Remove
         cardDeckThumbnail.transform.SetParent(cardScrollerContent);
         selectingCardDeckThumbnail.SetCardStatus(CardDeckThumbnail.CardStatus.CardPool);
-        DeselectingCard();
         for (int i = 0; i < PlayerCardDeck.Length; i++) 
         {
             if (PlayerCardDeck[i] == cardDeckThumbnail.UCard)
@@ -143,6 +169,25 @@ public class MenuDeckUI : MonoBehaviour
             }
         }
         
+    }
+
+    private void SwapCard(CardDeckThumbnail cardDeckThumbnail)
+    {
+        for (int i = 0; i < cardSlots.Length; i++) 
+        {
+            if (PlayerCardDeck[i] == cardDeckThumbnail.UCard)
+            {
+                PlayerCardDeck[i] = selectingCardDeckThumbnail.UCard;
+                
+                cardDeckThumbnail.transform.SetParent(cardScrollerContent);
+                cardDeckThumbnail.SetCardStatus(CardDeckThumbnail.CardStatus.CardPool);
+                selectingCardDeckThumbnail.SetCardStatus(CardDeckThumbnail.CardStatus.InDeck);
+                cardSlots[i].PlaceCard(selectingCardDeckThumbnail);
+                CloseCardSwapRoot();
+                return;
+            }
+        }
+        Debug.LogError("Not find slot");
     }
     #endregion
     

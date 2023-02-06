@@ -33,3 +33,31 @@ MonoBehaviour:
     Sprite: {fileID: 0}
     Cost: 25
     Description: Add 0.1 Attack Speed
+  - CardType: 5
+    Sprite: {fileID: 0}
+    Cost: 25
+    Description: Test 1
+  - CardType: 6
+    Sprite: {fileID: 0}
+    Cost: 25
+    Description: Test 2
+  - CardType: 7
+    Sprite: {fileID: 0}
+    Cost: 25
+    Description: Test 3
+  - CardType: 8
+    Sprite: {fileID: 0}
+    Cost: 25
+    Description: Test 4
+  - CardType: 9
+    Sprite: {fileID: 0}
+    Cost: 25
+    Description: Test 5
+  - CardType: 10
+    Sprite: {fileID: 0}
+    Cost: 25
+    Description: Test 6
+  - CardType: 11
+    Sprite: {fileID: 0}
+    Cost: 25
+    Description: Test 7
