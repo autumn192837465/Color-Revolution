@@ -35,7 +35,7 @@ public class DataManager : Singleton<DataManager>
     
     #region Card
     [SerializeField] private CardDataScriptableObject CardData;
-    public CardData GetCardData(CardType type)
+    public MCardData GetCardData(CardType type)
     {
         return CardData.cardDataCache.GetValue(type);
     }

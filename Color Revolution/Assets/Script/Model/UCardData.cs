@@ -6,12 +6,9 @@ using UnityEngine;
 namespace CB.Model
 {
     [Serializable]
-    public class CardData
+    public class UCardData
     {
+        public int Level;
         public CardType CardType;
-        public Sprite Sprite;
-        public int Cost;
-        [TextArea(10, 3)] 
-        public string Description;
     }    
 }

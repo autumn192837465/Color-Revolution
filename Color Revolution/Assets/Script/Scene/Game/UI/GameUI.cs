@@ -286,7 +286,7 @@ namespace CR.Game
         [SerializeField] private MMF_Player cardRevealFeedbacks;
         private List<GameCardUI> cardList = new();
         private bool isDraggingCard = false;
-        public Func<Collider, CardData, bool> OnDropCard;
+        public Func<Collider, MCardData, bool> OnDropCard;
         
         public void DrawCards()
         {
@@ -311,7 +311,7 @@ namespace CR.Game
         private void OnPointerDownCard(GameCardUI card, PointerEventData pointerEventData)
         {
             if(GameManager.IsPausing)   return;
-            if (GameManager.Instance.PlayerCoin < card.CardData.Cost)
+            if (GameManager.Instance.PlayerCoin < card.MCardData.Cost)
             {
                 // Todo : play feedbacks
                 return;
@@ -332,7 +332,7 @@ namespace CR.Game
             if (Physics.Raycast(ray, out hit, 100))
             {
                 
-                if (OnDropCard?.Invoke(hit.collider, card.CardData)?? false)
+                if (OnDropCard?.Invoke(hit.collider, card.MCardData)?? false)
                 {
                     card.SetActive(false);
                 }
