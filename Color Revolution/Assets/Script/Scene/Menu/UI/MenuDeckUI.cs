@@ -106,6 +106,16 @@ public class MenuDeckUI : MonoBehaviour
         
         selectingCardDeckThumbnail = cardDeckThumbnail;
         selectingCardDeckThumbnail.ShowButtonRoot();
+
+        foreach (var slot in cardSlots)
+        {
+            if (slot.PlacingCardDeckThumbnail == selectingCardDeckThumbnail)
+            {
+                slot.transform.SetAsLastSibling();
+                break;
+            }
+        }
+        
     }
 
     private void DeselectingCard()
