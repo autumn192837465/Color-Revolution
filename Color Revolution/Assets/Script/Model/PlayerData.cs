@@ -36,6 +36,8 @@ namespace CR.Model
             UCardDataList.Add(temp);
             temp = new UCard(CardType.AddRedAttack);
             UCardDataList.Add(temp);
+            temp = new UCard(CardType.AddGreenAttack);
+            UCardDataList.Add(temp);
             
             CardDeck = new UCard[Constants.DeckCardCount];
             for (int i = 0; i < CardDeck.Length; i++)

@@ -8,7 +8,7 @@ using TMPro;
 // Todo : Inherit?
 public class CardDeckThumbnail : MonoBehaviour
 {
-    public enum CardStatus
+    public enum Status
     {
         InDeck,
         CardPool,
@@ -19,6 +19,27 @@ public class CardDeckThumbnail : MonoBehaviour
     [SerializeField] private GameObject buttonRoot;
     [SerializeField] private Button useRemoveButton;
     [SerializeField] private TextMeshProUGUI useRemoveText;
+
+    public Status CardStatus
+    {
+        get
+        {
+            return cardStatus;
+        }
+        set
+        {
+            cardStatus = value;
+            useRemoveText.text = cardStatus switch
+            {
+                Status.InDeck => "Remove",
+                Status.CardPool => "Use",
+                _ => throw new NotImplementedException(),
+            };
+        }
+    }
+
+    private Status cardStatus;
+    
     public UCard UCard { get; private set; }
     
     
@@ -36,20 +57,7 @@ public class CardDeckThumbnail : MonoBehaviour
         cardUI.InitializeUI(uCard.MCard);
     }
 
-    public void SetCardStatus(CardStatus status)
-    {
-        switch (status)
-        {
-            case CardStatus.InDeck:
-                useRemoveText.text = "Remove";
-                break;
-            case CardStatus.CardPool:
-                useRemoveText.text = "Use";
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(status), status, null);
-        }
-    }
+
 
     public void ShowButtonRoot()
     {

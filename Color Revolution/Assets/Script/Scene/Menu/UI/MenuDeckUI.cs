@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CB.Model;
 using CR;
+using CR.Game;
 using Kinopi.Enums;
 using Kinopi.Extensions;
 using Unity.VisualScripting;
@@ -19,17 +20,19 @@ public class MenuDeckUI : MonoBehaviour
     [SerializeField] private Button turretTabButton;
     [SerializeField] private Transform turretPage;
     [SerializeField] private Transform turretScrollerContent;
-    
+    [SerializeField] private GameObject turretDeckContent;
     
     
     [Header("Card")]
     [SerializeField] private Button cardTabButton;
     [SerializeField] private Transform cardContent;
     [SerializeField] private Transform cardScrollerContent;
+    [SerializeField] private GameObject cardDeckContent;
     [SerializeField] private CardDeckThumbnail cardDeckThumbnailPrefab;
     [SerializeField] private GameObject cardSwapRoot;
     [SerializeField] private Button cardSwapRootCancelButton;
     [SerializeField] private CardUI swapCardUI;
+    [SerializeField] private GridLayoutGroup cardScrollerLayoutGroup;
     
     private CardDeckThumbnail selectingCardDeckThumbnail;
     private UCard[] PlayerCardDeck => PlayerDataManager.Instance.PlayerData.CardDeck;
@@ -66,12 +69,12 @@ public class MenuDeckUI : MonoBehaviour
             if (slotIndex >= 0)
             {
                 cardSlots[slotIndex].PlaceCard(cardDeckThumbnail);
-                cardDeckThumbnail.SetCardStatus(CardDeckThumbnail.CardStatus.InDeck);
+                cardDeckThumbnail.CardStatus = CardDeckThumbnail.Status.InDeck;
             }
             else
             {
                 cardDeckThumbnail.transform.SetParent(cardScrollerContent);
-                cardDeckThumbnail.SetCardStatus(CardDeckThumbnail.CardStatus.CardPool);
+                cardDeckThumbnail.CardStatus = CardDeckThumbnail.Status.CardPool;
             }
             
             cardDeckThumbnail.InitializeUI(uCard);
@@ -88,8 +91,9 @@ public class MenuDeckUI : MonoBehaviour
                     UseCard(cardDeckThumbnail);
                 }
             };
-
         }
+
+        RefreshCardScroller();
     }
 
     private void OnSelectCard(CardDeckThumbnail cardDeckThumbnail)
@@ -99,22 +103,38 @@ public class MenuDeckUI : MonoBehaviour
             SwapCard(cardDeckThumbnail);
             return;
         }
+
+        if (selectingCardDeckThumbnail == cardDeckThumbnail)
+        {
+            DeselectingCard();    
+            return;
+        }
         
         
         DeselectingCard();
-        if (selectingCardDeckThumbnail == cardDeckThumbnail) return;
-        
+
         selectingCardDeckThumbnail = cardDeckThumbnail;
         selectingCardDeckThumbnail.ShowButtonRoot();
 
-        foreach (var slot in cardSlots)
+
+        
+        switch (selectingCardDeckThumbnail.CardStatus)
         {
-            if (slot.PlacingCardDeckThumbnail == selectingCardDeckThumbnail)
-            {
-                slot.transform.SetAsLastSibling();
+            case CardDeckThumbnail.Status.InDeck:
+                foreach (var slot in cardSlots)
+                {
+                    if (slot.PlacingCardDeckThumbnail != selectingCardDeckThumbnail) continue;
+                    slot.transform.SetAsLastSibling();
+                    break;
+                }
                 break;
-            }
+            case CardDeckThumbnail.Status.CardPool:
+                selectingCardDeckThumbnail.transform.SetAsLastSibling();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
+       
         
     }
 
@@ -158,10 +178,10 @@ public class MenuDeckUI : MonoBehaviour
     private void PlaceCardToSlot(CardSlot slot, int slotIndex, CardDeckThumbnail cardDeckThumbnail)
     {
         slot.PlaceCard(cardDeckThumbnail);
-        selectingCardDeckThumbnail.SetCardStatus(CardDeckThumbnail.CardStatus.InDeck);
+        selectingCardDeckThumbnail.CardStatus = CardDeckThumbnail.Status.InDeck;
         DeselectingCard();
-
         PlayerCardDeck[slotIndex] = cardDeckThumbnail.UCard;
+        RefreshCardScroller();
     }
 
     
@@ -170,15 +190,16 @@ public class MenuDeckUI : MonoBehaviour
     {
         // Remove
         cardDeckThumbnail.transform.SetParent(cardScrollerContent);
-        selectingCardDeckThumbnail.SetCardStatus(CardDeckThumbnail.CardStatus.CardPool);
+        selectingCardDeckThumbnail.CardStatus = CardDeckThumbnail.Status.CardPool;
         for (int i = 0; i < PlayerCardDeck.Length; i++) 
         {
             if (PlayerCardDeck[i] == cardDeckThumbnail.UCard)
             {
                 PlayerCardDeck[i] = null;
+                break;
             }
         }
-        
+        RefreshCardScroller();
     }
 
     private void SwapCard(CardDeckThumbnail cardDeckThumbnail)
@@ -190,14 +211,22 @@ public class MenuDeckUI : MonoBehaviour
                 PlayerCardDeck[i] = selectingCardDeckThumbnail.UCard;
                 
                 cardDeckThumbnail.transform.SetParent(cardScrollerContent);
-                cardDeckThumbnail.SetCardStatus(CardDeckThumbnail.CardStatus.CardPool);
-                selectingCardDeckThumbnail.SetCardStatus(CardDeckThumbnail.CardStatus.InDeck);
+                cardDeckThumbnail.CardStatus = CardDeckThumbnail.Status.CardPool;
+                selectingCardDeckThumbnail.CardStatus = CardDeckThumbnail.Status.InDeck;
                 cardSlots[i].PlaceCard(selectingCardDeckThumbnail);
                 CloseCardSwapRoot();
+                RefreshCardScroller();
                 return;
             }
         }
         Debug.LogError("Not find slot");
+    }
+
+    private void RefreshCardScroller()
+    {
+        cardScrollerLayoutGroup.enabled = true;
+        Canvas.ForceUpdateCanvases();
+        cardScrollerLayoutGroup.enabled = false;
     }
     #endregion
     
@@ -218,11 +247,15 @@ public class MenuDeckUI : MonoBehaviour
     private void OpenTurretPage()
     {
         turretPage.SetAsLastSibling();
+        cardDeckContent.SetActive(false);
+        turretDeckContent.SetActive(true);
     }
     
     private void OpenCardPage()
     {
         cardContent.SetAsLastSibling();
+        cardDeckContent.SetActive(true);
+        turretDeckContent.SetActive(false);
     }
     
 }
