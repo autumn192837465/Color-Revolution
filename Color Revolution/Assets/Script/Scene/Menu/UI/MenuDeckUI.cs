@@ -25,7 +25,7 @@ public class MenuDeckUI : MonoBehaviour
     
     [Header("Card")]
     [SerializeField] private Button cardTabButton;
-    [SerializeField] private Transform cardContent;
+    [SerializeField] private Transform cardPage;
     [SerializeField] private Transform cardScrollerContent;
     [SerializeField] private GameObject cardDeckContent;
     [SerializeField] private CardDeckThumbnail cardDeckThumbnailPrefab;
@@ -36,7 +36,7 @@ public class MenuDeckUI : MonoBehaviour
     
     private CardDeckThumbnail selectingCardDeckThumbnail;
     private UCard[] PlayerCardDeck => PlayerDataManager.Instance.PlayerData.CardDeck;
-    private List<UCard> PlayerpossessingCards => PlayerDataManager.Instance.PlayerData.UCardDataList;
+    private List<UCard> PlayerPossessingCards => PlayerDataManager.Instance.PlayerData.UCardDataList;
     private bool IsInDeck(UCard uCard) => PlayerCardDeck.ToList().Contains(uCard);
     
     private void Awake()
@@ -57,10 +57,17 @@ public class MenuDeckUI : MonoBehaviour
         InitializeCardDeck();
     }
 
+
+    #region Turret
+
+    
+
+    #endregion
+
     #region Card
     private void InitializeCardDeck()
     {
-        foreach (var uCard in PlayerpossessingCards)
+        foreach (var uCard in PlayerPossessingCards)
         {
             int slotIndex = Array.FindIndex(PlayerCardDeck, x => x.CardType == uCard.CardType);
             
@@ -164,7 +171,7 @@ public class MenuDeckUI : MonoBehaviour
     {
         selectingCardDeckThumbnail = cardDeckThumbnail;
         cardSwapRoot.SetActive(true);
-        swapCardUI.InitializeUI(selectingCardDeckThumbnail.UCard.MCard);
+        swapCardUI.InitializeUI(selectingCardDeckThumbnail.UCard);
         isOpeningSwapRoot = true;
     }
 
@@ -253,7 +260,7 @@ public class MenuDeckUI : MonoBehaviour
     
     private void OpenCardPage()
     {
-        cardContent.SetAsLastSibling();
+        cardPage.SetAsLastSibling();
         cardDeckContent.SetActive(true);
         turretDeckContent.SetActive(false);
     }

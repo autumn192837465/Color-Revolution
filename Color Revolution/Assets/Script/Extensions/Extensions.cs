@@ -34,7 +34,7 @@ namespace Kinopi.Extensions
             if (list.Count == 0) return default(T);
             return list[Random.Range(0, list.Count)];
         }
-        
+
         public static List<T> GetRandomElements<T>(this List<T> list, int count, List<T> exceptList = null)
         {
             List<T> copyList = new List<T>(list);

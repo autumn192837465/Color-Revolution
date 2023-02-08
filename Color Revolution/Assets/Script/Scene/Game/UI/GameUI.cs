@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using CB.Model;
 using CR.Game;
 using Kinopi.Enums;
@@ -290,7 +291,7 @@ namespace CR.Game
         
         public void DrawCards()
         {
-            var drawnCardTypes = GameManager.Instance.PlayerCards.GetRandomElements(2);
+            var drawnCardTypes = GameManager.Instance.PlayerCards.ToList().GetRandomElements(2);
             for (int i = 0; i < cardList.Count; i++)
             {
                 var card = cardList[i];
@@ -301,7 +302,7 @@ namespace CR.Game
                 }
 
                 card.SetActive(true);
-                card.InitializeUI(DataManager.Instance.GetCardData(drawnCardTypes[i]));
+                card.InitializeUI(drawnCardTypes[i]);
             }
             Canvas.ForceUpdateCanvases();
             cardRevealFeedbacks.PlayFeedbacks();

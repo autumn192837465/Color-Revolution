@@ -11,6 +11,6 @@ namespace CB.Model
     {
         public int Hp;
         public int Coin;
-        public List<CardType> CardList;
+        public UCard[] CardDeck;
     }    
 }

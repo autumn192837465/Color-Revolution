@@ -12,10 +12,10 @@ public class CardUI : MonoBehaviour
     
     public MCard MCard { get; private set; }
     
-    public virtual void InitializeUI(MCard data)
+    public virtual void InitializeUI(UCard data)
     {
-        MCard = data;
+        MCard = data.MCard;
         descriptionText.text = MCard.Description;
-        costIcon.SetText(data.Cost);
+        costIcon.SetText(data.MCard.Cost);
     }   
 }

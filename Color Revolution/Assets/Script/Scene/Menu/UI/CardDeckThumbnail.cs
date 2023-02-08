@@ -54,7 +54,7 @@ public class CardDeckThumbnail : MonoBehaviour
     public void InitializeUI(UCard uCard)
     {
         UCard = uCard;
-        cardUI.InitializeUI(uCard.MCard);
+        cardUI.InitializeUI(uCard);
     }
 
 

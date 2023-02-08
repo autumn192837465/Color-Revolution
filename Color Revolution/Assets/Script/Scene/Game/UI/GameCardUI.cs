@@ -25,7 +25,7 @@ namespace CR.Game
             SetCoverActive(false);
         }
 
-        public override void InitializeUI(MCard data)
+        public override void InitializeUI(UCard data)
         {
             base.InitializeUI(data);
             SetCoverActive(false);

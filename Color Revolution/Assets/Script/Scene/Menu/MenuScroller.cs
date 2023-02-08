@@ -45,7 +45,7 @@ public class MenuScroller : MonoBehaviour
             buttonInfo.Button.OnClick = () => SelectFooter(buttonInfo.Type);
         }
         
-        SelectFooterWithoutAction(MenuType.Deck);
+        SelectFooterWithoutAction(MenuType.Main);
     }
 
 

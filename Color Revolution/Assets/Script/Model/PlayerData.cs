@@ -46,6 +46,9 @@ namespace CR.Model
             }
 
         }
+        
+        
+        
         public List<UCard> UCardDataList;
         public UCard[] CardDeck;
     }    

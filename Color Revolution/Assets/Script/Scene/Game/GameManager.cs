@@ -36,7 +36,7 @@ namespace CR.Game
         public static GameState CurrentState = GameState.Initialize;
         public int PlayerCoin => playerData.Coin;
         public int PlayerHp => playerData.Hp;
-        public List<CardType> PlayerCards => playerData.CardList;
+        public UCard[] PlayerCards => playerData.CardDeck;
         private Node selectingNode;
         
 
@@ -133,14 +133,7 @@ namespace CR.Game
             {
                 Hp = 20,
                 Coin = 1000,
-                CardList = new List<CardType>()
-                {
-                    CardType.AddRedAttack,
-                    CardType.AddBlueAttack,
-                    CardType.AddGreenAttack,
-                    CardType.AddAttackRange,
-                    CardType.AddAttackSpeed,
-                }
+                CardDeck = PlayerDataManager.Instance.PlayerData.CardDeck,
             };
 
 

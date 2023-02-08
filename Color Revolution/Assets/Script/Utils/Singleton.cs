@@ -5,8 +5,7 @@ using UnityEngine;
 // Todo SceneManager
 public abstract class Singleton<T> : MonoBehaviour where T : Component
 {
-	[SerializeField]
-	private bool dontDestroy = false;
+	[SerializeField] protected bool dontDestroy = false;
 	protected bool isDuplicate;
 	#region Fields
 
