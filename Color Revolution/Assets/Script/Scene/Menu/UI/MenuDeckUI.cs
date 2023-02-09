@@ -208,6 +208,7 @@ public class MenuDeckUI : MonoBehaviour
             if (PlayerCardDeck[i] == cardDeckThumbnail.UCard)
             {
                 PlayerCardDeck[i] = null;
+                DeselectingCard();
                 break;
             }
         }
