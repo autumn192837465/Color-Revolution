@@ -46,7 +46,7 @@ namespace CR.Game
         [SerializeField] private MMF_Player enhanceFeedbacks;
 
 
-        public TargetPriority TargetPriority;
+        [HideInInspector] public TargetPriority TargetPriority;
         public TurretData TurretData { get; private set; }
         public TurretBasicData TurretBasicData => turretBasicData;
         private TurretBasicData turretBasicData;

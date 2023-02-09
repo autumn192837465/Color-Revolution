@@ -14,7 +14,7 @@ public class AnimatorBase : MonoBehaviour
     
     public Action OnOpen;
     public Action OnOpened;
-    public Action OnIdle;
+    public Action OnClose;
     public Action OnClosed;
     public bool IsIdle => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle");
     public bool IsOpened => !animator.GetCurrentAnimatorStateInfo(0).IsName("Closed");
@@ -52,31 +52,40 @@ public class AnimatorBase : MonoBehaviour
     {
         OnOpened?.Invoke();
     }
-    public void OnIdleEvent()
+    public void OnCloseEvent()
     {
-        OnIdle?.Invoke();
+        OnClose?.Invoke();
     }
-
-    public virtual void Close()
-    {
-        if(!IsOpened)    return;
-        animator.SetTrigger(closeTrigger);
-        closeSoundFeedbacks?.PlayFeedbacks();
-    }
-    public virtual void Close(Action action)
-    {        
-        if (!IsOpened)   return;
-        
-        OnClosed = action;
-        animator.SetTrigger(closeTrigger);
-        closeSoundFeedbacks?.PlayFeedbacks();
-            
-    }
+    
     public void OnClosedEvent()
     {
         OnClosed?.Invoke();
     }
 
+
+    
+    public virtual void Close()
+    {
+        if(!IsOpened)    return;
+        animator.SetTrigger(closeTrigger);
+        if (closeSoundFeedbacks != null) closeSoundFeedbacks.PlayFeedbacks();
+    }
+    
+    public virtual void Close(Action action)
+    {        
+        if (!IsOpened)   return;
+
+        OnClosed = () =>
+        {
+            action?.Invoke();
+            action = null;
+        };
+            
+        animator.SetTrigger(closeTrigger);
+        if (closeSoundFeedbacks != null) closeSoundFeedbacks.PlayFeedbacks();
+
+    }
+    
     private void GetAnimator()
     {
         animator = GetComponent<Animator>();
@@ -84,7 +93,7 @@ public class AnimatorBase : MonoBehaviour
     public void ClearAllAction()
     {
         OnOpen = null;
-        OnIdle = null;
+        OnClose = null;
         OnOpened = null;
         OnClosed = null;
     }

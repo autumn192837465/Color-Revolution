@@ -33,6 +33,8 @@ public class MenuDeckUI : MonoBehaviour
     [SerializeField] private Button cardSwapRootCancelButton;
     [SerializeField] private CardUI swapCardUI;
     [SerializeField] private GridLayoutGroup cardScrollerLayoutGroup;
+    public Action<UCard> OnClickCardUpgrade;
+    
     
     private CardDeckThumbnail selectingCardDeckThumbnail;
     private UCard[] PlayerCardDeck => PlayerDataManager.Instance.PlayerData.CardDeck;
@@ -98,6 +100,9 @@ public class MenuDeckUI : MonoBehaviour
                     UseCard(cardDeckThumbnail);
                 }
             };
+
+            cardDeckThumbnail.OnClickUpgradeButton = () => OnClickCardUpgrade?.Invoke(uCard);
+            //cardDeckThumbnail.OnClickUpgradeButton = 
         }
 
         RefreshCardScroller();

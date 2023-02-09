@@ -19,6 +19,7 @@ public class CardDeckThumbnail : MonoBehaviour
     [SerializeField] private GameObject buttonRoot;
     [SerializeField] private Button useRemoveButton;
     [SerializeField] private TextMeshProUGUI useRemoveText;
+    [SerializeField] private Button upgradeButton;
 
     public Status CardStatus
     {
@@ -45,10 +46,13 @@ public class CardDeckThumbnail : MonoBehaviour
     
     public Action OnSelectCard;
     public Action OnClickUseRemoveButton;
+    public Action OnClickUpgradeButton;
     private void Awake()
     {
         cardButton.onClick.AddListener(() => OnSelectCard?.Invoke());
         useRemoveButton.onClick.AddListener(() => OnClickUseRemoveButton?.Invoke());
+        upgradeButton.onClick.AddListener(() => OnClickUpgradeButton?.Invoke());
+        HideButtonRoot();
     }
 
     public void InitializeUI(UCard uCard)
