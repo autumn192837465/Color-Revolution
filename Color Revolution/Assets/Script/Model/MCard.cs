@@ -9,9 +9,22 @@ namespace CB.Model
     public class MCard
     {
         public CardType CardType;
+        public int Level;
         public Sprite Sprite;
         public int Cost;
-        [TextArea(10, 3)] 
+        [TextArea(5, 3)] 
         public string Description;
-    }    
+    }
+
+
+    [Serializable]
+    public class MCardInt : MCard
+    {
+        public int ArgInt;
+    }
+
+    public class MCardFloat : MCard
+    {
+        public float ArgFloat;
+    }
 }

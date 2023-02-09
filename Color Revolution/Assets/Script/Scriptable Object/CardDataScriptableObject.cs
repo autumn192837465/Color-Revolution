@@ -9,7 +9,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Card Data", menuName = "ScriptableObjects/Card Data", order = 1)]
 public class CardDataScriptableObject : ScriptableObject
 {
-    public List<MCard> CardDataList;
+    public List<MCardInt> CardDataList;
     public Dictionary<CardType, MCard> cardDataCache;
 
     public void InitializeCardData()

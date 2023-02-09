@@ -9,7 +9,8 @@ public class CardUpgradeUI : AnimatorBase
 {
     public enum ButtonType
     {
-        Close,    
+        Close,
+        Upgrade,
     }
 
     [Serializable]
@@ -20,6 +21,11 @@ public class CardUpgradeUI : AnimatorBase
     }
 
     [SerializeField] private List<ButtonInfo> buttonList;
+    [SerializeField] private CardUI cardUI;
+
+    public UCard UCard { get; private set; }
+    
+ 
     public Action<ButtonType> OnClickButton;    
     
 
@@ -39,6 +45,8 @@ public class CardUpgradeUI : AnimatorBase
 
     public void InitializeUI(UCard uCard)
     {
-
+        UCard = uCard;
+        cardUI.InitializeUI(uCard);
     }
+    
 }

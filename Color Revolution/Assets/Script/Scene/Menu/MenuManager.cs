@@ -44,6 +44,9 @@ public class MenuManager : Singleton<MenuManager>
                 case CardUpgradeUI.ButtonType.Close:
                     CardUpgradeUI.Close();
                     break;
+                case CardUpgradeUI.ButtonType.Upgrade:
+                    //CardUpgradeUI.UCard;
+                    
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
