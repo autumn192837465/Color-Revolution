@@ -22,6 +22,7 @@ namespace CR.Game
         {
             DrawCard,
             SellTurret,
+            Menu,
         }
 
 
@@ -58,7 +59,7 @@ namespace CR.Game
                 turretButton.OnClickTurret = SelectTurret;
             }
 
-            pausePlayButton.OnClick = OnClickPausePlayButton;
+            pausePlayButton.OnClick = OnClickPauseButton;
             speedUpButton.OnClick = OnClickSpeedUpButton;
             cancelTurretSelectingButton.onClick.AddListener(CancelTurretSelection);
             readyButton.OnClick = () => OnClickReady?.Invoke();
@@ -145,22 +146,14 @@ namespace CR.Game
         [SerializeField] private Image speedUpButtonImage;
         
         public Action OnClickPause;
-        public Action OnClickPlay;
+        //public Action OnClickPlay;
         
         public Action OnResumeGameSpeed;
         public Action OnSpeedUpGame;
-        private void OnClickPausePlayButton()
+        private void OnClickPauseButton()
         {
-            if (GameManager.IsPausing)
-            {
-                pausePlayButtonImage.color = Color.white;;
-                OnClickPlay?.Invoke();
-            }
-            else
-            {
-                pausePlayButtonImage.color = Color.gray;
-                OnClickPause?.Invoke();
-            }
+            //pausePlayButtonImage.color = Color.gray;
+            OnClickPause?.Invoke();
         }
         
         private void OnClickSpeedUpButton()

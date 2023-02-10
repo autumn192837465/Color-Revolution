@@ -25,7 +25,9 @@ namespace CR.Game
         
         public List<Enemy> EnemyList;
         public Camera MainCamera;
+        [Header("Layout UI")]
         [SerializeField] private GameUI GameUI;
+        [SerializeField] private GameMenuUI GameMenuUI;
         [SerializeField] private Transform enemyRoot;
         [SerializeField] private MapCreator MapCreator;
         [SerializeField] private WaveDataScriptableObject tempWaveData;
@@ -142,6 +144,7 @@ namespace CR.Game
             GameUI.InitializeUI();
             AddMapCreatorEvent();
             AddGameUIEvent();
+            AddGameMenuUIEvent();
             
             MapCreator.CreateMap(tempMapData);
             ToState(GameState.PlayerPreparing);
@@ -165,7 +168,6 @@ namespace CR.Game
                 if(IsPausing)   return;
                 switch (type)
                 {
-                   
                     case GameUI.ButtonType.DrawCard:
                         if(PlayerCoin < Constants.DrawCost) return;
                         ReducePlayerCoin(Constants.DrawCost);
@@ -200,7 +202,7 @@ namespace CR.Game
                 GameUI.SetReadyButtonActive(false);
                 ToState(GameState.SpawnEnemy);
             };
-            GameUI.OnClickPlay = PlayGame;
+            //GameUI.OnClickPlay = PlayGame;
             GameUI.OnClickPause = PauseGame;
             GameUI.OnResumeGameSpeed = ResumeGameSpeed;
             GameUI.OnSpeedUpGame = SpeedUpGame;
@@ -269,6 +271,28 @@ namespace CR.Game
             };
 
 
+        }
+
+        private void AddGameMenuUIEvent()
+        {
+            GameMenuUI.OnClickButton = (type) =>
+            {
+                switch (type)
+                {
+                    case GameMenuUI.ButtonType.Continue:
+                    case GameMenuUI.ButtonType.Close:
+                        ResumeGame();
+                        break;
+                    case GameMenuUI.ButtonType.Restart:
+                        break;
+                    case GameMenuUI.ButtonType.EndGame:
+                        break;
+
+
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                }
+            };
         }
         
         #endregion
@@ -418,16 +442,18 @@ namespace CR.Game
         public static bool IsSpeedUp { get;private set; }
         private float currentGameSpeed = 1;
         
-        private void PlayGame()
+        private void ResumeGame()
         {
             IsPausing = false;
             Time.timeScale = currentGameSpeed;
+            GameMenuUI.Close();
         }
 
         private void PauseGame()
         {
             IsPausing = true;
             Time.timeScale = 0;
+            GameMenuUI.Open();
         }
 
         private void SpeedUpGame()
