@@ -20,6 +20,7 @@ namespace Kinopi.Constants
 
         public const float FrozenSpeedDebuffPercentage = 0.5f;
         public const float PoisonActivateTimer = 1f;
+        public const float BurningPercentage = 1.5f;
         
         public static readonly RGB PoisonDamage = new RGB(1, 1, 1);
     }

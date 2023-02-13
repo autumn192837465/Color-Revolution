@@ -36,6 +36,12 @@ namespace CR.Model
         public int RedValue;
         public int GreenValue;
         public int BlueValue;
+
+
+        public static RGB operator *(RGB rgb, float a)
+        {
+            return new RGB((int)(rgb.RedValue * a), (int)(rgb.GreenValue * a),(int)(rgb.BlueValue * a));
+        }
     }
     
     [Serializable]

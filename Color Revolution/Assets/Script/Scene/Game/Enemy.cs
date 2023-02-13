@@ -63,11 +63,11 @@ public class Enemy : UnitBase
         enemyData = enemyDataScriptableObject.EnemyData.DeepClone();
         HitEndNode = false;
         enemyWorldCanvas.Initialize(enemyData);
-        PoisonEnemy();
     }
 
     void Start()
     {
+        
     }
 
     void Update()
@@ -141,7 +141,8 @@ public class Enemy : UnitBase
         var bullet = other.GetComponent<Bullet>();
         if (bullet == null) return;
         
-        ReduceHp(bullet.AttackDamage);
+        
+        ReduceHp(IsBurning ? bullet.AttackDamage * Constants.BurningPercentage : bullet.AttackDamage);
        
         Destroy(bullet.gameObject);
     }
