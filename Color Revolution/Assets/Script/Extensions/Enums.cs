@@ -63,8 +63,11 @@ namespace Kinopi.Enums
 
     public enum Status
     {
-        Poison,
+        Burn,
         Freeze,
+        Poison,
+        
+        
     }
 
     public enum MenuType

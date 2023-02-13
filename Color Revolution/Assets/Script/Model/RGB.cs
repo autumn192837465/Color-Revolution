@@ -15,6 +15,13 @@ namespace CR.Model
             OriginGreenValue = GreenValue = g;
             OriginBlueValue = BlueValue = b;
         }*/
+
+        public RGB(int red, int green, int blue)
+        {
+            RedValue = red;
+            GreenValue = green;
+            BlueValue = blue;
+        }
         public Color GetColor()
         {
             float sum = RedValue + GreenValue + BlueValue;
