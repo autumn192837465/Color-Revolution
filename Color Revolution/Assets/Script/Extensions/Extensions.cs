@@ -139,6 +139,8 @@ namespace Kinopi.Extensions
             int j = Array.IndexOf<T>(Arr, src) - 1;
             return (j < 0) ? Arr[^1] : Arr[j];
         }
+        
+        
     }
 }
 

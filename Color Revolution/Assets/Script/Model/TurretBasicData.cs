@@ -12,6 +12,9 @@ namespace CB.Model
         public float AttackRange;   // 攻擊範圍
         public float CriticalRate;  // 爆擊率
         public float HitRate;       // 命中率
+        public float PoisonRate;       // 命中率
+        public float FreezeRate;       // 命中率
+        public float BurnRate;       // 命中率
         public float OperatingTime; // 運轉時間
         public float CooldownTime; // 運轉時間
     }    

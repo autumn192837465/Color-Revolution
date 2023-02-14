@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BasicData:
     AttackDamage:
-      RedValue: 1
+      RedValue: 10
       GreenValue: 0
       BlueValue: 0
     BulletPerSecond: 1

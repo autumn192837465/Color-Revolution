@@ -136,18 +136,8 @@ public class Enemy : UnitBase
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        var bullet = other.GetComponent<Bullet>();
-        if (bullet == null) return;
-        
-        
-        ReduceHp(IsBurning ? bullet.AttackDamage * Constants.BurningPercentage : bullet.AttackDamage);
-       
-        Destroy(bullet.gameObject);
-    }
 
-    private void ReduceHp(RGB damage)
+    public void ReduceHp(RGB damage)
     {
         enemyData.Health.ReduceHealth(damage);
         enemyWorldCanvas.RefreshUI();

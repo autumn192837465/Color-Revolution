@@ -129,8 +129,8 @@ namespace CR.Game
         private void CreateBullet(Enemy target)
         {
             Bullet bullet =  Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            bullet.Initialize(turretBasicData.AttackDamage);
-            bullet.SetDestination(target.gameObject);
+            bullet.Initialize(new BulletData(turretBasicData));
+            bullet.SetDestination(target);
         }
 
         private void AttackIfCan(Enemy target)
