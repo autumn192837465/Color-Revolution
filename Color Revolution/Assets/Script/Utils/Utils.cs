@@ -31,6 +31,11 @@ namespace Kinopi.Utils
             return Random.Range(0f, 1f) <= chance;
         }
 
+        public static bool HitProbability(int chance)
+        {
+            return Random.Range(0, 100) < chance;
+        }
+        
         public static Vector3 GetRandomVector(float length)
         {
             return new Vector3(Random.Range(-length, length), Random.Range(-length, length));

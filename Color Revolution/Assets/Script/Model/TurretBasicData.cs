@@ -10,11 +10,12 @@ namespace CB.Model
         public RGB AttackDamage;  // 攻擊力
         public float BulletPerSecond;   // 攻速   x bullet/sec
         public float AttackRange;   // 攻擊範圍
-        public float CriticalRate;  // 爆擊率
-        public float HitRate;       // 命中率
-        public float PoisonRate;       // 命中率
-        public float FreezeRate;       // 命中率
-        public float BurnRate;       // 命中率
+
+        [Range(0, 100)] public int CriticalRate;  // 爆擊率
+        [Range(0, 100)] public int HitRate;       // 命中率
+        [Range(0, 100)] public int PoisonRate;       // 命中率
+        [Range(0, 100)] public int FreezeRate;       // 命中率
+        [Range(0, 100)] public int BurnRate;       // 命中率
         public float OperatingTime; // 運轉時間
         public float CooldownTime; // 運轉時間
     }    

@@ -20,9 +20,9 @@ public class BulletData
     }
         
     public RGB Damage;
-    public float PoisonRate;
-    public float BurnRate;
-    public float FreezeRate;
+    public int PoisonRate;
+    public int BurnRate;
+    public int FreezeRate;
 }
 
 public class Bullet : MonoBehaviour
@@ -81,7 +81,7 @@ public class Bullet : MonoBehaviour
         
         if (Utils.HitProbability(BulletData.FreezeRate))
         {
-            enemy.BurnEnemy();
+            enemy.FreezeEnemy();
         }
         
         if (Utils.HitProbability(BulletData.PoisonRate))

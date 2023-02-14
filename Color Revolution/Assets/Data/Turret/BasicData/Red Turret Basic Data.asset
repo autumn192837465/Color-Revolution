@@ -21,5 +21,8 @@ MonoBehaviour:
     AttackRange: 5
     CriticalRate: 0
     HitRate: 0
+    PoisonRate: 0
+    FreezeRate: 100
+    BurnRate: 0
     OperatingTime: 10
     CooldownTime: 1
