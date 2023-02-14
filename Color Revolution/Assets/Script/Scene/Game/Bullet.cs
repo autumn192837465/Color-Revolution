@@ -14,12 +14,14 @@ public class BulletData
     public BulletData(TurretBasicData turretBasicData)
     {
         Damage = turretBasicData.AttackDamage.Copy();
+        HitRate = turretBasicData.HitRate.Copy();
         PoisonRate = turretBasicData.PoisonRate.Copy();
         BurnRate = turretBasicData.BurnRate.Copy();
         FreezeRate = turretBasicData.FreezeRate.Copy();
     }
         
     public RGB Damage;
+    public Rate HitRate;
     public Rate PoisonRate;
     public Rate BurnRate;
     public Rate FreezeRate;
@@ -71,26 +73,32 @@ public class Bullet : MonoBehaviour
         Enemy enemy = collider.GetComponent<Enemy>();
         if (enemy != targetEnemy)    return;
         
+        Destroy(gameObject);
+        if(!BulletData.HitRate.HitProbability())    
+        {
+            // Todo : play miss text
+            return;
+        }
         
         enemy.ReduceHp(enemy.IsBurning ? BulletData.Damage * Constants.BurningPercentage : BulletData.Damage);
 
-        if (BulletData.BurnRate.HitRate())
+        if (BulletData.BurnRate.HitProbability())
         {
             enemy.BurnEnemy();
         }
         
-        if (BulletData.FreezeRate.HitRate())
+        if (BulletData.FreezeRate.HitProbability())
         {
             enemy.FreezeEnemy();
         }
         
-        if (BulletData.PoisonRate.HitRate())
+        if (BulletData.PoisonRate.HitProbability())
         {
             enemy.PoisonEnemy();
         }
         
         
-        Destroy(gameObject);
+        
     }
 
     private void OnDestroy()

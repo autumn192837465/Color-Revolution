@@ -18,7 +18,7 @@ public class Rate
 
     [SerializeField] [Range(0, 100)] private int value;
 
-    public bool HitRate()
+    public bool HitProbability()
     {
         return Utils.HitProbability(value);
     }
