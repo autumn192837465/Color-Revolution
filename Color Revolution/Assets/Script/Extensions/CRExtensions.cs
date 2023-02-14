@@ -26,6 +26,7 @@ namespace Kinopi.Extensions
         public static Vector3 XZPosition(this Vector3 vec) => new Vector3(vec.x, 0, vec.z);
 
         public static RGB Copy(this RGB rgb) => new RGB(rgb.RedValue, rgb.GreenValue, rgb.BlueValue);
+        public static Rate Copy(this Rate rate) => new Rate(rate.Value);
     }
 }
 

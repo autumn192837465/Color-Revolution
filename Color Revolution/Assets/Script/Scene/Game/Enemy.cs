@@ -109,7 +109,6 @@ public class Enemy : UnitBase
             poisonActivateTimer += deltaTime;
             if (poisonActivateTimer > Constants.PoisonActivateTimer)
             {
-                print("Activate Poison");
                 ReduceHp(Constants.PoisonDamage);
                 poisonActivateTimer -= Constants.PoisonActivateTimer;
             }

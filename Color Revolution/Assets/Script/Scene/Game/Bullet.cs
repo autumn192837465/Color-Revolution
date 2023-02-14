@@ -14,15 +14,15 @@ public class BulletData
     public BulletData(TurretBasicData turretBasicData)
     {
         Damage = turretBasicData.AttackDamage.Copy();
-        PoisonRate = turretBasicData.PoisonRate;
-        BurnRate = turretBasicData.BurnRate;
-        FreezeRate = turretBasicData.FreezeRate;
+        PoisonRate = turretBasicData.PoisonRate.Copy();
+        BurnRate = turretBasicData.BurnRate.Copy();
+        FreezeRate = turretBasicData.FreezeRate.Copy();
     }
         
     public RGB Damage;
-    public int PoisonRate;
-    public int BurnRate;
-    public int FreezeRate;
+    public Rate PoisonRate;
+    public Rate BurnRate;
+    public Rate FreezeRate;
 }
 
 public class Bullet : MonoBehaviour
@@ -74,17 +74,17 @@ public class Bullet : MonoBehaviour
         
         enemy.ReduceHp(enemy.IsBurning ? BulletData.Damage * Constants.BurningPercentage : BulletData.Damage);
 
-        if (Utils.HitProbability(BulletData.BurnRate))
+        if (BulletData.BurnRate.HitRate())
         {
             enemy.BurnEnemy();
         }
         
-        if (Utils.HitProbability(BulletData.FreezeRate))
+        if (BulletData.FreezeRate.HitRate())
         {
             enemy.FreezeEnemy();
         }
         
-        if (Utils.HitProbability(BulletData.PoisonRate))
+        if (BulletData.PoisonRate.HitRate())
         {
             enemy.PoisonEnemy();
         }
