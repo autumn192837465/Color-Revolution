@@ -14,50 +14,104 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardDataList:
   - CardType: 0
+    Level: 0
     Sprite: {fileID: 0}
     Cost: 5
     Description: Add 1 Red Attack
+    ArgInt: 0
   - CardType: 1
+    Level: 0
     Sprite: {fileID: 0}
     Cost: 10
     Description: Add 1 Blue Attack
+    ArgInt: 0
   - CardType: 2
+    Level: 0
     Sprite: {fileID: 0}
     Cost: 15
     Description: Add 1 Green Attack
+    ArgInt: 0
   - CardType: 3
+    Level: 0
     Sprite: {fileID: 0}
     Cost: 20
     Description: Add 0.1 Attack Range
+    ArgInt: 0
   - CardType: 4
+    Level: 0
     Sprite: {fileID: 0}
     Cost: 25
     Description: Add 0.1 Attack Speed
+    ArgInt: 0
   - CardType: 5
+    Level: 0
     Sprite: {fileID: 0}
     Cost: 25
     Description: Test 1
+    ArgInt: 0
   - CardType: 6
+    Level: 0
     Sprite: {fileID: 0}
     Cost: 25
     Description: Test 2
+    ArgInt: 0
   - CardType: 7
+    Level: 0
     Sprite: {fileID: 0}
     Cost: 25
     Description: Test 3
+    ArgInt: 0
   - CardType: 8
+    Level: 0
     Sprite: {fileID: 0}
     Cost: 25
     Description: Test 4
+    ArgInt: 0
   - CardType: 9
+    Level: 0
     Sprite: {fileID: 0}
     Cost: 25
     Description: Test 5
+    ArgInt: 0
   - CardType: 10
+    Level: 0
     Sprite: {fileID: 0}
     Cost: 25
     Description: Test 6
+    ArgInt: 0
   - CardType: 11
+    Level: 0
     Sprite: {fileID: 0}
     Cost: 25
     Description: Test 7
+    ArgInt: 0
+  - CardType: 12
+    Level: 0
+    Sprite: {fileID: 0}
+    Cost: 25
+    Description: Test 7
+    ArgInt: 0
+  - CardType: 13
+    Level: 0
+    Sprite: {fileID: 0}
+    Cost: 25
+    Description: Test 7
+    ArgInt: 0
+  - CardType: 14
+    Level: 0
+    Sprite: {fileID: 0}
+    Cost: 25
+    Description: Test 7
+    ArgInt: 0
+  - CardType: 15
+    Level: 0
+    Sprite: {fileID: 0}
+    Cost: 25
+    Description: Test 7
+    ArgInt: 0
+  - CardType: 16
+    Level: 0
+    Sprite: {fileID: 0}
+    Cost: 25
+    Description: Test 7
+    ArgInt: 0

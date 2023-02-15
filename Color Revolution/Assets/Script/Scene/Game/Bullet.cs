@@ -79,8 +79,14 @@ public class Bullet : MonoBehaviour
             // Todo : play miss text
             return;
         }
+
+        bool isCritical = BulletData.HitRate.HitProbability();
+        float amplifier = 1;
+        amplifier = isCritical ? amplifier * Constants.CriticalPercentage : amplifier;
+        amplifier = enemy.IsBurning ? amplifier * Constants.BurningPercentage : amplifier;
         
-        enemy.ReduceHp(enemy.IsBurning ? BulletData.Damage * Constants.BurningPercentage : BulletData.Damage);
+        
+        enemy.ReduceHp(BulletData.Damage * amplifier);
 
         if (BulletData.BurnRate.HitProbability())
         {

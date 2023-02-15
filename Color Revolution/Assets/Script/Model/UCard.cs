@@ -10,6 +10,7 @@ namespace CB.Model
     {
         public UCard(CardType type)
         {
+            Level = 1;
             CardType = type;
         }
         public int Level;

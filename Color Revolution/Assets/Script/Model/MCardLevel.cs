@@ -8,8 +8,7 @@ namespace CB.Model
     [Serializable]
     public class MCardLevel
     {
-        public int Id;
         public int Level;
-        public int Cost;
+        public int UpgradeCost;
     }
 }

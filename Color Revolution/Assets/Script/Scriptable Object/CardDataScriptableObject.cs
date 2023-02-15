@@ -10,14 +10,14 @@ using UnityEngine;
 public class CardDataScriptableObject : ScriptableObject
 {
     public List<MCardInt> CardDataList;
-    public Dictionary<CardType, MCard> cardDataCache;
+    public Dictionary<CardType, MCard> CardDataCache { get; private set; }
 
     public void InitializeCardData()
     {
-        cardDataCache = new();
+        CardDataCache = new();
         foreach (var data in CardDataList)
         {
-            cardDataCache.Add(data.CardType, data);
+            CardDataCache.Add(data.CardType, data);
         }
     }
 }

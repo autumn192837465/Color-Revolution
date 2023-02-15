@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CB.Model;
+using CR;
+using Kinopi.Constants;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +26,7 @@ public class CardUpgradeUI : AnimatorBase
     [SerializeField] private List<ButtonInfo> buttonList;
     [SerializeField] private CardUI cardUI;
 
+    [SerializeField] private TextMeshProUGUI upgradeCostText;
     public UCard UCard { get; private set; }
     
  
@@ -47,6 +51,22 @@ public class CardUpgradeUI : AnimatorBase
     {
         UCard = uCard;
         cardUI.InitializeUI(uCard);
+
+        if (uCard.Level == Constants.MaxCardLevel)
+        {
+            
+        }
+        else
+        {
+            int cost = DataManager.Instance.GetCardLevelData(uCard.Level).UpgradeCost;
+
+
+            upgradeCostText.text = cost.ToString();
+            upgradeCostText.color = (PlayerDataManager.Instance.PlayerData.RainbowCandy >= cost)
+                ? Constants.EnableColor
+                : Constants.DisableColor;
+        }
+
     }
     
 }

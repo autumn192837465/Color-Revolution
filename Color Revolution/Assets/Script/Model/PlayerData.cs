@@ -13,6 +13,7 @@ namespace CR.Model
     {
         public PlayerData()
         {
+            RainbowCandy = 0;
             UCardDataList = new List<UCard>();
             UCard temp = new UCard(CardType.AddAttackRange);
             UCardDataList.Add(temp);
@@ -46,9 +47,9 @@ namespace CR.Model
             }
 
         }
-        
-        
-        
+
+
+        public int RainbowCandy;    // Todo : rename?
         public List<UCard> UCardDataList;
         public UCard[] CardDeck;
     }    

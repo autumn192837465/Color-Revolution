@@ -1,10 +1,6 @@
 using Kinopi.Enums;
 using Kinopi.Extensions;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using CB.Model;
-using UnityEditor;
 using UnityEngine;
 
 public class DataManager : Singleton<DataManager>
@@ -21,6 +17,7 @@ public class DataManager : Singleton<DataManager>
     {
         TurretData.InitializeTurretData();
         CardData.InitializeCardData();
+        CardLevelData.InitializeCardLevelData();
     }
 
 
@@ -28,7 +25,7 @@ public class DataManager : Singleton<DataManager>
     [SerializeField] private TurretDataScriptableObject TurretData;
     public TurretData GetTurretData(TurretType type)
     {
-        return TurretData.turretDataCache.GetValue(type);
+        return TurretData.TurretDataCache.GetValue(type);
     }
     #endregion
     
@@ -37,9 +34,17 @@ public class DataManager : Singleton<DataManager>
     [SerializeField] private CardDataScriptableObject CardData;
     public MCard GetCardData(CardType type)
     {
-        return CardData.cardDataCache.GetValue(type);
+        return CardData.CardDataCache.GetValue(type);
     }
+
+    [SerializeField] private CardLevelDataScriptableObject CardLevelData;
+
+    public MCardLevel GetCardLevelData(int level)
+    {
+        return CardLevelData.CardLevelDataCache.GetValue(level);
+    }
+
     #endregion
-   
+
 
 }

@@ -10,14 +10,14 @@ using UnityEngine;
 public class TurretDataScriptableObject : ScriptableObject
 {
     public List<TurretData> TurretDataList;
-    public Dictionary<TurretType, TurretData> turretDataCache;
+    public Dictionary<TurretType, TurretData> TurretDataCache { get; private set; }
 
     public void InitializeTurretData()
     {
-        turretDataCache = new();
+        TurretDataCache = new();
         foreach (var data in TurretDataList)
         {
-            turretDataCache.Add(data.TurretType, data);
+            TurretDataCache.Add(data.TurretType, data);
         }
     }
 }
