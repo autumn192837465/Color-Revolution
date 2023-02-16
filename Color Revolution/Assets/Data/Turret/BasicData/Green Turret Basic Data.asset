@@ -19,7 +19,17 @@ MonoBehaviour:
       BlueValue: 0
     BulletPerSecond: 10
     AttackRange: 5
-    CriticalRate: 0
-    HitRate: 0
+    CriticalRate:
+      value: 0
+    SuperCriticalRate:
+      value: 0
+    HitRate:
+      value: 100
+    PoisonRate:
+      value: 0
+    FreezeRate:
+      value: 0
+    BurnRate:
+      value: 0
     OperatingTime: 10
     CooldownTime: 1

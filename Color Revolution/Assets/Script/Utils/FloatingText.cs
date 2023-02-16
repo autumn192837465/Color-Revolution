@@ -24,7 +24,7 @@ public class FloatingText : MonoBehaviour
     [SerializeField] private Color green = Color.green;
     [SerializeField] private Color white = Color.white;
     [SerializeField] private Color red = Color.red;
-    [SerializeField] private Color yellow = Color.yellow;
+    [SerializeField] private Color blue = Color.blue;
 
     [Header("Critical")]
     [SerializeField] private Color CriticalColor = Color.white;
@@ -109,8 +109,8 @@ public class FloatingText : MonoBehaviour
         contentText.color = type switch
         {
             Type.Red => red,
-            Type.Green => Color.green,
-            Type.Blue => Color.blue,
+            Type.Green => green,
+            Type.Blue => blue,
             _ => white
         };
 

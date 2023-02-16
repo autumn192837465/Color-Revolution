@@ -63,14 +63,14 @@ namespace CR.Model
         public RGB ReduceHealth(RGB damage)
         {
             int redAmount = Mathf.Min(damage.RedValue, CurrentHealth.RedValue);
-            int greenAmount = Mathf.Min(damage.RedValue, CurrentHealth.GreenValue);
-            int blueAmount = Mathf.Min(damage.RedValue, CurrentHealth.BlueValue);
-            CurrentHealth.RedValue -= damage.RedValue;
-            CurrentHealth.GreenValue -= damage.GreenValue;
-            CurrentHealth.BlueValue -= damage.BlueValue;
-            if (CurrentHealth.RedValue < 0) CurrentHealth.RedValue = 0;
+            int greenAmount = Mathf.Min(damage.GreenValue, CurrentHealth.GreenValue);
+            int blueAmount = Mathf.Min(damage.BlueValue, CurrentHealth.BlueValue);
+            CurrentHealth.RedValue -= redAmount;
+            CurrentHealth.GreenValue -= greenAmount;
+            CurrentHealth.BlueValue -= blueAmount;
+            /*if (CurrentHealth.RedValue < 0) CurrentHealth.RedValue = 0;
             if (CurrentHealth.GreenValue < 0) CurrentHealth.GreenValue = 0;
-            if (CurrentHealth.BlueValue < 0) CurrentHealth.BlueValue = 0;
+            if (CurrentHealth.BlueValue < 0) CurrentHealth.BlueValue = 0;*/
 
             return new RGB(redAmount, greenAmount, blueAmount);
         }

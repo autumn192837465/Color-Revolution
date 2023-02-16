@@ -57,6 +57,12 @@ namespace Kinopi.Enums
         Test7,
     }
 
+    public enum PointType
+    {
+        RainbowCandy,
+        
+    }
+
     public enum TargetPriority
     {
         FirstTarget,
