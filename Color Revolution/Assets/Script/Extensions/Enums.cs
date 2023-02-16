@@ -11,7 +11,9 @@ namespace Kinopi.Enums
         Initialize,
         SpawnEnemy,
         PlayerPreparing,
-        End,
+        ShowResult,
+        End
+        
     }
 
     public enum TurretState

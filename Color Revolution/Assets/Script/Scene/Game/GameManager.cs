@@ -24,6 +24,7 @@ namespace CR.Game
         [SerializeField] private LevelDataScriptableObject tempLevelData;
         [SerializeField] private TextMeshProUGUI logText;
         [SerializeField] private Transform floatingTextRoot;
+        [SerializeField] private GameWinResultUI GameWinResultUI;
         
         public MapDataScriptableObject tempMapData;
 
@@ -59,16 +60,20 @@ namespace CR.Game
         
         void Update()
         {
+            if(CurrentState == GameState.End)   return;
             DeltaTime = Time.deltaTime * GameSpeed; 
-            if(WaveIndex >= tempLevelData.WaveSpawnList.Count)   return;
+            
 
             
             switch (CurrentState)
             {
+                case GameState.Initialize:
+                    break;
                 case GameState.PlayerPreparing:
                     break;
                 case GameState.SpawnEnemy:
-                    if(hasSpawnedAll)   return;
+                    if(hasSpawnedAll)   break;
+                    //if(WaveIndex >= tempLevelData.WaveSpawnList.Count)   break;
                     timer += Time.deltaTime;
                     if (timer >= tempLevelData.GetEnemySpawnGroupInterval(WaveIndex, spawnGroupIndex))
                     {
@@ -87,7 +92,9 @@ namespace CR.Game
                         }
                     }
                     break;
-                case GameState.Initialize:
+                case GameState.ShowResult:
+                    ShowResult();
+                    break;
                 case GameState.End:
                     break;
                 default:
@@ -110,6 +117,10 @@ namespace CR.Game
                 case GameState.SpawnEnemy:
                     CurrentState = GameState.SpawnEnemy;
                     logText.text = "SpawnEnemy";
+                    break;
+                case GameState.ShowResult:
+                    CurrentState = GameState.ShowResult;
+                    logText.text = "ShowResult";
                     break;
                 case GameState.End:
                     CurrentState = GameState.End;
@@ -140,8 +151,13 @@ namespace CR.Game
             
             MapCreator.CreateMap(tempMapData);
             ToState(GameState.PlayerPreparing);
-            
-            
+        }
+
+        private void ShowResult()
+        {
+            GameWinResultUI.InitializeUI(tempLevelData.LevelReward);
+            GameWinResultUI.Open();
+            ToState(GameState.End);
         }
         #region AddUIEvent
 
@@ -279,8 +295,6 @@ namespace CR.Game
                         break;
                     case GameMenuUI.ButtonType.EndGame:
                         break;
-
-
                     default:
                         throw new ArgumentOutOfRangeException(nameof(type), type, null);
                 }
@@ -309,8 +323,16 @@ namespace CR.Game
 
                 if (EnemyList.Count == 0 && hasSpawnedAll)
                 {
-                    GameUI.SetReadyButtonActive(true);
-                    ToState(GameState.PlayerPreparing);
+                    if (WaveIndex == tempLevelData.MaxWaveCount)
+                    {
+                        ToState(GameState.ShowResult);    
+                    }
+                    else
+                    {
+                        GameUI.SetReadyButtonActive(true);
+                        ToState(GameState.PlayerPreparing);                        
+                    }
+                    
                 }
             };;
             enemy.SetPath(MapCreator.AllPaths.GetRandomElement());
@@ -408,7 +430,7 @@ namespace CR.Game
             if (playerData.Hp <= 0)
             {
                 playerData.Hp = 0;
-                ToState(GameState.End);
+                ToState(GameState.ShowResult);
                 
             }
             GameUI.RefreshHp();

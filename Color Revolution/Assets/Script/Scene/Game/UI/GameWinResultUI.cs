@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CR.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +22,12 @@ public class GameWinResultUI : AnimatorBase
     }
 
     [SerializeField] private List<ButtonInfo> buttonList;
-    public Action<ButtonType> OnClickButton;    
+    public Action<ButtonType> OnClickButton;
+
+
+    [SerializeField] private Transform rewardRoot;
+    [SerializeField] private RewardItemIconUI rewardCellPrefab;
+    private List<RewardItemIconUI> rewardCellList;
     
 
     protected override void Awake()
@@ -38,8 +44,12 @@ public class GameWinResultUI : AnimatorBase
         
     }
 
-    public void InitializeUI()
+    public void InitializeUI(List<LevelDataScriptableObject.RewardData> rewardList)
     {
-
+        for (int i = 0; i < rewardList.Count; i++)
+        {
+            var cell = Instantiate(rewardCellPrefab, rewardRoot);
+            cell.InitializeUI(rewardList[i].PointType, rewardList[i].Count);
+        }
     }
 }
