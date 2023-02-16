@@ -4,7 +4,7 @@ using Kinopi.Utils;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "MapData", menuName = "ScriptableObjects/MapData", order = 1)]
+[CreateAssetMenu(fileName = "MapData", menuName = "ScriptableObjects/Map Data", order = 1)]
 public class MapDataScriptableObject : ScriptableObject
 {
     [TextArea(20,20)]

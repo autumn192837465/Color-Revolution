@@ -18,6 +18,7 @@ public class DataManager : Singleton<DataManager>
         TurretData.InitializeTurretData();
         CardData.InitializeCardData();
         CardLevelData.InitializeCardLevelData();
+        PointData.InitializePointData();
     }
 
 
@@ -46,5 +47,14 @@ public class DataManager : Singleton<DataManager>
 
     #endregion
 
+    #region Point
+    [SerializeField] private PointDataScriptableObject PointData;
+    public MPoint GetPointData(PointType type)
+    {
+        return PointData.PointDataCache.GetValue(type);
+    }
+    
+
+    #endregion
 
 }

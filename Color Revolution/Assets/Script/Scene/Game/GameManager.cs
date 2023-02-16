@@ -1,21 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography;
 using CB.Model;
-using CR.Model;
 using CR.ScriptableObjects;
 using Kinopi.Constants;
 using Kinopi.Enums;
 using Kinopi.Extensions;
-using MoreMountains.FeedbacksForThirdParty;
 using TMPro;
-using Unity.Profiling.LowLevel.Unsafe;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 namespace CR.Game
