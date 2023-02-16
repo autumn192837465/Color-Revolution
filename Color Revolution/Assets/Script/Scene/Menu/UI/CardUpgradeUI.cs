@@ -64,7 +64,7 @@ public class CardUpgradeUI : AnimatorBase
 
 
             upgradeCostText.text = cost.ToString();
-            upgradeCostText.color = (PlayerDataManager.Instance.PlayerData.UPointDataList.FirstOrDefault(x => x.PointType == PointType.RainbowCandy).Count >= cost)
+            upgradeCostText.color = PlayerDataManager.Instance.GetUPoint(PointType.RainbowCandy).Count >= cost
                 ? Constants.EnableColor
                 : Constants.DisableColor;
         }

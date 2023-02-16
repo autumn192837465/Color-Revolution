@@ -92,7 +92,7 @@ namespace CR.Game
                         }
                     }
                     break;
-                case GameState.ShowResult:
+                case GameState.ShowWinResult:
                     ShowResult();
                     break;
                 case GameState.End:
@@ -118,8 +118,8 @@ namespace CR.Game
                     CurrentState = GameState.SpawnEnemy;
                     logText.text = "SpawnEnemy";
                     break;
-                case GameState.ShowResult:
-                    CurrentState = GameState.ShowResult;
+                case GameState.ShowWinResult:
+                    CurrentState = GameState.ShowWinResult;
                     logText.text = "ShowResult";
                     break;
                 case GameState.End:
@@ -344,7 +344,7 @@ namespace CR.Game
                 {
                     if (WaveIndex == tempLevelData.MaxWaveCount)
                     {
-                        ToState(GameState.ShowResult);    
+                        ToState(GameState.ShowWinResult);    
                     }
                     else
                     {
@@ -449,7 +449,7 @@ namespace CR.Game
             if (playerData.Hp <= 0)
             {
                 playerData.Hp = 0;
-                ToState(GameState.ShowResult);
+                ToState(GameState.ShowWinResult);
                 
             }
             GameUI.RefreshHp();

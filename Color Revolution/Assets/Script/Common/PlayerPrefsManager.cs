@@ -151,12 +151,11 @@ namespace CR
         }
     }
 
-    public static PlayerData PlayerData
+    public static string PlayerDataString
     {
         get
         {
-            string data = GetString(PlayerDataKey, JsonUtility.ToJson(new PlayerData())); 
-            return JsonUtility.FromJson<PlayerData>(data);
+            return GetString(PlayerDataKey);
         }
         set => SetString(PlayerDataKey, JsonUtility.ToJson(value));
     }

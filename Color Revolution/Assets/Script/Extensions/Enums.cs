@@ -11,7 +11,8 @@ namespace Kinopi.Enums
         Initialize,
         SpawnEnemy,
         PlayerPreparing,
-        ShowResult,
+        ShowWinResult,
+        ShowLoseResult,
         End
         
     }
