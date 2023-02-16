@@ -1204,6 +1204,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 188925336}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &188925338 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6171804575696161499, guid: 1758ccd5b34d50e4cb2551e8d98e6295,
+    type: 3}
+  m_PrefabInstance: {fileID: 188925336}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &209996128
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1340,6 +1352,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 209996128}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &209996130 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6171804575696161499, guid: 1758ccd5b34d50e4cb2551e8d98e6295,
+    type: 3}
+  m_PrefabInstance: {fileID: 209996128}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &235590741
 GameObject:
   m_ObjectHideFlags: 0
@@ -5045,7 +5069,13 @@ MonoBehaviour:
   closeSoundFeedbacks: {fileID: 0}
   openTrigger: open
   closeTrigger: close
-  buttonList: []
+  buttonList:
+  - Type: 0
+    Button: {fileID: 1494886742}
+  - Type: 1
+    Button: {fileID: 188925338}
+  - Type: 2
+    Button: {fileID: 209996130}
   rewardRoot: {fileID: 1333557330}
   rewardCellPrefab: {fileID: 2184062481621848673, guid: 661bfaba9e81f4f4ea11e61db8eba8c9,
     type: 3}
@@ -5298,7 +5328,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1181624948
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6472,7 +6502,7 @@ PrefabInstance:
     - target: {fileID: 6171804575696161497, guid: 1758ccd5b34d50e4cb2551e8d98e6295,
         type: 3}
       propertyPath: m_Name
-      value: Vedio Button
+      value: Video Button
       objectReference: {fileID: 0}
     - target: {fileID: 6171804575696161498, guid: 1758ccd5b34d50e4cb2551e8d98e6295,
         type: 3}
@@ -6598,6 +6628,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1494886740}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1494886742 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6171804575696161499, guid: 1758ccd5b34d50e4cb2551e8d98e6295,
+    type: 3}
+  m_PrefabInstance: {fileID: 1494886740}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!21 &1506388297
 Material:
   serializedVersion: 8

@@ -157,6 +157,7 @@ namespace CR.Game
         {
             GameWinResultUI.InitializeUI(tempLevelData.LevelReward);
             GameWinResultUI.Open();
+            AddGameWinResultUIEvent();
             ToState(GameState.End);
         }
         #region AddUIEvent
@@ -300,7 +301,25 @@ namespace CR.Game
                 }
             };
         }
-        
+
+        private void AddGameWinResultUIEvent()
+        {
+            GameWinResultUI.OnClickButton = (type) =>
+            {
+                switch (type)
+                {
+                    case GameWinResultUI.ButtonType.Video:
+                        break;
+                    case GameWinResultUI.ButtonType.Restart:
+                        break;
+                    case GameWinResultUI.ButtonType.Menu:
+                        SceneController.Instance.LoadToMenuScene();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                }
+            };
+        }
         #endregion
 
         #region RemoveUIEvent

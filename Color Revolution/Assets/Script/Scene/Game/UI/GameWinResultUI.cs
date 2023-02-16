@@ -9,7 +9,7 @@ public class GameWinResultUI : AnimatorBase
 {
     public enum ButtonType
     {
-        Vedio,
+        Video,
         Restart,
         Menu,
     }
