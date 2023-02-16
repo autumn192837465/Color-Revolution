@@ -12,6 +12,7 @@ namespace CB.Model
         public float AttackRange;   // 攻擊範圍
 
         public Rate CriticalRate;  // 爆擊率
+        public Rate SuperCriticalRate;  // 超級爆擊率
         public Rate HitRate;       // 命中率
         public Rate PoisonRate;       // 命中率
         public Rate FreezeRate;       // 命中率

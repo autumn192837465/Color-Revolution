@@ -138,8 +138,13 @@ public class Enemy : UnitBase
 
     public void ReduceHp(RGB damage)
     {
-        enemyData.Health.ReduceHealth(damage);
+        RGB receivedDamage = enemyData.Health.ReduceHealth(damage);
         enemyWorldCanvas.RefreshUI();
+
+        if (receivedDamage.RedValue > 0) FloatingText.CreateText(transform.position, FloatingText.Type.Red, receivedDamage.RedValue);
+        if (receivedDamage.GreenValue > 0) FloatingText.CreateText(transform.position, FloatingText.Type.Green, receivedDamage.GreenValue);
+        if (receivedDamage.BlueValue > 0) FloatingText.CreateText(transform.position, FloatingText.Type.Blue, receivedDamage.BlueValue);
+        
         
         if (IsDead)
         {

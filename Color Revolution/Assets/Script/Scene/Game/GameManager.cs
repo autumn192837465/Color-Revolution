@@ -32,6 +32,7 @@ namespace CR.Game
         [SerializeField] private MapCreator MapCreator;
         [SerializeField] private WaveDataScriptableObject tempWaveData;
         [SerializeField] private TextMeshProUGUI logText;
+        [SerializeField] private Transform floatingTextRoot;
         
         public MapDataScriptableObject tempMapData;
 
@@ -473,17 +474,7 @@ namespace CR.Game
         }
 
         #endregion
-        
-        
+
         
     }    
 }
-
-/*
-1. 選空白的node 
-    正在選擇Turret => 放置turret 
-    沒有正在選擇Turret => 甚麼都沒發生 SelectingNode = null
-2. 選有turret的node 
-    正在選擇中 => 取消選擇
-    不是正在選擇中 => 取消攻擊範圍, 並秀出資訊
-    */

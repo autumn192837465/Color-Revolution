@@ -15,6 +15,7 @@ public class BulletData
     {
         Damage = turretBasicData.AttackDamage.Copy();
         HitRate = turretBasicData.HitRate.Copy();
+        CriticalRate = turretBasicData.CriticalRate.Copy();
         PoisonRate = turretBasicData.PoisonRate.Copy();
         BurnRate = turretBasicData.BurnRate.Copy();
         FreezeRate = turretBasicData.FreezeRate.Copy();
@@ -22,6 +23,7 @@ public class BulletData
         
     public RGB Damage;
     public Rate HitRate;
+    public Rate CriticalRate;
     public Rate PoisonRate;
     public Rate BurnRate;
     public Rate FreezeRate;
@@ -45,7 +47,7 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         if(destroying)  return;
-        if (targetEnemy.gameObject == null )
+        if (targetEnemy == null || targetEnemy.gameObject == null )
         {
             Destroy(gameObject);
             return;
@@ -80,7 +82,7 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        bool isCritical = BulletData.HitRate.HitProbability();
+        bool isCritical = BulletData.CriticalRate.HitProbability();
         float amplifier = 1;
         amplifier = isCritical ? amplifier * Constants.CriticalPercentage : amplifier;
         amplifier = enemy.IsBurning ? amplifier * Constants.BurningPercentage : amplifier;
