@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using CB.Model;
 using CR;
 using Kinopi.Constants;
+using Kinopi.Enums;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -62,7 +64,7 @@ public class CardUpgradeUI : AnimatorBase
 
 
             upgradeCostText.text = cost.ToString();
-            upgradeCostText.color = (PlayerDataManager.Instance.PlayerData.RainbowCandy >= cost)
+            upgradeCostText.color = (PlayerDataManager.Instance.PlayerData.UPointDataList.FirstOrDefault(x => x.PointType == PointType.RainbowCandy).Count >= cost)
                 ? Constants.EnableColor
                 : Constants.DisableColor;
         }
