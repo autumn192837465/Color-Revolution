@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6da8abf23d01d94db97b4b5a61de556, type: 3}
   m_Name: Level1Data
   m_EditorClassIdentifier: 
-  WaveInterval: 10
+  LevelName: 
   WaveSpawnList:
   - Name: Wave 1
     EnemySpawnGroupList:
@@ -26,3 +26,6 @@ MonoBehaviour:
         type: 3}
       count: 5
       interval: 1
+  LevelReward:
+  - PointType: 0
+    Count: 5

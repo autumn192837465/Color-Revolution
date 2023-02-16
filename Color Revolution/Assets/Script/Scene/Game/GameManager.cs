@@ -21,7 +21,7 @@ namespace CR.Game
         [SerializeField] private GameMenuUI GameMenuUI;
         [SerializeField] private Transform enemyRoot;
         [SerializeField] private MapCreator MapCreator;
-        [SerializeField] private WaveDataScriptableObject tempWaveData;
+        [SerializeField] private LevelDataScriptableObject tempLevelData;
         [SerializeField] private TextMeshProUGUI logText;
         [SerializeField] private Transform floatingTextRoot;
         
@@ -60,7 +60,7 @@ namespace CR.Game
         void Update()
         {
             DeltaTime = Time.deltaTime * GameSpeed; 
-            if(WaveIndex >= tempWaveData.WaveSpawnList.Count)   return;
+            if(WaveIndex >= tempLevelData.WaveSpawnList.Count)   return;
 
             
             switch (CurrentState)
@@ -70,15 +70,15 @@ namespace CR.Game
                 case GameState.SpawnEnemy:
                     if(hasSpawnedAll)   return;
                     timer += Time.deltaTime;
-                    if (timer >= tempWaveData.GetEnemySpawnGroupInterval(WaveIndex, spawnGroupIndex))
+                    if (timer >= tempLevelData.GetEnemySpawnGroupInterval(WaveIndex, spawnGroupIndex))
                     {
                         timer = 0;
-                        SpawnEnemy(tempWaveData.GetEnemy(WaveIndex, spawnGroupIndex));
+                        SpawnEnemy(tempLevelData.GetEnemy(WaveIndex, spawnGroupIndex));
 
-                        if (++enemyCountIndex == tempWaveData.GetSpawnGroupEnemyCount(WaveIndex, spawnGroupIndex))
+                        if (++enemyCountIndex == tempLevelData.GetSpawnGroupEnemyCount(WaveIndex, spawnGroupIndex))
                         {
                             enemyCountIndex = 0;
-                            if (++spawnGroupIndex == tempWaveData.GetEnemySpawnGroupCount(WaveIndex))
+                            if (++spawnGroupIndex == tempLevelData.GetEnemySpawnGroupCount(WaveIndex))
                             {
                                 WaveIndex++;
                                 spawnGroupIndex = 0;
@@ -132,7 +132,7 @@ namespace CR.Game
 
 
             WaveIndex = 0;
-            MaxWaveCount = tempWaveData.MaxWaveCount;
+            MaxWaveCount = tempLevelData.MaxWaveCount;
             GameUI.InitializeUI();
             AddMapCreatorEvent();
             AddGameUIEvent();
