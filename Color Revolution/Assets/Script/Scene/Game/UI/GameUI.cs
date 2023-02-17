@@ -39,8 +39,8 @@ namespace CR.Game
         public TurretData SelectingTurretData { get; private set; }
 
         [SerializeField] private IconWithTextUI waveIcon;
-        [SerializeField] private IconWithTextUI hpIcon;
-        [SerializeField] private IconWithTextUI coinIcon;
+        [SerializeField] private IconWithValueTextUI hpIcon;
+        [SerializeField] private IconWithValueTextUI coinIcon;
         [SerializeField] private TurretPanelInfoUI turretPanelInfoUI;
     
         

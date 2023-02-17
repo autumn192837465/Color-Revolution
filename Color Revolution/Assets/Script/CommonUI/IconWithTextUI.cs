@@ -14,7 +14,7 @@ public class IconWithTextUI : MonoBehaviour
     [SerializeField] private MMF_Player changeTextFeedbacks;
     private TextAnimator contentTextAnimator;
     
-    //public Action<BasicIconUI> OnPointerDownIcon;
+    //public Action<BasicIconUI> OnPointerDownIcon;     
     public Action OnPointerUpIcon;
 
 
@@ -38,7 +38,7 @@ public class IconWithTextUI : MonoBehaviour
     {
         //icon.SetSprite(sprite);
     }
-    public void SetText(string str)
+    public virtual void SetText(string str)
     {
         if (contentTextAnimator != null)
         {
@@ -61,7 +61,7 @@ public class IconWithTextUI : MonoBehaviour
         }
     }
     
-    public void SetText(int value)
+    public virtual void SetText(int value)
     {
         SetText(value.ToString());
     }
