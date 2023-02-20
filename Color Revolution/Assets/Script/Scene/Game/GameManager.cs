@@ -25,6 +25,7 @@ namespace CR.Game
         [SerializeField] private TextMeshProUGUI logText;
         [SerializeField] private Transform floatingTextRoot;
         [SerializeField] private GameWinResultUI GameWinResultUI;
+        [SerializeField] private GameLoseResultUI GameLoseResultUI;
         
         public MapDataScriptableObject tempMapData;
 
@@ -45,8 +46,8 @@ namespace CR.Game
         private int enemyCountIndex; 
         private float spawnTimer = 0;
         private float resuiltOpeningWaitTimer = Constants.ResultOpeningWaitTime;
-
         
+
         protected override void Awake()
         {
             base.Awake();
@@ -71,7 +72,7 @@ namespace CR.Game
                     break;
                 case GameState.PlayerPreparing:
                     break;
-                case GameState.SpawnEnemy:
+                case GameState.SpawningEnemy:
                     if(hasSpawnedAll)   break;
                     //if(WaveIndex >= tempLevelData.WaveSpawnList.Count)   break;
                     spawnTimer += Time.deltaTime;
@@ -93,10 +94,17 @@ namespace CR.Game
                     }
                     break;
                 case GameState.ShowWinResult:
-                    resuiltOpeningWaitTimer -= Time.deltaTime;
-                    if (resuiltOpeningWaitTimer < 0)
+                    if (resuiltOpeningWaitTimer > 0)
                     {
-                        ShowResult();    
+                        resuiltOpeningWaitTimer -= Time.deltaTime;
+                        if (resuiltOpeningWaitTimer < 0) ShowWinResult();
+                    }
+                    break;
+                case GameState.ShowLoseResult:
+                    if (resuiltOpeningWaitTimer > 0)
+                    {
+                        resuiltOpeningWaitTimer -= Time.deltaTime;
+                        if (resuiltOpeningWaitTimer < 0) ShowLoseResult();
                     }
                     break;
                 case GameState.End:
@@ -118,13 +126,17 @@ namespace CR.Game
                     CurrentState = GameState.PlayerPreparing;
                     logText.text = "PlayerPreparing";
                     break;
-                case GameState.SpawnEnemy:
-                    CurrentState = GameState.SpawnEnemy;
+                case GameState.SpawningEnemy:
+                    CurrentState = GameState.SpawningEnemy;
                     logText.text = "SpawnEnemy";
                     break;
                 case GameState.ShowWinResult:
                     CurrentState = GameState.ShowWinResult;
-                    logText.text = "ShowResult";
+                    logText.text = "ShowWinResult";
+                    break;
+                case GameState.ShowLoseResult:
+                    CurrentState = GameState.ShowLoseResult;
+                    logText.text = "ShowLoseResult";
                     break;
                 case GameState.End:
                     CurrentState = GameState.End;
@@ -140,7 +152,7 @@ namespace CR.Game
             // Todo : create data from common
             playerData = new PlayerGameData()
             {
-                Hp = 20,
+                Hp = 1,
                 Coin = 1000,
                 CardDeck = PlayerDataManager.Instance.PlayerData.CardDeck,
             };
@@ -157,13 +169,22 @@ namespace CR.Game
             ToState(GameState.PlayerPreparing);
         }
 
-        private void ShowResult()
+        private void ShowWinResult()
         {
             GameWinResultUI.InitializeUI(tempLevelData.LevelReward);
             GameWinResultUI.Open();
             AddGameWinResultUIEvent();
             ToState(GameState.End);
         }
+        
+        private void ShowLoseResult()
+        {
+            GameLoseResultUI.InitializeUI();
+            GameLoseResultUI.Open();
+            AddGameLoseResultUIEvent();
+            ToState(GameState.End);
+        }
+        
         #region AddUIEvent
 
         private void AddMapCreatorEvent()
@@ -213,7 +234,7 @@ namespace CR.Game
                 hasSpawnedAll = false;
                 GameUI.RefreshWaveText();
                 GameUI.SetReadyButtonActive(false);
-                ToState(GameState.SpawnEnemy);
+                ToState(GameState.SpawningEnemy);
             };
             //GameUI.OnClickPlay = PlayGame;
             GameUI.OnClickPause = PauseGame;
@@ -324,6 +345,23 @@ namespace CR.Game
                 }
             };
         }
+        
+        private void AddGameLoseResultUIEvent()
+        {
+            GameLoseResultUI.OnClickButton = (type) =>
+            {
+                switch (type)
+                {
+                    case GameLoseResultUI.ButtonType.Restart:
+                        break;
+                    case GameLoseResultUI.ButtonType.Menu:
+                        SceneController.Instance.LoadToMenuScene();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                }
+            };
+        }
         #endregion
 
         #region RemoveUIEvent
@@ -342,6 +380,8 @@ namespace CR.Game
                 if (enemy.HitEndNode)
                 {
                     ReducePlayerHP(1);
+                    
+                    if(playerData.Hp <= 0)  return;
                 }
 
                 if (EnemyList.Count == 0 && hasSpawnedAll)
@@ -454,8 +494,7 @@ namespace CR.Game
             if (playerData.Hp <= 0)
             {
                 playerData.Hp = 0;
-                ToState(GameState.ShowWinResult);
-                
+                ToState(GameState.ShowLoseResult);
             }
             GameUI.RefreshHp();
         }

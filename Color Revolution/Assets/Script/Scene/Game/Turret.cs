@@ -82,7 +82,7 @@ namespace CR.Game
 
         void Update()
         {
-            if(GameManager.CurrentState != GameState.SpawnEnemy)    return;
+            if(GameManager.CurrentState != GameState.SpawningEnemy)    return;
             timer.deltaTime = Time.deltaTime;
             switch (currentState)
             {

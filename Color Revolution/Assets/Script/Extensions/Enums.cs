@@ -9,7 +9,7 @@ namespace Kinopi.Enums
     public enum GameState
     {
         Initialize,
-        SpawnEnemy,
+        SpawningEnemy,
         PlayerPreparing,
         ShowWinResult,
         ShowLoseResult,

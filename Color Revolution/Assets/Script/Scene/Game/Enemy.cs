@@ -72,6 +72,7 @@ public class Enemy : UnitBase
 
     void Update()
     {
+        if(GameManager.CurrentState != GameState.SpawningEnemy)    return;
         MoveEnemy();
         ActivateStatus();
     }
