@@ -1014,6 +1014,8 @@ MonoBehaviour:
   buttonList:
   - Type: 0
     Button: {fileID: 827229285}
+  - Type: 1
+    Button: {fileID: 1113195661}
   cardUI: {fileID: 1491342243}
   upgradeCostText: {fileID: 733579043}
 --- !u!95 &232970837
@@ -2873,7 +2875,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonList: []
-  rainbowCoinIcon: {fileID: 0}
+  rainbowCoinIcon: {fileID: 1797071825}
 --- !u!1 &973941638
 GameObject:
   m_ObjectHideFlags: 0
@@ -3483,6 +3485,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1113195658}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1113195661 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3682289046943235965, guid: d31abbb42e49a8e47af7f24c447d07c0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1113195658}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1191588661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6079,6 +6093,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785589261}
   m_CullTransparentMesh: 1
+--- !u!114 &1797071825 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8327809181162677193, guid: d98e95fafbc286e4ea8c0014837dec3b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1274861459}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc71a31338ecfa74f8fa5167777761e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1802158832
 GameObject:
   m_ObjectHideFlags: 0
@@ -6611,6 +6637,7 @@ MonoBehaviour:
   dontDestroy: 0
   MenuDeckUI: {fileID: 2014013159}
   CardUpgradeUI: {fileID: 232970836}
+  MenuHeaderUI: {fileID: 941955756}
 --- !u!4 &1880546336
 Transform:
   m_ObjectHideFlags: 0

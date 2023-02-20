@@ -13,8 +13,35 @@ namespace CB.Model
             Count = count;
             PointType = type;
         }
+        public UPoint(PointTuple tuple)
+        {
+            Count = tuple.Count;
+            PointType = tuple.PointType;
+        }
+        
         public int Count;
         public PointType PointType;
         public MPoint MPoint => DataManager.Instance.GetPointData(PointType);
-    }    
+    }
+    
+    
+    [Serializable]
+    public class PointTuple
+    {
+        public PointTuple(PointType type)
+        {
+            Count = 0;
+            PointType = type;
+        }
+        
+        public PointTuple(PointType type, int count)
+        {
+            Count = count;
+            PointType = type;
+        }
+        
+        public PointType PointType;
+        public int Count;
+        
+    }
 }

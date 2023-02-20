@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CB.Model;
 using Kinopi.Enums;
 using Unity.Collections;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace CR.ScriptableObjects
         public float GetEnemySpawnGroupInterval(int waveIndex, int spawnGroupIndex) => WaveSpawnList[waveIndex].EnemySpawnGroupList[spawnGroupIndex].interval;
         public int GetSpawnGroupEnemyCount(int waveIndex, int spawnGroupIndex) => WaveSpawnList[waveIndex].EnemySpawnGroupList[spawnGroupIndex].count;
         public int GetEnemySpawnGroupCount(int waveIndex) => WaveSpawnList[waveIndex].EnemySpawnGroupList.Count;
-        public List<RewardData> LevelReward; 
+        public List<PointTuple> LevelReward; 
         
 
         [Serializable]
@@ -41,12 +42,6 @@ namespace CR.ScriptableObjects
             public float interval;
         }
 
-        [Serializable]
-        public class RewardData
-        {
-            public PointType PointType;
-            public int Count;
-        }
         
         private void OnValidate()
         {

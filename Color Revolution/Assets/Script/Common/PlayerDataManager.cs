@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CB.Model;
 using CR.Model;
+using JetBrains.Annotations;
 using Kinopi.Enums;
 using UnityEngine;
 
@@ -30,22 +31,49 @@ namespace CR
         
         }
 
-        public void AddUPoint(PointType pointType, int count)
+        public void AddUPoint(PointTuple tuple)
         {
-            UPoint uPoint = PlayerData.UPointDataList.FirstOrDefault(x => x.PointType == pointType);
+            AddUPoints(new List<PointTuple> { tuple });
+        }
+        
+        public void AddUPoints([ItemCanBeNull] List<PointTuple> tupleList)
+        {
+            foreach (var tuple in tupleList)
+            {
+                UPoint uPoint = PlayerData.UPointDataList.FirstOrDefault(x => x.PointType == tuple.PointType);
+                if (uPoint is null)
+                {
+                    uPoint = new UPoint(tuple);
+                    PlayerData.UPointDataList.Add(uPoint);
+                }
+                else
+                {
+                    uPoint.Count += tuple.Count;
+                }    
+            }
+            SavePlayerData();
+        }
+        
+        
+
+        public void SubUPoint(PointTuple tuple)
+        {
+            UPoint uPoint = PlayerData.UPointDataList.FirstOrDefault(x => x.PointType == tuple.PointType);
             if (uPoint is null)
             {
-                uPoint = new UPoint(pointType, count);
-                PlayerData.UPointDataList.Add(uPoint);
+                Debug.LogError($"{Enum.GetName(typeof(PointType), tuple.PointType)} is not enough!");
             }
             else
             {
-                uPoint.Count += count;
+                uPoint.Count -= tuple.Count;
+                if(uPoint.Count < 0)
+                    Debug.LogError($"{Enum.GetName(typeof(PointType), tuple.PointType)} is not enough!");
             }
             
             SavePlayerData();
         }
-
+        
+        
         public UPoint GetUPoint(PointType pointType)
         {
             return PlayerData.UPointDataList.FirstOrDefault(x => x.PointType == pointType) ?? new UPoint(pointType);

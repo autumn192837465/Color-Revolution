@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CB.Model;
 using CR.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,7 +45,7 @@ public class GameWinResultUI : AnimatorBase
         
     }
 
-    public void InitializeUI(List<LevelDataScriptableObject.RewardData> rewardList)
+    public void InitializeUI(List<PointTuple> rewardList)
     {
         for (int i = 0; i < rewardList.Count; i++)
         {

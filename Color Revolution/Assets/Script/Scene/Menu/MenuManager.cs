@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CB.Model;
+using CR;
+using Kinopi.Enums;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -48,7 +51,10 @@ public class MenuManager : Singleton<MenuManager>
                     break;
                 case CardUpgradeUI.ButtonType.Upgrade:
                     //CardUpgradeUI.UCard;
-                    
+                    // Todo : get m card cost
+                    PlayerDataManager.Instance.SubUPoint(new PointTuple(PointType.RainbowCandy, 10));
+                    MenuHeaderUI.InitializePlayerData();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

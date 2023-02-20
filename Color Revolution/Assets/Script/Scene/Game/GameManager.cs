@@ -174,7 +174,7 @@ namespace CR.Game
             var rewards = tempLevelData.LevelReward; 
             foreach (var reward in rewards)
             {
-                PlayerDataManager.Instance.AddUPoint(reward.PointType, reward.Count);    
+                PlayerDataManager.Instance.AddUPoint(reward);    
             }
             
             GameWinResultUI.InitializeUI(tempLevelData.LevelReward);
