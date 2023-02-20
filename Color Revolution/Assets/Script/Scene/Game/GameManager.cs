@@ -33,19 +33,7 @@ namespace CR.Game
         public int PlayerHp => playerData.Hp;
         public UCard[] PlayerCards => playerData.CardDeck;
         private Node selectingNode;
-        
-
-        
         private PlayerGameData playerData;
-        
-        protected override void Awake()
-        {
-            base.Awake();
-            if (isDuplicate) return;
-            
-            Initialize();
-            
-        }
 
         public static float DeltaTime;
         public static int GameSpeed;
@@ -55,9 +43,21 @@ namespace CR.Game
         public static int MaxWaveCount; 
         private int spawnGroupIndex; 
         private int enemyCountIndex; 
-        private float timer = 0;
+        private float spawnTimer = 0;
+        private float resuiltOpeningWaitTimer = Constants.ResultOpeningWaitTime;
+
         
-        
+        protected override void Awake()
+        {
+            base.Awake();
+            if (isDuplicate) return;
+        }
+
+        private void Start()
+        {
+            Initialize();
+        }
+
         void Update()
         {
             if(CurrentState == GameState.End)   return;
@@ -74,10 +74,10 @@ namespace CR.Game
                 case GameState.SpawnEnemy:
                     if(hasSpawnedAll)   break;
                     //if(WaveIndex >= tempLevelData.WaveSpawnList.Count)   break;
-                    timer += Time.deltaTime;
-                    if (timer >= tempLevelData.GetEnemySpawnGroupInterval(WaveIndex, spawnGroupIndex))
+                    spawnTimer += Time.deltaTime;
+                    if (spawnTimer >= tempLevelData.GetEnemySpawnGroupInterval(WaveIndex, spawnGroupIndex))
                     {
-                        timer = 0;
+                        spawnTimer = 0;
                         SpawnEnemy(tempLevelData.GetEnemy(WaveIndex, spawnGroupIndex));
 
                         if (++enemyCountIndex == tempLevelData.GetSpawnGroupEnemyCount(WaveIndex, spawnGroupIndex))
@@ -93,7 +93,11 @@ namespace CR.Game
                     }
                     break;
                 case GameState.ShowWinResult:
-                    ShowResult();
+                    resuiltOpeningWaitTimer -= Time.deltaTime;
+                    if (resuiltOpeningWaitTimer < 0)
+                    {
+                        ShowResult();    
+                    }
                     break;
                 case GameState.End:
                     break;
@@ -204,7 +208,7 @@ namespace CR.Game
             {
                 if (CurrentState != GameState.PlayerPreparing) return;
 
-                timer = 0;
+                spawnTimer = 0;
                 MapCreator.CalculateAllNearestPath();
                 hasSpawnedAll = false;
                 GameUI.RefreshWaveText();
@@ -344,6 +348,7 @@ namespace CR.Game
                 {
                     if (WaveIndex == tempLevelData.MaxWaveCount)
                     {
+                        spawnTimer = 0;
                         ToState(GameState.ShowWinResult);    
                     }
                     else

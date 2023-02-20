@@ -1,9 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
-using System;
-using TMPro;
-using Kinopi.Extensions;
 using MoreMountains.Feedbacks;
 
 public class IconWithValueTextUI : IconWithTextUI
