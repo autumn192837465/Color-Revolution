@@ -157,7 +157,7 @@ namespace CR
         {
             return GetString(PlayerDataKey);
         }
-        set => SetString(PlayerDataKey, JsonUtility.ToJson(value));
+        set => SetString(PlayerDataKey, value);
     }
     
     public static bool IsMute

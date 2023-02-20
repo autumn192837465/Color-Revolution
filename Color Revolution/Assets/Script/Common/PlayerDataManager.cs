@@ -56,7 +56,7 @@ namespace CR
         public void SavePlayerData()
         {
             string dataString = JsonUtility.ToJson(PlayerData);
-            PlayerPrefsManager.PlayerDataString = JsonUtility.ToJson(dataString);
+            PlayerPrefsManager.PlayerDataString = dataString;
         }
 
         public void LoadPlayerData()

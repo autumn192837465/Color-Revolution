@@ -10560,7 +10560,7 @@ MonoBehaviour:
   logText: {fileID: 2012069159}
   floatingTextRoot: {fileID: 0}
   GameWinResultUI: {fileID: 1087567263}
-  GameLoseResultUI: {fileID: 0}
+  GameLoseResultUI: {fileID: 606152797}
   tempMapData: {fileID: 11400000, guid: 72cbd42cf9f3c69439bf7e97af9c2662, type: 2}
 --- !u!1001 &1770747455
 PrefabInstance:

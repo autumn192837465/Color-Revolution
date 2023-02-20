@@ -22,4 +22,4 @@ MonoBehaviour:
       interval: 1
   LevelReward:
   - PointType: 0
-    Count: 5
+    Count: 1000

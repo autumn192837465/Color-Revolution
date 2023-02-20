@@ -152,7 +152,7 @@ namespace CR.Game
             // Todo : create data from common
             playerData = new PlayerGameData()
             {
-                Hp = 1,
+                Hp = 100,
                 Coin = 1000,
                 CardDeck = PlayerDataManager.Instance.PlayerData.CardDeck,
             };
@@ -171,6 +171,12 @@ namespace CR.Game
 
         private void ShowWinResult()
         {
+            var rewards = tempLevelData.LevelReward; 
+            foreach (var reward in rewards)
+            {
+                PlayerDataManager.Instance.AddUPoint(reward.PointType, reward.Count);    
+            }
+            
             GameWinResultUI.InitializeUI(tempLevelData.LevelReward);
             GameWinResultUI.Open();
             AddGameWinResultUIEvent();
