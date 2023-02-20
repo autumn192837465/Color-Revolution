@@ -8,6 +8,7 @@ public class MenuManager : Singleton<MenuManager>
 {
     [SerializeField] private MenuDeckUI MenuDeckUI;
     [SerializeField] private CardUpgradeUI CardUpgradeUI;
+    [SerializeField] private MenuHeaderUI MenuHeaderUI;
     protected override void Awake()
     {
         base.Awake();
@@ -16,6 +17,7 @@ public class MenuManager : Singleton<MenuManager>
     
     void Start()
     {
+        MenuHeaderUI.InitializePlayerData();
         AddMenuDeckUIEvent();
         AddCardUpgradeUIEvent();
     }
