@@ -5,6 +5,7 @@ using System;
 using CB.Model;
 using Kinopi.Constants;
 using Kinopi.Enums;
+using Kinopi.Extensions;
 using TMPro;
 
 
@@ -21,7 +22,11 @@ namespace CR.Menu
 
         private void Awake()
         {
-            researchButton.OnClick = () => OnClickResearch?.Invoke(ResearchData);
+            researchButton.OnClick = () =>
+            {
+                researchButton.SetActive(false);
+                OnClickResearch?.Invoke(ResearchData);
+            };
         }
 
         public void InitializeUI(ResearchType type)
@@ -30,13 +35,20 @@ namespace CR.Menu
             icon.sprite = ResearchData.Sprite;
             descriptionText.text = ResearchData.Description;
 
+            if (PlayerDataManager.Instance.HasResearch(type))
+            {
+                researchButton.SetActive(false);
+                return;
+            }
+            researchButton.SetActive(true);
             // Todo : make class
             int cost = ResearchData.Cost;
             costText.text = cost.ToString();
             
             costText.color = PlayerDataManager.Instance.GetUPoint(PointType.RainbowCandy).Count >= cost
                 ? Constants.EnableColor
-                : Constants.DisableColor; 
-        }   
+                : Constants.DisableColor;
+        }
+
     }    
 }

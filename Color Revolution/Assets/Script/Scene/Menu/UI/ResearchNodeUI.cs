@@ -10,9 +10,7 @@ namespace CR.Menu
     public class ResearchNodeUI : MonoBehaviour
     {
         [SerializeField] private ResearchType researchType;
-        [SerializeField] private TextMeshProUGUI costText;
         [SerializeField] private GameObject cover;
-
         [SerializeField] private FeedbackButton button;
         public ResearchType ResearchType => researchType;
         public Action<ResearchNodeUI> OnClickResearch;

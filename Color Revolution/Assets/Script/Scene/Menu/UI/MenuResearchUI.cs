@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CB.Model;
 using CR.Menu;
 using Kinopi.Enums;
 using Kinopi.Extensions;
@@ -29,6 +30,7 @@ namespace CR.Menu
         [SerializeField] private List<ResearchNodeUI> researchNodes;
         [SerializeField] private ResearchInformationPanelUI researchInformationPanelUI;
         public Action<ButtonType> OnClickButton;
+        public Action<MResearch> OnClickResearch;
 
         private ResearchNodeUI selectingNode;
 
@@ -38,6 +40,9 @@ namespace CR.Menu
             {
                 buttonInfo.Button.onClick.AddListener(() => OnClickButton?.Invoke(buttonInfo.Type));
             }
+
+            researchInformationPanelUI.OnClickResearch = (mResearch) => OnClickResearch?.Invoke(mResearch);
+            researchInformationPanelUI.SetActive(false);
         }
 
         public void InitializeUI()
@@ -48,6 +53,16 @@ namespace CR.Menu
                 node.InitializeUI();
                 node.OnClickResearch = OnClickResearchNode;
             }
+        }
+
+        public void RefreshUI()
+        {
+            foreach (var node in researchNodes)
+            {
+                node.InitializeUI();
+            }
+
+            //researchInformationPanelUI.RefreshUI();
         }
 
         private void OnClickResearchNode(ResearchNodeUI node)

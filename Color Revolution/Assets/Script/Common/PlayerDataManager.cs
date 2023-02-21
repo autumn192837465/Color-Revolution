@@ -102,7 +102,7 @@ namespace CR
             }
         }
 
-        private void AddResearch(ResearchType researchType)
+        public void AddResearch(ResearchType researchType)
         {
             if (PlayerData.ResearchList.Contains(researchType)) return;
             
@@ -121,9 +121,11 @@ namespace CR
         {
             return ResearchCache.Contains(type);
         }
-        
-        
-        
 
+        [ContextMenu("Clear Data")]
+        public void ClearData()
+        {
+            PlayerPrefs.DeleteKey(PlayerPrefsManager.PlayerDataKey);
+        }
     }    
 }

@@ -24,6 +24,7 @@ namespace CR.Menu
             MenuResearchUI.InitializeUI();
             AddMenuDeckUIEvent();
             AddCardUpgradeUIEvent();
+            AddMenuResearchUIEvent();
         }
         
         void Update()
@@ -59,6 +60,17 @@ namespace CR.Menu
                     default:
                         throw new ArgumentOutOfRangeException(nameof(type), type, null);
                 }
+            };
+        }
+
+        private void AddMenuResearchUIEvent()
+        {
+            MenuResearchUI.OnClickResearch = (mResearch) =>
+            {
+                PlayerDataManager.Instance.SubUPoint(new PointTuple(PointType.RainbowCandy, mResearch.Cost));
+                PlayerDataManager.Instance.AddResearch(mResearch.ResearchType);
+                MenuHeaderUI.InitializePlayerData();
+                MenuResearchUI.RefreshUI();
             };
         }
         #endregion
