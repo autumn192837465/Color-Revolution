@@ -12,8 +12,8 @@ namespace CR
 {
     public class PlayerDataManager : Singleton<PlayerDataManager>
     {
-        
         public PlayerData PlayerData;
+        public Dictionary<PointType, UPoint> UPointCache;
         protected override void Awake()
         {
             base.Awake();
@@ -36,11 +36,11 @@ namespace CR
             AddUPoints(new List<PointTuple> { tuple });
         }
         
-        public void AddUPoints([ItemCanBeNull] List<PointTuple> tupleList)
+        public void AddUPoints(List<PointTuple> tupleList)
         {
             foreach (var tuple in tupleList)
             {
-                UPoint uPoint = PlayerData.UPointDataList.FirstOrDefault(x => x.PointType == tuple.PointType);
+                UPoint uPoint =  UPointCache.GetValueOrDefault(tuple.PointType);
                 if (uPoint is null)
                 {
                     uPoint = new UPoint(tuple);
@@ -54,29 +54,36 @@ namespace CR
             SavePlayerData();
         }
         
-        
-
         public void SubUPoint(PointTuple tuple)
         {
-            UPoint uPoint = PlayerData.UPointDataList.FirstOrDefault(x => x.PointType == tuple.PointType);
-            if (uPoint is null)
-            {
-                Debug.LogError($"{Enum.GetName(typeof(PointType), tuple.PointType)} is not enough!");
-            }
-            else
-            {
-                uPoint.Count -= tuple.Count;
-                if(uPoint.Count < 0)
-                    Debug.LogError($"{Enum.GetName(typeof(PointType), tuple.PointType)} is not enough!");
-            }
-            
-            SavePlayerData();
+            SubUPoints(new List<PointTuple> { tuple });
         }
         
+        public void SubUPoints(List<PointTuple> tupleList)
+        {
+            foreach (var tuple in tupleList)
+            {
+                UPoint uPoint = UPointCache.GetValueOrDefault(tuple.PointType);
+                if (uPoint is null)
+                {
+                    Debug.LogError($"{Enum.GetName(typeof(PointType), tuple.PointType)} is not enough!");
+                }
+                else
+                {
+                    uPoint.Count -= tuple.Count;
+                    if(uPoint.Count < 0)
+                        Debug.LogError($"{Enum.GetName(typeof(PointType), tuple.PointType)} is not enough!");
+                }
+
+            }
+          
+            SavePlayerData();
+        }
+
         
         public UPoint GetUPoint(PointType pointType)
         {
-            return PlayerData.UPointDataList.FirstOrDefault(x => x.PointType == pointType) ?? new UPoint(pointType);
+            return UPointCache.GetValueOrDefault(pointType, new UPoint(pointType));
         }
         
         
@@ -85,14 +92,25 @@ namespace CR
         {
             string dataString = JsonUtility.ToJson(PlayerData);
             PlayerPrefsManager.PlayerDataString = dataString;
+            CreateUPointCache();
         }
 
         public void LoadPlayerData()
         {
             string dataString = PlayerPrefsManager.PlayerDataString;
-            
             PlayerData = JsonUtility.FromJson<PlayerData>(dataString) ?? new PlayerData();
+            CreateUPointCache();
         }
+
+        private void CreateUPointCache()
+        {
+            UPointCache = new Dictionary<PointType, UPoint>();
+            foreach (var uPoint in PlayerData.UPointDataList)
+            {
+                UPointCache[uPoint.PointType] = uPoint;
+            }
+        }
+        
         
         #region AddUIEvent
         #endregion
