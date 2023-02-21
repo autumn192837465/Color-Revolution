@@ -8,6 +8,7 @@ namespace CB.Model
     [Serializable]
     public class MPoint
     {
+        public string PointName;
         public PointType PointType;
         public Sprite Sprite;
         [TextArea(5, 3)] 

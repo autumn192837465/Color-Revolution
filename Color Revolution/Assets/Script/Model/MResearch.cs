@@ -5,8 +5,9 @@ using UnityEngine;
 namespace CB.Model
 {
     [Serializable]
-    public class MResearch 
+    public class MResearch
     {
+        public string ResearchName;
         public ResearchType ResearchType;
         public ResearchType RequiredResearchType;
         public Sprite Sprite;

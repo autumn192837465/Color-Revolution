@@ -15,6 +15,7 @@ namespace CR.Menu
     {
         [SerializeField] private Image icon;
         [SerializeField] private FeedbackButton researchButton;
+        [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI costText;
         [SerializeField] private TextMeshProUGUI descriptionText;
         public Action<MResearch> OnClickResearch;
@@ -33,6 +34,7 @@ namespace CR.Menu
         {
             ResearchData = DataManager.Instance.GetResearchData(type);
             icon.sprite = ResearchData.Sprite;
+            nameText.text = ResearchData.ResearchName;
             descriptionText.text = ResearchData.Description;
 
             if (PlayerDataManager.Instance.HasResearch(type))
