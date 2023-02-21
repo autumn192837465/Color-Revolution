@@ -63,6 +63,16 @@ namespace Kinopi.Enums
     public enum PointType
     {
         RainbowCandy,
+    }
+
+    public enum ResearchType
+    {
+        None = 0,
+        Add1Hp_1 = 1,
+        Add1Hp_2 = 2,
+        Add1Hp_3 = 3,
+        Add1Hp_4 = 4,
+        Add1Hp_5 = 5,
         
     }
 

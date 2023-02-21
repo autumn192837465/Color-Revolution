@@ -19,6 +19,7 @@ public class DataManager : Singleton<DataManager>
         CardData.InitializeCardData();
         CardLevelData.InitializeCardLevelData();
         PointData.InitializePointData();
+        ResearchData.InitializeResearchData();
     }
 
 
@@ -53,8 +54,13 @@ public class DataManager : Singleton<DataManager>
     {
         return PointData.PointDataCache.GetValue(type);
     }
-    
-
     #endregion
 
+    #region Research
+    [SerializeField] private ResearchDataScriptableObject ResearchData;
+    public MResearch GetResearchData(ResearchType type)
+    {
+        return ResearchData.ResearchDataCache.GetValue(type);
+    }
+    #endregion
 }

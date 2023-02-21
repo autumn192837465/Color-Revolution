@@ -49,3 +49,4 @@ MonoBehaviour:
   CardData: {fileID: 11400000, guid: b9656094313bcc649a5fb5aeec328c33, type: 2}
   CardLevelData: {fileID: 11400000, guid: 2102c77252f19f145a955ec27880c1ef, type: 2}
   PointData: {fileID: 11400000, guid: 2d22e67e3a6c603499688aa37aa73731, type: 2}
+  ResearchData: {fileID: 11400000, guid: c09b9ba06b4d4124ba4300f43b6fc635, type: 2}

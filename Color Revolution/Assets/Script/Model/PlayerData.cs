@@ -49,6 +49,8 @@ namespace CR.Model
                 CardDeck[i] = UCardDataList[i];
             }
 
+
+            ResearchList = new List<ResearchType>();
         }
 
         public int BaseHp;
@@ -56,6 +58,7 @@ namespace CR.Model
         public List<UPoint> UPointDataList;     // Todo : to dictionary
         public List<UCard> UCardDataList;       // Todo : to dictionary
         public UCard[] CardDeck;
+        public List<ResearchType> ResearchList;
     }    
     
     

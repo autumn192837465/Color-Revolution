@@ -14,23 +14,14 @@ namespace CR
     {
         public PlayerData PlayerData;
         public Dictionary<PointType, UPoint> UPointCache;
+        public HashSet<ResearchType> ResearchCache;
         protected override void Awake()
         {
             base.Awake();
             if (isDuplicate) return;
             LoadPlayerData();
         }
-    
-        void Start()
-        {
         
-        }
-    
-        void Update()
-        {
-        
-        }
-
         public void AddUPoint(PointTuple tuple)
         {
             AddUPoints(new List<PointTuple> { tuple });
@@ -52,6 +43,7 @@ namespace CR
                 }    
             }
             SavePlayerData();
+            CreateUPointCache();
         }
         
         public void SubUPoint(PointTuple tuple)
@@ -78,6 +70,7 @@ namespace CR
             }
           
             SavePlayerData();
+            CreateUPointCache();
         }
 
         
@@ -86,20 +79,18 @@ namespace CR
             return UPointCache.GetValueOrDefault(pointType, new UPoint(pointType));
         }
         
-        
-
-        public void SavePlayerData()
+        private void SavePlayerData()
         {
             string dataString = JsonUtility.ToJson(PlayerData);
             PlayerPrefsManager.PlayerDataString = dataString;
-            CreateUPointCache();
         }
 
-        public void LoadPlayerData()
+        private void LoadPlayerData()
         {
             string dataString = PlayerPrefsManager.PlayerDataString;
             PlayerData = JsonUtility.FromJson<PlayerData>(dataString) ?? new PlayerData();
             CreateUPointCache();
+            CreateResearchCache();
         }
 
         private void CreateUPointCache()
@@ -110,12 +101,29 @@ namespace CR
                 UPointCache[uPoint.PointType] = uPoint;
             }
         }
-        
-        
-        #region AddUIEvent
-        #endregion
 
-        #region RemoveUIEvent
-        #endregion
+        private void AddResearch(ResearchType researchType)
+        {
+            if (PlayerData.ResearchList.Contains(researchType)) return;
+            
+            PlayerData.ResearchList.Add(researchType);
+            SavePlayerData();
+            CreateResearchCache();
+
+        }
+        
+        private void CreateResearchCache()
+        {
+            ResearchCache = PlayerData.ResearchList.ToHashSet();
+        }
+
+        public bool HasResearch(ResearchType type)
+        {
+            return ResearchCache.Contains(type);
+        }
+        
+        
+        
+
     }    
 }
