@@ -16,7 +16,10 @@ namespace Kinopi.Constants
         public const float FloatingTextLifeTime = 0.7f;
         public const float FloatingTextMoveFactor = 0.2f;
         public const float ResultOpeningWaitTime = 1f;
-     
+
+        public const int PlayerBaseHp = 5;
+        public const int PlayerBaseCoin = 100;
+        
         public const float EffectTime = 5;
         public const uint DeckCardCount = 9;
         public const uint MaxCardLevel = 10;

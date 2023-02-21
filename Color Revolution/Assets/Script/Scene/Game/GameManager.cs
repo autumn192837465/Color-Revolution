@@ -152,8 +152,8 @@ namespace CR.Game
             // Todo : create data from common
             playerData = new PlayerGameData()
             {
-                Hp = 100,
-                Coin = 1000,
+                Hp = PlayerDataManager.Instance.PlayerData.BaseHp,
+                Coin = PlayerDataManager.Instance.PlayerData.BaseCoin,
                 CardDeck = PlayerDataManager.Instance.PlayerData.CardDeck,
             };
 
