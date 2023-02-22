@@ -118,52 +118,6 @@ public class SceneController : Singleton<SceneController>
         doFadeIn = true;
         SwitchScene(MapScene, onSwitch);
     }
-
-    public void LoadToTreasureHouseScene(Action onSwitch = null)
-    {
-        doFadeIn = true;
-        SwitchScene(TreasureHouseScene, onSwitch);
-    }
-
-    public void LoadToLuckyCoinBoxScene(Action onSwitch = null)
-    {
-        doFadeIn = true;
-        SwitchScene(LuckyCoinBoxScene, onSwitch);
-    }
-
-    public void LoadToCoinRushScene(Action onSwitch = null)
-    {
-        doFadeIn = true;
-        SwitchScene(CoinRushScene, onSwitch);
-    }
-
-    public void LoadToShopScene(Action onSwitch = null)
-    {
-        doFadeIn = true;
-        SwitchScene(ShopScene, onSwitch);
-    }
-
-    public void LoadToAuctionScene(Action onSwitch = null)
-    {
-        doFadeIn = true;
-        SwitchScene(AuctionScene, onSwitch);
-    }
-    public void LoadToMasteryScene(Action onSwitch = null)
-    {
-        doFadeIn = true;
-        SwitchScene(MasteryScene, onSwitch);
-    }
-    public void LoadToCardSelectionScene(Action onSwitch = null)
-    {
-        doFadeIn = true;
-        SwitchScene(CardSelectionScene, onSwitch);
-    }
-
-    public void LoadToAntiqueSelectionScene(Action onSwitch = null)
-    {
-        doFadeIn = true;
-        SwitchScene(AntiqueSelectionScene, onSwitch);
-    }
     
     public void LoadToTutorialScene(bool fadeIn = true, Action onSwitch = null)
     {

@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using CR.ScriptableObjects;
+using Kinopi.Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,10 +21,14 @@ public class MenuMainUI : MonoBehaviour
         public Button Button;
     }
 
+
+    [SerializeField] private LevelInformationUI LevelInformationUI;
     [SerializeField] private List<ButtonInfo> buttonList;
     public Action<ButtonType> OnClickButton;
-
-    public Button tempGoButton;
+    public Action<LevelDataScriptableObject> OnClickChallengeButton;
+    [SerializeField] private List<LevelNodeUI> levelNodes;
+    
+    
 
     private void Awake()
     {
@@ -29,7 +36,8 @@ public class MenuMainUI : MonoBehaviour
         {
             buttonInfo.Button.onClick.AddListener(() => OnClickButton?.Invoke(buttonInfo.Type));
         }
-        tempGoButton.onClick.AddListener(ToGameScene);
+
+        LevelInformationUI.OnClickChallengeButton = (mLevel) => OnClickChallengeButton?.Invoke(mLevel);
     }
     
     void Start()
@@ -39,11 +47,44 @@ public class MenuMainUI : MonoBehaviour
 
     public void InitializeUI()
     {
+        foreach (var node in levelNodes)
+        {
+            node.OnClickLevelNode = OnClickLevelNode;
+        }
+    }
 
+
+    private void OnClickLevelNode(LevelNodeUI node)
+    {
+        LevelInformationUI.InitializeUI(node.MLevelData);
+        LevelInformationUI.Open();
     }
 
     public void ToGameScene()
     {
         SceneController.Instance.LoadToGameScene();
+    }
+    
+    [ContextMenu("Set Level Nodes")] 
+    private void SetResearchNodes()
+    {
+        levelNodes = transform.GetComponentsInChildren<LevelNodeUI>().ToList();
+        CheckDuplicate();
+    }
+        
+    [ContextMenu("Check Duplicate")] 
+    private void CheckDuplicate()
+    {
+        HashSet<ResearchType> hashSet = new();
+        foreach (var node in levelNodes)
+        {
+            if (false)//hashSet.Contains(node.))
+            {
+                //Debug.LogError($"{Enum.GetName(typeof(ResearchType), node.ResearchType)}Duplicated!");
+                continue;
+            }
+
+            //hashSet.Add(node.ResearchType);
+        }
     }
 }

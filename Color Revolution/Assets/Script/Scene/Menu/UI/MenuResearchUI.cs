@@ -51,7 +51,7 @@ namespace CR.Menu
             foreach (var node in researchNodes)
             {
                 node.InitializeUI();
-                node.OnClickResearch = OnClickResearchNode;
+                node.OnClickResearchNode = OnClickResearchNode;
             }
         }
 

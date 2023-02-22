@@ -13,11 +13,11 @@ namespace CR.Menu
         [SerializeField] private GameObject cover;
         [SerializeField] private FeedbackButton button;
         public ResearchType ResearchType => researchType;
-        public Action<ResearchNodeUI> OnClickResearch;
+        public Action<ResearchNodeUI> OnClickResearchNode;
         
         private void Awake()
         {
-            button.OnClick = () => OnClickResearch?.Invoke(this);
+            button.OnClick = () => OnClickResearchNode?.Invoke(this);
         }
 
         public void InitializeUI()

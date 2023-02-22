@@ -8,10 +8,13 @@ namespace CR.Menu
 {
     public class MenuManager : Singleton<MenuManager>
     {
+        [SerializeField] private MenuMainUI MenuMainUI;
         [SerializeField] private MenuDeckUI MenuDeckUI;
         [SerializeField] private CardUpgradeUI CardUpgradeUI;
         [SerializeField] private MenuHeaderUI MenuHeaderUI;
         [SerializeField] private MenuResearchUI MenuResearchUI;
+       
+        
         protected override void Awake()
         {
             base.Awake();
@@ -22,9 +25,12 @@ namespace CR.Menu
         {
             MenuHeaderUI.InitializePlayerData();
             MenuResearchUI.InitializeUI();
+            MenuMainUI.InitializeUI();
+            AddMenuMainUIEvent();
             AddMenuDeckUIEvent();
             AddCardUpgradeUIEvent();
             AddMenuResearchUIEvent();
+            AddLevelInformationUIEvent();
         }
         
         void Update()
@@ -32,6 +38,14 @@ namespace CR.Menu
             
         }
         #region AddUIEvent
+
+        private void AddMenuMainUIEvent()
+        {
+            MenuMainUI.OnClickChallengeButton = (mLevel) =>
+            {
+                SceneController.Instance.LoadToGameScene();
+            };
+        }
     
         private void AddMenuDeckUIEvent()
         {
@@ -72,6 +86,11 @@ namespace CR.Menu
                 MenuHeaderUI.InitializePlayerData();
                 MenuResearchUI.RefreshUI();
             };
+        }
+
+        private void AddLevelInformationUIEvent()
+        {
+            
         }
         #endregion
     

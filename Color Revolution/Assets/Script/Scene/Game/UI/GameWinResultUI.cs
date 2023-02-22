@@ -28,7 +28,7 @@ public class GameWinResultUI : AnimatorBase
 
     [SerializeField] private Transform rewardRoot;
     [SerializeField] private RewardItemIconUI rewardCellPrefab;
-    private List<RewardItemIconUI> rewardCellList;
+    private List<RewardItemIconUI> rewardCellList = new();
     
 
     protected override void Awake()
@@ -51,6 +51,7 @@ public class GameWinResultUI : AnimatorBase
         {
             var cell = Instantiate(rewardCellPrefab, rewardRoot);
             cell.InitializeUI(rewardList[i].PointType, rewardList[i].Count);
+            rewardCellList.Add(cell);
         }
     }
 }
