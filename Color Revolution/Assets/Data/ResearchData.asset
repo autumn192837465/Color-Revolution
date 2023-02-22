@@ -13,27 +13,32 @@ MonoBehaviour:
   m_Name: ResearchData
   m_EditorClassIdentifier: 
   ResearchDataList:
-  - ResearchType: 1
+  - ResearchName: Add 1 Hp (1)
+    ResearchType: 1
     RequiredResearchType: 0
     Sprite: {fileID: 21300000, guid: 7a90e4ec565ca7141873ca8dc148be17, type: 3}
     Cost: 5
     Description: Add 1 hp
-  - ResearchType: 2
+  - ResearchName: Add 1 Hp (2)
+    ResearchType: 2
     RequiredResearchType: 1
     Sprite: {fileID: 21300000, guid: 7a90e4ec565ca7141873ca8dc148be17, type: 3}
     Cost: 10
     Description: Add 1 hp
-  - ResearchType: 3
+  - ResearchName: Add 1 Hp (3)
+    ResearchType: 3
     RequiredResearchType: 2
     Sprite: {fileID: 21300000, guid: 7a90e4ec565ca7141873ca8dc148be17, type: 3}
     Cost: 15
     Description: Add 1 hp
-  - ResearchType: 4
+  - ResearchName: Add 1 Hp (4)
+    ResearchType: 4
     RequiredResearchType: 3
     Sprite: {fileID: 21300000, guid: 7a90e4ec565ca7141873ca8dc148be17, type: 3}
     Cost: 20
     Description: Add 1 hp
-  - ResearchType: 5
+  - ResearchName: Add 1 Hp (5)
+    ResearchType: 5
     RequiredResearchType: 4
     Sprite: {fileID: 21300000, guid: 7a90e4ec565ca7141873ca8dc148be17, type: 3}
     Cost: 25

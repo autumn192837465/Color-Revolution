@@ -18,6 +18,7 @@ namespace CR.Menu
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI costText;
         [SerializeField] private TextMeshProUGUI descriptionText;
+        [SerializeField] private TextMeshProUGUI requiredResearchText;
         public Action<MResearch> OnClickResearch;
         public MResearch ResearchData { get; private set; }
 
@@ -36,7 +37,19 @@ namespace CR.Menu
             icon.sprite = ResearchData.Sprite;
             nameText.text = ResearchData.ResearchName;
             descriptionText.text = ResearchData.Description;
-
+            if (ResearchData.RequiredResearchType == ResearchType.None)
+            {
+                requiredResearchText.SetActive(false);    
+            }
+            else
+            {
+                var requiredResearchData = DataManager.Instance.GetResearchData(ResearchData.RequiredResearchType);
+                requiredResearchText.SetActive(true);
+                requiredResearchText.text = $"Required Research : {requiredResearchData.ResearchName}";
+            }
+            
+            
+            
             if (PlayerDataManager.Instance.HasResearch(type))
             {
                 researchButton.SetActive(false);
