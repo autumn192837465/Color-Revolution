@@ -60,10 +60,7 @@ public class MenuMainUI : MonoBehaviour
         LevelInformationUI.Open();
     }
 
-    public void ToGameScene()
-    {
-        SceneController.Instance.LoadToGameScene();
-    }
+
     
     [ContextMenu("Set Level Nodes")] 
     private void SetResearchNodes()

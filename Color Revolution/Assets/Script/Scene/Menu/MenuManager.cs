@@ -26,11 +26,11 @@ namespace CR.Menu
             MenuHeaderUI.InitializePlayerData();
             MenuResearchUI.InitializeUI();
             MenuMainUI.InitializeUI();
+            
             AddMenuMainUIEvent();
             AddMenuDeckUIEvent();
             AddCardUpgradeUIEvent();
             AddMenuResearchUIEvent();
-            AddLevelInformationUIEvent();
         }
         
         void Update()
@@ -43,6 +43,7 @@ namespace CR.Menu
         {
             MenuMainUI.OnClickChallengeButton = (mLevel) =>
             {
+                Common.Instance.SetSelectedMLevel(mLevel);
                 SceneController.Instance.LoadToGameScene();
             };
         }
@@ -88,10 +89,6 @@ namespace CR.Menu
             };
         }
 
-        private void AddLevelInformationUIEvent()
-        {
-            
-        }
         #endregion
     
         #region RemoveUIEvent

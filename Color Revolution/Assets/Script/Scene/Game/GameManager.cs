@@ -21,11 +21,11 @@ namespace CR.Game
         [SerializeField] private GameMenuUI GameMenuUI;
         [SerializeField] private Transform enemyRoot;
         [SerializeField] private MapCreator MapCreator;
-        [SerializeField] private LevelDataScriptableObject tempLevelData;
         [SerializeField] private TextMeshProUGUI logText;
         [SerializeField] private Transform floatingTextRoot;
         [SerializeField] private GameWinResultUI GameWinResultUI;
         [SerializeField] private GameLoseResultUI GameLoseResultUI;
+        private LevelDataScriptableObject levelData;
         
         public MapDataScriptableObject tempMapData;
 
@@ -76,15 +76,15 @@ namespace CR.Game
                     if(hasSpawnedAll)   break;
                     //if(WaveIndex >= tempLevelData.WaveSpawnList.Count)   break;
                     spawnTimer += Time.deltaTime;
-                    if (spawnTimer >= tempLevelData.GetEnemySpawnGroupInterval(WaveIndex, spawnGroupIndex))
+                    if (spawnTimer >= levelData.GetEnemySpawnGroupInterval(WaveIndex, spawnGroupIndex))
                     {
                         spawnTimer = 0;
-                        SpawnEnemy(tempLevelData.GetEnemy(WaveIndex, spawnGroupIndex));
+                        SpawnEnemy(levelData.GetEnemy(WaveIndex, spawnGroupIndex));
 
-                        if (++enemyCountIndex == tempLevelData.GetSpawnGroupEnemyCount(WaveIndex, spawnGroupIndex))
+                        if (++enemyCountIndex == levelData.GetSpawnGroupEnemyCount(WaveIndex, spawnGroupIndex))
                         {
                             enemyCountIndex = 0;
-                            if (++spawnGroupIndex == tempLevelData.GetEnemySpawnGroupCount(WaveIndex))
+                            if (++spawnGroupIndex == levelData.GetEnemySpawnGroupCount(WaveIndex))
                             {
                                 WaveIndex++;
                                 spawnGroupIndex = 0;
@@ -149,6 +149,8 @@ namespace CR.Game
         
         private void Initialize()
         {
+            levelData = Common.Instance.GetAndClearSelectedMLevel();
+            
             // Todo : create data from common
             playerData = new PlayerGameData()
             {
@@ -159,7 +161,7 @@ namespace CR.Game
 
 
             WaveIndex = 0;
-            MaxWaveCount = tempLevelData.MaxWaveCount;
+            MaxWaveCount = levelData.MaxWaveCount;
             GameUI.InitializeUI();
             AddMapCreatorEvent();
             AddGameUIEvent();
@@ -171,13 +173,13 @@ namespace CR.Game
 
         private void ShowWinResult()
         {
-            var rewards = tempLevelData.LevelReward; 
+            var rewards = levelData.LevelReward; 
             foreach (var reward in rewards)
             {
                 PlayerDataManager.Instance.AddUPoint(reward);    
             }
             
-            GameWinResultUI.InitializeUI(tempLevelData.LevelReward);
+            GameWinResultUI.InitializeUI(levelData.LevelReward);
             GameWinResultUI.Open();
             AddGameWinResultUIEvent();
             ToState(GameState.End);
@@ -392,7 +394,7 @@ namespace CR.Game
 
                 if (EnemyList.Count == 0 && hasSpawnedAll)
                 {
-                    if (WaveIndex == tempLevelData.MaxWaveCount)
+                    if (WaveIndex == levelData.MaxWaveCount)
                     {
                         spawnTimer = 0;
                         ToState(GameState.ShowWinResult);    
