@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6da8abf23d01d94db97b4b5a61de556, type: 3}
-  m_Name: Level1Data
+  m_Name: Level2Data
   m_EditorClassIdentifier: 
-  LevelName: 1 - 1
-  MapData: {fileID: 11400000, guid: 72cbd42cf9f3c69439bf7e97af9c2662, type: 2}
+  LevelName: 1 - 2
+  MapData: {fileID: 11400000, guid: 3dd39170e58c21d4ebaec2aaf1a2d5c7, type: 2}
   WaveSpawnList:
   - Name: Wave 1
     EnemySpawnGroupList:

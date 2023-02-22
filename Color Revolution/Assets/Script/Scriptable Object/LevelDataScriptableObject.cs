@@ -11,8 +11,8 @@ namespace CR.ScriptableObjects
     public class LevelDataScriptableObject : ScriptableObject
     {
         public string LevelName;
-        
-        
+
+        public MapDataScriptableObject MapData;
         [Header("Wave")]
         public List<WaveSpawnData> WaveSpawnList;
         public int MaxWaveCount => WaveSpawnList.Count;

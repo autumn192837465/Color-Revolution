@@ -27,7 +27,7 @@ namespace CR.Game
         [SerializeField] private GameLoseResultUI GameLoseResultUI;
         private LevelDataScriptableObject levelData;
         
-        public MapDataScriptableObject tempMapData;
+        
 
         public static GameState CurrentState = GameState.Initialize;
         public int PlayerCoin => playerData.Coin;
@@ -167,7 +167,7 @@ namespace CR.Game
             AddGameUIEvent();
             AddGameMenuUIEvent();
             
-            MapCreator.CreateMap(tempMapData);
+            MapCreator.CreateMap(levelData.MapData);
             ToState(GameState.PlayerPreparing);
         }
 
