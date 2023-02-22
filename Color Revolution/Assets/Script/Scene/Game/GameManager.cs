@@ -25,7 +25,7 @@ namespace CR.Game
         [SerializeField] private Transform floatingTextRoot;
         [SerializeField] private GameWinResultUI GameWinResultUI;
         [SerializeField] private GameLoseResultUI GameLoseResultUI;
-        private LevelDataScriptableObject levelData;
+        private MLevel levelData;
         
         
 

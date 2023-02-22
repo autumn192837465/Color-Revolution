@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CB.Model;
 using CR.ScriptableObjects;
 using Kinopi.Extensions;
 using TMPro;
@@ -31,8 +32,8 @@ public class LevelInformationUI : AnimatorBase
     [SerializeField] private Transform rewardRoot;
     [SerializeField] private RewardItemIconUI rewardCellPrefab;
     private List<RewardItemIconUI> rewardCellList = new();
-    public Action<LevelDataScriptableObject> OnClickChallengeButton;
-    public LevelDataScriptableObject MLevel { get; private set; }
+    public Action<MLevel> OnClickChallengeButton;
+    public MLevel MLevel { get; private set; }
     
     protected override void Awake()
     {
@@ -51,7 +52,7 @@ public class LevelInformationUI : AnimatorBase
         
     }
 
-    public void InitializeUI(LevelDataScriptableObject mLevel)
+    public void InitializeUI(MLevel mLevel)
     {
         MLevel = mLevel;
         levelNameText.text = mLevel.LevelName;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CB.Model;
 using CR.ScriptableObjects;
 using UnityEngine;
 
@@ -13,15 +14,15 @@ public class Common : Singleton<Common>
         if (isDuplicate) return;        
     }
 
-    private LevelDataScriptableObject seletedMLevel;
+    private MLevel seletedMLevel;
 
 
-    public void SetSelectedMLevel(LevelDataScriptableObject mLevel)
+    public void SetSelectedMLevel(MLevel mLevel)
     {
         seletedMLevel = mLevel;
     }
 
-    public LevelDataScriptableObject GetAndClearSelectedMLevel()
+    public MLevel GetAndClearSelectedMLevel()
     {
         var data = seletedMLevel;
         seletedMLevel = null;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CB.Model;
 using CR.ScriptableObjects;
 using Kinopi.Enums;
 using UnityEngine;
@@ -25,7 +26,7 @@ public class MenuMainUI : MonoBehaviour
     [SerializeField] private LevelInformationUI LevelInformationUI;
     [SerializeField] private List<ButtonInfo> buttonList;
     public Action<ButtonType> OnClickButton;
-    public Action<LevelDataScriptableObject> OnClickChallengeButton;
+    public Action<MLevel> OnClickChallengeButton;
     [SerializeField] private List<LevelNodeUI> levelNodes;
     
     
@@ -56,7 +57,7 @@ public class MenuMainUI : MonoBehaviour
 
     private void OnClickLevelNode(LevelNodeUI node)
     {
-        LevelInformationUI.InitializeUI(node.MLevelData);
+        LevelInformationUI.InitializeUI(node.MLevel);
         LevelInformationUI.Open();
     }
 
