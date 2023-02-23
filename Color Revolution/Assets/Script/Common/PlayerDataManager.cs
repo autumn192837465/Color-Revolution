@@ -122,6 +122,12 @@ namespace CR
             return ResearchCache.Contains(type);
         }
 
+        public bool CanResearch(ResearchType type)
+        {
+            var researchData = DataManager.Instance.GetResearchData(type);
+            return !ResearchCache.Contains(type) && (researchData.RequiredResearchType == ResearchType.None || HasResearch(researchData.RequiredResearchType));
+        }
+        
         [ContextMenu("Clear Data")]
         public void ClearData()
         {

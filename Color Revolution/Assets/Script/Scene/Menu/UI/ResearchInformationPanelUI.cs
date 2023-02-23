@@ -37,7 +37,9 @@ namespace CR.Menu
             icon.sprite = ResearchData.Sprite;
             nameText.text = ResearchData.ResearchName;
             descriptionText.text = ResearchData.Description;
-            if (ResearchData.RequiredResearchType == ResearchType.None)
+            
+            
+            if (PlayerDataManager.Instance.CanResearch(type))
             {
                 requiredResearchText.SetActive(false);    
             }
@@ -50,11 +52,13 @@ namespace CR.Menu
             
             
             
-            if (PlayerDataManager.Instance.HasResearch(type))
+            if (!PlayerDataManager.Instance.CanResearch(type))
             {
+                requiredResearchText.color = Constants.DisableColor;
                 researchButton.SetActive(false);
                 return;
             }
+            requiredResearchText.color = Constants.EnableColor;
             researchButton.SetActive(true);
             // Todo : make class
             int cost = ResearchData.Cost;

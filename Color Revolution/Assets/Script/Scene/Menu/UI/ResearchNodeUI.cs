@@ -22,7 +22,7 @@ namespace CR.Menu
 
         public void InitializeUI()
         {
-            cover.SetActive(!PlayerDataManager.Instance.HasResearch(ResearchType));
+            cover.SetActive(!PlayerDataManager.Instance.CanResearch(ResearchType));
         }   
         
         
