@@ -5676,6 +5676,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6ffde46e741ee2e4a84b8e8ab758954b,
         type: 2}
+    - target: {fileID: 6839606320987483317, guid: 7f379a9ff54833f4c881087c735a121a,
+        type: 3}
+      propertyPath: levelDataScriptableObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ffde46e741ee2e4a84b8e8ab758954b,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f379a9ff54833f4c881087c735a121a, type: 3}
 --- !u!224 &1187022276 stripped
@@ -5684,6 +5690,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1187022275}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1187022278 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6839606320987483317, guid: 7f379a9ff54833f4c881087c735a121a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1187022275}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ada8a371b9d2da444846c40b32a768ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1191588661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10715,6 +10733,7 @@ MonoBehaviour:
   buttonList: []
   levelNodes:
   - {fileID: 6024697236143341071}
+  - {fileID: 1187022278}
 --- !u!1 &2023872997
 GameObject:
   m_ObjectHideFlags: 0
@@ -11643,6 +11662,12 @@ PrefabInstance:
     - target: {fileID: 6839606320987483317, guid: 7f379a9ff54833f4c881087c735a121a,
         type: 3}
       propertyPath: levelData
+      value: 
+      objectReference: {fileID: 11400000, guid: a249fd92f5019ad42ae460511d943075,
+        type: 2}
+    - target: {fileID: 6839606320987483317, guid: 7f379a9ff54833f4c881087c735a121a,
+        type: 3}
+      propertyPath: levelDataScriptableObject
       value: 
       objectReference: {fileID: 11400000, guid: a249fd92f5019ad42ae460511d943075,
         type: 2}

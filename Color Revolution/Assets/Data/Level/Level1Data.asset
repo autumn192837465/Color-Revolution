@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6da8abf23d01d94db97b4b5a61de556, type: 3}
   m_Name: Level1Data
   m_EditorClassIdentifier: 
-  LevelName: 1 - 1
-  MapData: {fileID: 11400000, guid: 72cbd42cf9f3c69439bf7e97af9c2662, type: 2}
-  WaveSpawnList:
-  - Name: Wave 1
-    EnemySpawnGroupList:
-    - enemy: {fileID: 4817018552055963457, guid: ccb1a73ed5aff0d498d5579a31cc497d,
-        type: 3}
-      count: 5
-      interval: 1
-  LevelReward:
-  - PointType: 0
-    Count: 1000
+  MLevel:
+    LevelName: 1 - 1
+    MapData: {fileID: 11400000, guid: 72cbd42cf9f3c69439bf7e97af9c2662, type: 2}
+    WaveSpawnList:
+    - Name: Wave 1
+      EnemySpawnGroupList:
+      - enemy: {fileID: 0}
+        count: 0
+        interval: 0
+    LevelReward:
+    - PointType: 0
+      Count: 100

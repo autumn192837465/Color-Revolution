@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CB.Model;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +23,7 @@ public class GameMenuUI : AnimatorBase
         public Button Button;
     }
 
+    [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private List<ButtonInfo> buttonList;
     public Action<ButtonType> OnClickButton;    
     
@@ -39,8 +42,8 @@ public class GameMenuUI : AnimatorBase
         
     }
 
-    public void InitializeUI()
+    public void InitializeUI(MLevel mLevel)
     {
-
+        nameText.text = mLevel.LevelName;
     }
 }

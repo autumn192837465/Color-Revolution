@@ -162,7 +162,8 @@ namespace CR.Game
 
             WaveIndex = 0;
             MaxWaveCount = levelData.MaxWaveCount;
-            GameUI.InitializeUI();
+            GameUI.InitializeUI(levelData);
+            GameMenuUI.InitializeUI(levelData);
             AddMapCreatorEvent();
             AddGameUIEvent();
             AddGameMenuUIEvent();

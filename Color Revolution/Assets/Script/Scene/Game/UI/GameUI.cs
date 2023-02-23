@@ -7,6 +7,7 @@ using CR.Game;
 using Kinopi.Enums;
 using Kinopi.Extensions;
 using MoreMountains.Feedbacks;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -38,6 +39,7 @@ namespace CR.Game
 
         public TurretData SelectingTurretData { get; private set; }
 
+        [SerializeField] private TextMeshProUGUI levelNameText;
         [SerializeField] private IconWithTextUI waveIcon;
         [SerializeField] private IconWithValueTextUI hpIcon;
         [SerializeField] private IconWithValueTextUI coinIcon;
@@ -81,9 +83,9 @@ namespace CR.Game
             }
         }
 
-        public void InitializeUI()
+        public void InitializeUI(MLevel mLevel)
         {
-            
+            levelNameText.text = mLevel.LevelName;
             InitializeTurret();   
             CreateCards();
             RefreshWaveText();
