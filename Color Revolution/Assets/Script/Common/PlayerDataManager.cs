@@ -12,7 +12,7 @@ namespace CR
 {
     public class PlayerDataManager : Singleton<PlayerDataManager>
     {
-        public PlayerData PlayerData;
+        [HideInInspector] public PlayerData PlayerData;
         public Dictionary<PointType, UPoint> UPointCache;
         public HashSet<ResearchType> ResearchCache;
         protected override void Awake()

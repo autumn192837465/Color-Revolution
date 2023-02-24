@@ -3027,7 +3027,7 @@ RectTransform:
   m_Children:
   - {fileID: 1009397122}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6016,7 +6016,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &834968132
 GameObject:
@@ -7218,7 +7218,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &973941640
 MonoBehaviour:
@@ -11655,7 +11655,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1431511575
 MonoBehaviour:
@@ -13478,7 +13478,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1649754476
 PrefabInstance:
@@ -15566,7 +15566,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1895408817
 PrefabInstance:
@@ -17325,6 +17325,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2090074585}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2090074588 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6171804575696161499, guid: 1758ccd5b34d50e4cb2551e8d98e6295,
+    type: 3}
+  m_PrefabInstance: {fileID: 2090074585}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2101308940
 GameObject:
   m_ObjectHideFlags: 0
@@ -17529,12 +17541,13 @@ MonoBehaviour:
   openTrigger: open
   closeTrigger: close
   buttonList: []
+  closeButton: {fileID: 736028046}
   leftMusicButton: {fileID: 1485996198}
   rightMusicButton: {fileID: 1895408819}
   musicVolumeRoot: {fileID: 1262161700}
   leftSoundEffectButton: {fileID: 1660602966}
-  rightSoundEffectButton: {fileID: 0}
-  soundEffectVolumeRoot: {fileID: 2090074586}
+  rightSoundEffectButton: {fileID: 2090074588}
+  soundEffectVolumeRoot: {fileID: 1660928830}
 --- !u!1001 &2126194896
 PrefabInstance:
   m_ObjectHideFlags: 0

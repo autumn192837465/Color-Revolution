@@ -118,37 +118,19 @@ namespace CR
 
     public static string PlayerSettingsString
     {
-        get
-        {
-            return GetString(PlayerSettingsKey, "");
-        }
-        set
-        {
-            SetString(PlayerSettingsKey, value);
-        }
+        get => GetString(PlayerSettingsKey, "");
+        set => SetString(PlayerSettingsKey, value);
     }
     public static string MarkData
     {
-        get
-        {
-            return GetString(MaxDepthKey, "");
-        }
-        set
-        {
-            SetString(MaxDepthKey, value);
-        }
+        get => GetString(MaxDepthKey, "");
+        set => SetString(MaxDepthKey, value);
     }
 
     public static int Coin
     {
-        get
-        {
-            return GetInt(CoinKey, 0);
-        }
-        set
-        {
-            SetInt(CoinKey, value);
-        }
+        get => GetInt(CoinKey, 0);
+        set => SetInt(CoinKey, value);
     }
 
     public static string PlayerDataString
