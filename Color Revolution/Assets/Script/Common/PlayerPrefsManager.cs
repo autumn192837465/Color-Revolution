@@ -19,8 +19,8 @@ namespace CR
     public const string VolumeKey = "volume";
     public const string MuteKey = "mute";
     public const string TutorialKey = "tutorial";
-    public const string UserSettingsKey = "user_settings";
     public const string PlayerDataKey = "player_data";
+    public const string PlayerSettingsKey = "player_settings";
 
     //  public Language languageSetting;
 
@@ -116,15 +116,15 @@ namespace CR
 
 
 
-    public static string UserSettings
+    public static string PlayerSettingsString
     {
         get
         {
-            return GetString(UserSettingsKey, "");
+            return GetString(PlayerSettingsKey, "");
         }
         set
         {
-            SetString(UserSettingsKey, value);
+            SetString(PlayerSettingsKey, value);
         }
     }
     public static string MarkData

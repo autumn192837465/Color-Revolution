@@ -13,6 +13,7 @@ namespace CR.Menu
         [SerializeField] private CardUpgradeUI CardUpgradeUI;
         [SerializeField] private MenuHeaderUI MenuHeaderUI;
         [SerializeField] private MenuResearchUI MenuResearchUI;
+        [SerializeField] private MenuSettingsUI MenuSettingsUI;
        
         
         protected override void Awake()
@@ -26,7 +27,7 @@ namespace CR.Menu
             MenuHeaderUI.InitializePlayerData();
             MenuResearchUI.InitializeUI();
             MenuMainUI.InitializeUI();
-            
+            MenuSettingsUI.InitializeUI();
             AddMenuMainUIEvent();
             AddMenuDeckUIEvent();
             AddCardUpgradeUIEvent();
@@ -45,6 +46,17 @@ namespace CR.Menu
             {
                 Common.Instance.SetSelectedMLevel(mLevel);
                 SceneController.Instance.LoadToGameScene();
+            };
+            MenuMainUI.OnClickButton = (type) =>
+            {
+                switch (type)
+                {
+                    case MenuMainUI.ButtonType.Settings:
+                        MenuSettingsUI.Open();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                }
             };
         }
     

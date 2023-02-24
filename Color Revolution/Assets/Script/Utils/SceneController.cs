@@ -14,14 +14,6 @@ public class SceneController : Singleton<SceneController>
     public static string GameScene = "Game";
     public static string UpgradeScene = "Upgrade";
     public static string MapScene = "Map";
-    public static string TreasureHouseScene = "Treasure House";
-    public static string LuckyCoinBoxScene = "Lucky Coin Box";
-    public static string CoinRushScene = "Coin Rush";
-    public static string ShopScene = "Shop";
-    public static string AuctionScene = "Auction";
-    public static string MasteryScene = "Mastery";
-    public static string CardSelectionScene = "Ability Selection";
-    public static string AntiqueSelectionScene = "Antique Selection";
     public static string TutorialScene = "Tutorial";
     public static string PatternCardSettingScene = "Pattern Card Setting";
 

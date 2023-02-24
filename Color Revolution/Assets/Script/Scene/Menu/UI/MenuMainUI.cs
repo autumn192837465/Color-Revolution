@@ -12,7 +12,7 @@ public class MenuMainUI : MonoBehaviour
 {
     public enum ButtonType
     {
-        
+        Settings,
     }
 
     [Serializable]

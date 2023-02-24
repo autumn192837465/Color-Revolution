@@ -327,8 +327,10 @@ namespace CR.Game
                         ResumeGame();
                         break;
                     case GameMenuUI.ButtonType.Restart:
+                        //SceneController.Instance.LoadToMenuScene();
                         break;
                     case GameMenuUI.ButtonType.EndGame:
+                        SceneController.Instance.LoadToMenuScene();
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(type), type, null);
