@@ -18,9 +18,10 @@ MonoBehaviour:
     WaveSpawnList:
     - Name: Wave 1
       EnemySpawnGroupList:
-      - enemy: {fileID: 0}
-        count: 0
-        interval: 0
+      - enemy: {fileID: 4817018552055963457, guid: ccb1a73ed5aff0d498d5579a31cc497d,
+          type: 3}
+        count: 5
+        interval: 1
     LevelReward:
     - PointType: 0
       Count: 100

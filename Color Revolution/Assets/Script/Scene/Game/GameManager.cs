@@ -62,7 +62,7 @@ namespace CR.Game
         void Update()
         {
             if(CurrentState == GameState.End)   return;
-            DeltaTime = Time.deltaTime * GameSpeed; 
+            //DeltaTime = Time.deltaTime * GameSpeed; 
             
 
             
@@ -146,10 +146,11 @@ namespace CR.Game
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }
         }
-        
+
+        public LevelDataScriptableObject tempLevelData;
         private void Initialize()
         {
-            levelData = Common.Instance.GetAndClearSelectedMLevel();
+            levelData = Common.Instance.GetAndClearSelectedMLevel() ?? tempLevelData.MLevel;
             
             // Todo : create data from common
             playerData = new PlayerGameData()
@@ -457,8 +458,6 @@ namespace CR.Game
                     DeselectNode();
                     return;
                 }
-                
-                
                 
                 
                 ReducePlayerCoin(selectingTurretData.Cost);

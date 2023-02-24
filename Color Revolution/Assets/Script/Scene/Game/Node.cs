@@ -100,6 +100,13 @@ namespace CR.Game
                     renderer.material.color = Color.red;
                 }
             }
+            else
+            {
+                foreach (var renderer in rendererList)
+                {
+                    renderer.material.color = Color.white;
+                }
+            }
         }
         
         public void HidePlaceable()
