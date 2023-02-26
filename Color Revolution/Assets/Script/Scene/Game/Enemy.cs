@@ -40,7 +40,7 @@ public class Enemy : UnitBase
     private RGB MaxHealth => enemyData.Health.MaxHealth;
     public RGB CurrentHealth => enemyData.Health.CurrentHealth;
 
-    public Action<Enemy> OnEnemyDeath;
+    public Action<Enemy, bool> OnEnemyDeath;
 
 
     public bool IsPoisoning => poisonTimer > 0;
@@ -53,15 +53,16 @@ public class Enemy : UnitBase
     private float burnTimer;
     private float poisonTimer;
     private float poisonActivateTimer;
+    private bool killByPlayer = false;
     
-    [HideInInspector] public bool HitEndNode;
+    //[HideInInspector] public bool HitEndNode;
 
    
 
     private void Awake()
     {
         enemyData = enemyDataScriptableObject.EnemyData.DeepClone();
-        HitEndNode = false;
+        //HitEndNode = false;
         enemyWorldCanvas.Initialize(enemyData);
     }
 
@@ -87,7 +88,8 @@ public class Enemy : UnitBase
             transform.position = nextPosition;
             if (destinationNode == path.EndNode)
             {
-                HitEndNode = true;
+                //HitEndNode = true;
+                killByPlayer = false;
                 Destroy(gameObject);
             }
             else
@@ -149,6 +151,7 @@ public class Enemy : UnitBase
         
         if (IsDead)
         {
+            killByPlayer = true;
             Destroy(gameObject);
         }
         SetColor();
@@ -201,7 +204,7 @@ public class Enemy : UnitBase
 
     public void OnDestroy()
     {
-        OnEnemyDeath?.Invoke(this);
+        OnEnemyDeath?.Invoke(this, killByPlayer);
     }
     
     

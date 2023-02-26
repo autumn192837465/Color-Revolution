@@ -57,6 +57,15 @@ namespace CR
                 return coin;
             }   
         }
+
+        public int PlayerBaseCoinPerEnemyKilled
+        {
+            get
+            {
+                int coin = PlayerData.BaseCoinPerEnemyKilled;
+                return coin;
+            }
+        }
         
         
         public void AddUPoint(PointTuple tuple)

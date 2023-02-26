@@ -428,14 +428,17 @@ namespace CR.Game
         {
             Enemy enemy = Instantiate(enemyPrefab, enemyRoot);
             enemy.transform.position = Vector3.up + MapCreator.StartNode.transform.position;
-            enemy.OnEnemyDeath = (e) =>
+            enemy.OnEnemyDeath = (e, killByPlayer) =>
             {
                 EnemyList.Remove(enemy);
-                if (enemy.HitEndNode)
+                if (!killByPlayer)
                 {
                     ReducePlayerHP(1);
-                    
                     if(playerData.Hp <= 0)  return;
+                }
+                else
+                {
+                    AddPlayerCoin(PlayerDataManager.Instance.PlayerBaseCoinPerEnemyKilled);
                 }
 
                 if (EnemyList.Count == 0 && hasSpawnedAll)
@@ -504,6 +507,7 @@ namespace CR.Game
                 
                 ReducePlayerCoin(selectingTurretData.Cost);
                 var turret = Instantiate(selectingTurretData.Turret);
+                turret.Initialize();
                 node.PlaceTurret(turret);
                 MapCreator.SetNodePlaceable();
                 MapCreator.ShowPlaceable();

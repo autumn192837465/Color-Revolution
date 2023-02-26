@@ -1,5 +1,6 @@
 using System;
 using CR.Model;
+using Kinopi.Enums;
 using UnityEngine;
 
 namespace CB.Model
@@ -7,6 +8,7 @@ namespace CB.Model
     [Serializable]
     public class MOffensiveTurret
     {
+        public OffensiveTurretType OffensiveTurretType;
         public RGB AttackDamage;  // 攻擊力
         public float BulletPerSecond;   // 攻速   x bullet/sec
         public float AttackRange;   // 攻擊範圍

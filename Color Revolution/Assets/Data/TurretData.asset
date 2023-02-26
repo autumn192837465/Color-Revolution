@@ -14,38 +14,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OffensiveTurretDataList:
   - Sprite: {fileID: 21300000, guid: 6f09d446a6cc6d3439b99dacbe957b76, type: 3}
-    Cost: 5
     Turret: {fileID: 8774115302777318212, guid: c82617abafe425847a75730cffe68e0a,
       type: 3}
-    OffensiveTurretType: 0
     MOffensiveTurret:
+      OffensiveTurretType: 0
       AttackDamage:
-        RedValue: 1
-        GreenValue: 0
-        BlueValue: 0
-      BulletPerSecond: 1
+        RedValue: 5
+        GreenValue: 5
+        BlueValue: 5
+      BulletPerSecond: 100
       AttackRange: 5
       CriticalRate:
         value: 0
       SuperCriticalRate:
         value: 0
       HitRate:
-        value: 0
+        value: 100
       PoisonRate:
         value: 0
       FreezeRate:
         value: 0
       BurnRate:
         value: 0
-      OperatingTime: 0
-      CooldownTime: 0
-      Cost: 0
+      OperatingTime: 10
+      CooldownTime: 5
+      Cost: 10
   - Sprite: {fileID: 21300000, guid: bfbd866315892bc49b4bec68551a9bbe, type: 3}
-    Cost: 5
     Turret: {fileID: 8774115302777318212, guid: 2a2c7e126c864d54195895374b629736,
       type: 3}
-    OffensiveTurretType: 1
     MOffensiveTurret:
+      OffensiveTurretType: 1
       AttackDamage:
         RedValue: 0
         GreenValue: 0
@@ -57,22 +55,21 @@ MonoBehaviour:
       SuperCriticalRate:
         value: 0
       HitRate:
-        value: 0
+        value: 100
       PoisonRate:
         value: 0
       FreezeRate:
         value: 0
       BurnRate:
         value: 0
-      OperatingTime: 0
-      CooldownTime: 0
-      Cost: 0
+      OperatingTime: 10
+      CooldownTime: 5
+      Cost: 10
   - Sprite: {fileID: 21300000, guid: 3ba1017e34fb81d42a95a32495a59547, type: 3}
-    Cost: 5
     Turret: {fileID: 8774115302777318212, guid: 02d3426f2adbcfb47abf39e9de752dfd,
       type: 3}
-    OffensiveTurretType: 2
     MOffensiveTurret:
+      OffensiveTurretType: 2
       AttackDamage:
         RedValue: 0
         GreenValue: 0
@@ -84,22 +81,21 @@ MonoBehaviour:
       SuperCriticalRate:
         value: 0
       HitRate:
-        value: 0
+        value: 100
       PoisonRate:
         value: 0
       FreezeRate:
         value: 0
       BurnRate:
         value: 0
-      OperatingTime: 0
-      CooldownTime: 0
-      Cost: 0
+      OperatingTime: 10
+      CooldownTime: 5
+      Cost: 10
   SupportTurretDataList:
   - Sprite: {fileID: 21300000, guid: f2702935a1f603d488b4dd8b84b1a574, type: 3}
-    Cost: 5
     Turret: {fileID: 6741726395225580563, guid: fbdf07f7b317ed148b0f573079f450f9,
       type: 3}
-    SupportTurretType: 0
     MSupportTurret:
-      CoinAmount: 0
-      Cost: 0
+      SupportTurretType: 0
+      Description: 
+      Cost: 10

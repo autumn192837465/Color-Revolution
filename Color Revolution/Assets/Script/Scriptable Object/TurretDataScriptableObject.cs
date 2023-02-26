@@ -37,7 +37,7 @@ public abstract class TurretData
 {
     public abstract TurretType TurretType { get; }
     public Sprite Sprite;
-    public int Cost;
+    public abstract int Cost { get; }
     public Turret Turret;
 }
 
@@ -45,9 +45,10 @@ public abstract class TurretData
 public class OffensiveTurretData : TurretData
 {
     public override TurretType TurretType => TurretType.Offensive;
-    public OffensiveTurretType OffensiveTurretType;
+    
     public MOffensiveTurret MOffensiveTurret;
-
+    public OffensiveTurretType OffensiveTurretType => MOffensiveTurret.OffensiveTurretType;
+    public override int Cost => MOffensiveTurret.Cost;
 
 }
 
@@ -55,6 +56,8 @@ public class OffensiveTurretData : TurretData
 public class SupportTurretData : TurretData
 {
     public override TurretType TurretType => TurretType.Support;
-    public SupportTurretType SupportTurretType;
+    
     public MSupportTurret MSupportTurret;
+    public SupportTurretType SupportTurretType => MSupportTurret.SupportTurretType;
+    public override int Cost => MSupportTurret.Cost;
 }

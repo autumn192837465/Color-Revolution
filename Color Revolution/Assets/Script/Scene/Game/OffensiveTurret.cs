@@ -65,11 +65,6 @@ namespace CR.Game
 
         private TurretState currentState = TurretState.Idle;
 
-        private void Awake()
-        {
-            Initialize();
-        }
-
 
         
 

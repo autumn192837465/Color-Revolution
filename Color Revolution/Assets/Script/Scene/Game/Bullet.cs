@@ -84,9 +84,8 @@ public class Bullet : MonoBehaviour
 
         bool isCritical = BulletData.CriticalRate.HitProbability();
         float amplifier = 1;
-        amplifier = isCritical ? amplifier * Constants.CriticalPercentage : amplifier;
-        amplifier = enemy.IsBurning ? amplifier * Constants.BurningPercentage : amplifier;
-        
+        amplifier = isCritical ? amplifier * Constants.CriticalAmplifier : amplifier;
+        amplifier = enemy.IsBurning ? amplifier * Constants.BurningAmplifier : amplifier;
         
         enemy.ReduceHp(BulletData.Damage * amplifier);
 
