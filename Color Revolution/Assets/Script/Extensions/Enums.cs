@@ -34,11 +34,22 @@ namespace Kinopi.Enums
 
     public enum TurretType
     {
+        Offensive,
+        Support,
+    }
+    
+    public enum OffensiveTurretType
+    {
         RedTurret,
         BlueTurret,
         GreenTurret,
     }
 
+    public enum SupportTurretType
+    {
+        RainbowTurret,
+    }
+    
     public enum CardType
     {
         AddRedAttack,

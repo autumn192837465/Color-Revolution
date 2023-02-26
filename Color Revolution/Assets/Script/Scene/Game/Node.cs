@@ -138,12 +138,14 @@ namespace CR.Game
 
         public void ShowAttackRange()
         {
-            if(placingTurret != null) PlacingTurret.ShowAttackRange();
+            if (placingTurret == null || placingTurret.TurretType != TurretType.Offensive) return;
+            ((OffensiveTurret)PlacingTurret).ShowAttackRange();
         }
         
         public void HideAttackRange()
         {
-            if(placingTurret != null) PlacingTurret.HideAttackRange();
+            if (placingTurret == null || placingTurret.TurretType != TurretType.Offensive) return;
+            ((OffensiveTurret)PlacingTurret).HideAttackRange();
         }
 
         private void OnMouseEnter()

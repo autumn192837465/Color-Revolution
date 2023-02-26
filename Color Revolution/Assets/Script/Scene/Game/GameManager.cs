@@ -122,6 +122,7 @@ namespace CR.Game
                     break;
                 case GameState.PlayerPreparing:
                     CurrentState = GameState.PlayerPreparing;
+                    PlayerPreparingState();
                     logText.text = "PlayerPreparing";
                     break;
                 case GameState.SpawningEnemy:
@@ -142,6 +143,23 @@ namespace CR.Game
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
+            }
+        }
+
+        private void PlayerPreparingState()
+        {
+            int rainbowTurretCount = 0;
+            foreach (var node in MapCreator.NodeList)
+            {
+                if(node.PlacingTurret == null)  continue;
+                if (node.PlacingTurret.TurretType != TurretType.Support) continue;
+                SupportTurret turret = (SupportTurret)node.PlacingTurret;
+                if (turret.SupportTurretData.SupportTurretType == SupportTurretType.RainbowTurret) rainbowTurretCount++;
+            }
+
+            if (rainbowTurretCount > 0)
+            {
+                AddPlayerCoin(rainbowTurretCount * PlayerDataManager.Instance.PlayerBaseCoinPerRainbowTurret);
             }
         }
 
@@ -280,22 +298,48 @@ namespace CR.Game
                 {
                     Node node = collider.GetComponent<Node>();
                     if (node is null || !node.HasTurret) return false;
+                    if (node.PlacingTurret.TurretType != TurretType.Offensive) return false;
+                    OffensiveTurret turret = (OffensiveTurret)node.PlacingTurret;
                     switch (cardData.CardType)
                     {
                         case CardType.AddRedAttack:
-                            node.PlacingTurret.AddRedAttack(1);
+                            turret.AddRedAttack(1);
                             break;
                         case CardType.AddBlueAttack:
-                            node.PlacingTurret.AddBlueAttack(1);
+                            turret.AddBlueAttack(1);
                             break;
                         case CardType.AddGreenAttack:
-                            node.PlacingTurret.AddGreenAttack(1);
+                            turret.AddGreenAttack(1);
                             break;
                         case CardType.AddAttackRange:
-                            node.PlacingTurret.AddAttackRange(100);
+                            turret.AddAttackRange(100);
                             break;
                         case CardType.AddAttackSpeed:
-                            node.PlacingTurret.AddAttackSpeed(1);
+                            turret.AddAttackSpeed(1);
+                            break;
+                        case CardType.AddHitRate:
+                            break;
+                        case CardType.AddCriticalRate:
+                            break;
+                        case CardType.AddPoisonRate:
+                            break;
+                        case CardType.AddBurnRate:
+                            break;
+                        case CardType.AddFreezeRate:
+                            break;
+                        case CardType.Test1:
+                            break;
+                        case CardType.Test2:
+                            break;
+                        case CardType.Test3:
+                            break;
+                        case CardType.Test4:
+                            break;
+                        case CardType.Test5:
+                            break;
+                        case CardType.Test6:
+                            break;
+                        case CardType.Test7:
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -303,7 +347,7 @@ namespace CR.Game
                     
                     
                     node.PlacingTurret.AddTurretValue(cardData.Cost);
-                    node.PlacingTurret.PlayEnhanceFeedbacks();
+                    turret.PlayEnhanceFeedbacks();
                     ReducePlayerCoin(cardData.Cost);
                     SetSelectingNode(node);
                     return true;
@@ -415,12 +459,12 @@ namespace CR.Game
         
 
         
-        public List<Enemy> GetInAttackRangeEnemyList(Turret turret)
+        public List<Enemy> GetInAttackRangeEnemyList(OffensiveTurret offensiveTurret)
         {
             List<Enemy> returnList = new();
             foreach (var enemy in EnemyList)
             {
-                if (Vector3.Distance(enemy.transform.position, turret.transform.position) <= turret.MTurret.AttackRange)
+                if (Vector3.Distance(enemy.transform.position, offensiveTurret.transform.position) <= offensiveTurret.MOffensiveTurret.AttackRange)
                 {
                                     
                     returnList.Add(enemy);
@@ -472,8 +516,20 @@ namespace CR.Game
         {
             if (selectingNode != null) selectingNode.HideAttackRange();
             selectingNode = node;
-            selectingNode.ShowAttackRange();
-            GameUI.InitializeTurretPanel(selectingNode.PlacingTurret);
+            switch (selectingNode.PlacingTurret.TurretType)
+            {
+                case TurretType.Offensive:
+                    selectingNode.ShowAttackRange();
+                    GameUI.InitializeTurretPanel((OffensiveTurret)selectingNode.PlacingTurret);
+                    break;
+                case TurretType.Support:
+                    GameUI.InitializeTurretPanel((SupportTurret)selectingNode.PlacingTurret);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            
         }
         
         private void DeselectNode()

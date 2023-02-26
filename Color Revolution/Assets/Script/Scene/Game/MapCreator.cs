@@ -137,15 +137,6 @@ public class MapCreator : MonoBehaviour
 
     //public Action<Node> OnSelectAvailableEmptyNode;
     public Action<Node> OnSelectNode;
-    private void SelectNode(Node node)
-    {
-        
-        
-        OnSelectNode(node);
-        
-        return;
-       
-    }
 
     public void ShowPlaceable()
     {
@@ -299,7 +290,7 @@ public class MapCreator : MonoBehaviour
             {
                 FindNearestPath(neighborNode, stack, possiblePath);
             }    
-            }
+        }
         
 
         stack.Pop();

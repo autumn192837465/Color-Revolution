@@ -82,6 +82,11 @@ PrefabInstance:
     - target: {fileID: 6530028128586466177, guid: 576a500e2856aab45a4092691ef58814,
         type: 3}
       propertyPath: TurretType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530028128586466177, guid: 576a500e2856aab45a4092691ef58814,
+        type: 3}
+      propertyPath: offensiveTurretType
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6530028128586466177, guid: 576a500e2856aab45a4092691ef58814,

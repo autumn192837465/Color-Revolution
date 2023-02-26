@@ -22,7 +22,7 @@ public class TurretWorldCanvas : ObjectWorldCanvas
         
     }
 
-    public void Initialize(TurretBasicData basicData)
+    public void Initialize(MOffensiveTurret basicData)
     {
         attackRangeImage.localScale = new Vector2(basicData.AttackRange * 2, basicData.AttackRange * 2);
     }

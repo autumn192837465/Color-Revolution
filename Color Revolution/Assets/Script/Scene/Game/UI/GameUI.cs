@@ -17,8 +17,6 @@ namespace CR.Game
 {
     public class GameUI : MonoBehaviour
     {
-        public Button showPlaceableButton;
-
         public enum ButtonType
         {
             DrawCard,
@@ -44,8 +42,6 @@ namespace CR.Game
         [SerializeField] private IconWithValueTextUI hpIcon;
         [SerializeField] private IconWithValueTextUI coinIcon;
         [SerializeField] private TurretPanelInfoUI turretPanelInfoUI;
-    
-        
         
         public Action OnSellTurret;
 
@@ -56,14 +52,16 @@ namespace CR.Game
                 buttonInfo.Button.OnClick = () => OnClickButton?.Invoke(buttonInfo.Type);
             }
 
+            /*
             foreach (GameTurretUI turretButton in turretButtonList)
             {
                 turretButton.OnClickTurret = SelectTurret;
             }
+            */
 
             pausePlayButton.OnClick = OnClickPauseButton;
             speedUpButton.OnClick = OnClickSpeedUpButton;
-            cancelTurretSelectingButton.onClick.AddListener(CancelTurretSelection);
+            //cancelTurretSelectingButton.onClick.AddListener(CancelTurretSelection);
             readyButton.OnClick = () => OnClickReady?.Invoke();
         }
 
@@ -123,12 +121,19 @@ namespace CR.Game
         {
             hpIcon.SetText(GameManager.Instance.PlayerHp);
         }
-
-        public void InitializeTurretPanel(Turret turret)
+        
+        public void InitializeTurretPanel(OffensiveTurret offensiveTurret)
         {
             turretPanelInfoUI.SetActive(true);
-            turretPanelInfoUI.InitializeUI(turret);
+            turretPanelInfoUI.InitializeUI(offensiveTurret);
         }
+        
+        public void InitializeTurretPanel(SupportTurret supportTurret)
+        {
+            turretPanelInfoUI.SetActive(true);
+            turretPanelInfoUI.InitializeUI(supportTurret);
+        }
+        
         public void ClearTurretPanel()
         {
             turretPanelInfoUI.SetActive(false);
@@ -139,11 +144,7 @@ namespace CR.Game
 
         [Header("Game Speed")] 
         [SerializeField] private FeedbackButton pausePlayButton;
-        [SerializeField] private Image pausePlayButtonImage;
-
-        [SerializeField] private Sprite pauseSprite;
-        [SerializeField] private Sprite playSprite;
-
+        
         [SerializeField] private FeedbackButton speedUpButton;
         [SerializeField] private Image speedUpButtonImage;
         
@@ -184,10 +185,10 @@ namespace CR.Game
         
         #region Turret
         [SerializeField] private Transform draggingTurret;
-        [SerializeField] private Button cancelTurretSelectingButton;
-        [SerializeField] private Image selectingTurretImage;
+        //[SerializeField] private Button cancelTurretSelectingButton;
+        //[SerializeField] private Image selectingTurretImage;
         [SerializeField] private List<GameTurretUI> turretButtonList;
-        
+        [SerializeField] private GameTurretUI rainbowTurretButton;
         
         
         public Func<Collider, TurretData, bool> OnDropTurret;
@@ -196,15 +197,19 @@ namespace CR.Game
 
         private void InitializeTurret()
         {
-            turretButtonList[0].InitializeUI(DataManager.Instance.GetTurretData(TurretType.RedTurret));
-            turretButtonList[1].InitializeUI(DataManager.Instance.GetTurretData(TurretType.BlueTurret));
-            turretButtonList[2].InitializeUI(DataManager.Instance.GetTurretData(TurretType.GreenTurret));
-            
+            turretButtonList[0].InitializeUI(DataManager.Instance.GetOffensiveTurretData(OffensiveTurretType.RedTurret));
+            turretButtonList[1].InitializeUI(DataManager.Instance.GetOffensiveTurretData(OffensiveTurretType.BlueTurret));
+            turretButtonList[2].InitializeUI(DataManager.Instance.GetOffensiveTurretData(OffensiveTurretType.GreenTurret));
+
             foreach (var gameTurretUI in turretButtonList)
             {
                 gameTurretUI.OnPointerDownTurret = OnPointerDownTurret;
                 gameTurretUI.OnPointerUpTurret = OnPointerUpTurret;
             }
+            
+            rainbowTurretButton.InitializeUI(DataManager.Instance.GetSupportTurretData(SupportTurretType.RainbowTurret));
+            rainbowTurretButton.OnPointerDownTurret = OnPointerDownTurret;
+            rainbowTurretButton.OnPointerUpTurret = OnPointerUpTurret;
         }
         
         
@@ -212,20 +217,21 @@ namespace CR.Game
         {
             if(GameManager.IsPausing)   return;
             // Todo : check cost
-            selectingTurretImage.sprite = turret.TurretData.Sprite;
+            //selectingTurretImage.sprite = turret.TurretData.Sprite;
             SelectingTurretData = turret.TurretData;
             OnSelectTurret?.Invoke();
-            selectingTurretImage.transform.parent.SetActive(true);
+            //selectingTurretImage.transform.parent.SetActive(true);
         }
 
         public Action OnCancelSelection;
 
+        
         private void CancelTurretSelection()
         {
             if(GameManager.IsPausing)   return;
             SelectingTurretData = null;
             OnCancelSelection?.Invoke();
-            selectingTurretImage.transform.parent.SetActive(false);
+            //selectingTurretImage.transform.parent.SetActive(false);
         }
 
 
@@ -270,6 +276,9 @@ namespace CR.Game
             }
             CancelTurretSelection();
         }
+        
+        
+        
 
         #endregion
 

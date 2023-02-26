@@ -49,6 +49,16 @@ namespace CR
             }   
         }
         
+        public int PlayerBaseCoinPerRainbowTurret
+        {
+            get
+            {
+                int coin = PlayerData.BaseCoinPerRainbowTurret;
+                return coin;
+            }   
+        }
+        
+        
         public void AddUPoint(PointTuple tuple)
         {
             AddUPoints(new List<PointTuple> { tuple });

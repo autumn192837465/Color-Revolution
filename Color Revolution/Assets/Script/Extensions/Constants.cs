@@ -1,8 +1,4 @@
-﻿using Kinopi.Enums;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using CR.Model;
+﻿using CR.Model;
 using UnityEngine;
 
 namespace Kinopi.Constants
@@ -19,8 +15,9 @@ namespace Kinopi.Constants
         public const int MaxVolume = 20;
         
 
-        public const int PlayerBaseHp = 5;
+        public const int PlayerBaseHp = 20;
         public const int PlayerBaseCoin = 100;
+        public const int BaseCoinPerRainbowTurret = 10;
         
         public const float EffectTime = 5;
         public const uint DeckCardCount = 9;

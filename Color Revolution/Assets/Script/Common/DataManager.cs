@@ -25,10 +25,16 @@ public class DataManager : Singleton<DataManager>
 
     #region Turret
     [SerializeField] private TurretDataScriptableObject TurretData;
-    public TurretData GetTurretData(TurretType type)
+    public OffensiveTurretData GetOffensiveTurretData(OffensiveTurretType type)
     {
-        return TurretData.TurretDataCache.GetValue(type);
+        return TurretData.OffensiveTurretDataCache.GetValue(type);
     }
+    
+    public SupportTurretData GetSupportTurretData(SupportTurretType type)
+    {
+        return TurretData.SupportTurretDataCache.GetValue(type);
+    }
+    
     #endregion
     
     

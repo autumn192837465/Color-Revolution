@@ -11,14 +11,14 @@ using UnityEngine;
 
 public class BulletData
 {
-    public BulletData(TurretBasicData turretBasicData)
+    public BulletData(MOffensiveTurret mOffensiveTurret)
     {
-        Damage = turretBasicData.AttackDamage.Copy();
-        HitRate = turretBasicData.HitRate.Copy();
-        CriticalRate = turretBasicData.CriticalRate.Copy();
-        PoisonRate = turretBasicData.PoisonRate.Copy();
-        BurnRate = turretBasicData.BurnRate.Copy();
-        FreezeRate = turretBasicData.FreezeRate.Copy();
+        Damage = mOffensiveTurret.AttackDamage.Copy();
+        HitRate = mOffensiveTurret.HitRate.Copy();
+        CriticalRate = mOffensiveTurret.CriticalRate.Copy();
+        PoisonRate = mOffensiveTurret.PoisonRate.Copy();
+        BurnRate = mOffensiveTurret.BurnRate.Copy();
+        FreezeRate = mOffensiveTurret.FreezeRate.Copy();
     }
         
     public RGB Damage;

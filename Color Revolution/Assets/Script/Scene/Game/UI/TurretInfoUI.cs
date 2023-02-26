@@ -1,16 +1,14 @@
+using CB.Model;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
-using System;
-using CB.Model;
-using CR.Game;
 using TMPro;
 
 namespace CR.Game
 {
     public class TurretInfoUI : MonoBehaviour
     {
-        [SerializeField] private Image turretImage;
+        [Header("Offensive Turret")] 
+        [SerializeField] private GameObject offensiveTurretInfoRoot;
         [SerializeField] private TextMeshProUGUI redDamageText;
         [SerializeField] private TextMeshProUGUI greenDamageText;
         [SerializeField] private TextMeshProUGUI blueDamageText;
@@ -18,38 +16,33 @@ namespace CR.Game
         [SerializeField] private TextMeshProUGUI attackSpeedText;
         [SerializeField] private TextMeshProUGUI operatingTimeText;
         [SerializeField] private TextMeshProUGUI coolDownTimeText;
-        
-        
-       
 
 
-        public virtual void InitializeUI(Turret turret)
+        [Header("Support Turret")] 
+        [SerializeField] private GameObject supportTurretInfoRoot;
+
+        
+
+        public void InitializeUI(MOffensiveTurret mOffensiveTurret)
         {
-            turretImage.sprite = turret.TurretData.Sprite;
-            var data = turret.TurretBasicData;
-            redDamageText.text = data.AttackDamage.RedValue.ToString();
-            greenDamageText.text = data.AttackDamage.GreenValue.ToString();
-            blueDamageText.text = data.AttackDamage.BlueValue.ToString();
-
-            attackRangeDamageText.text = data.AttackRange.ToString();
-            attackSpeedText.text = data.BulletPerSecond.ToString();
-            operatingTimeText.text = $"{data.OperatingTime} sec";
-            coolDownTimeText.text = $"{data.CooldownTime} sec";
-
+            offensiveTurretInfoRoot.SetActive(true);
+            supportTurretInfoRoot.SetActive(false);
             
+            redDamageText.text = mOffensiveTurret.AttackDamage.RedValue.ToString();
+            greenDamageText.text = mOffensiveTurret.AttackDamage.GreenValue.ToString();
+            blueDamageText.text = mOffensiveTurret.AttackDamage.BlueValue.ToString();
+
+            attackRangeDamageText.text = mOffensiveTurret.AttackRange.ToString("0.0");
+            attackSpeedText.text = mOffensiveTurret.BulletPerSecond.ToString("0.0");
+            operatingTimeText.text = $"{mOffensiveTurret.OperatingTime} sec";
+            coolDownTimeText.text = $"{mOffensiveTurret.CooldownTime} sec";
         }
-
-        public void InitializeUI(TurretData data)
+        
+        
+        public void InitializeUI(MSupportTurret mSupportTurret)
         {
-            var basicData = data.BasicDataScriptableObject.BasicData;
-            redDamageText.text = basicData.AttackDamage.RedValue.ToString();
-            greenDamageText.text = basicData.AttackDamage.GreenValue.ToString();
-            blueDamageText.text = basicData.AttackDamage.BlueValue.ToString();
-
-            attackRangeDamageText.text = basicData.AttackRange.ToString();
-            attackSpeedText.text = basicData.BulletPerSecond.ToString();
-            operatingTimeText.text = $"{basicData.OperatingTime} sec";
-            coolDownTimeText.text = $"{basicData.CooldownTime} sec";
+            offensiveTurretInfoRoot.SetActive(false);
+            supportTurretInfoRoot.SetActive(true);
         }
     }    
 }

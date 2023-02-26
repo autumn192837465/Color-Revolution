@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CB.Model
 {
     [Serializable]
-    public class TurretBasicData
+    public class MOffensiveTurret
     {
         public RGB AttackDamage;  // 攻擊力
         public float BulletPerSecond;   // 攻速   x bullet/sec
@@ -19,5 +19,6 @@ namespace CB.Model
         public Rate BurnRate;       // 命中率
         public float OperatingTime; // 運轉時間
         public float CooldownTime; // 運轉時間
+        public int Cost;
     }    
 }

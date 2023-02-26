@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 using System;
 using Kinopi.Constants;
+using Kinopi.Enums;
 using Kinopi.Extensions;
 using UnityEngine.EventSystems;
 
@@ -20,20 +20,29 @@ namespace CR.Game
         public TurretData TurretData { get; private set; }
 
 
-        public Action<GameTurretUI> OnClickTurret;
+        //public Action<GameTurretUI> OnClickTurret;
         private void Awake()
         {
-            button.onClick.AddListener(() => OnClickTurret?.Invoke(this));
+            //button.onClick.AddListener(() => OnClickTurret?.Invoke(this));
         }
 
-        public void InitializeUI(TurretData data)
+        public void InitializeUI(OffensiveTurretData data)
         {
             TurretData = data;
             image.sprite = data.Sprite;
             costIcon.SetText(data.Cost);
-            infoUI.InitializeUI(data);
+            infoUI.InitializeUI(data.MOffensiveTurret);
         }
 
+        public void InitializeUI(SupportTurretData data)
+        {
+            TurretData = data;
+            image.sprite = data.Sprite;
+            costIcon.SetText(data.Cost);
+            infoUI.InitializeUI(data.MSupportTurret);
+        }
+        
+        
         public void RefreshCostTextColor()
         {
             bool canBuy = GameManager.Instance.PlayerCoin >= TurretData.Cost; 
