@@ -34,6 +34,10 @@ namespace Kinopi.Constants
         
         
         public static readonly RGB PoisonDamage = new RGB(1, 1, 1);
+        
+        // Research
+        public const int AddHpAmount = 1;
+        public const int AddCoinAmount = 10;
     }
 
 

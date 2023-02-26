@@ -73,7 +73,11 @@ namespace Kinopi.Enums
         Add1Hp_3 = 3,
         Add1Hp_4 = 4,
         Add1Hp_5 = 5,
-        
+        AddCoin_1 = 101,
+        AddCoin_2 = 102,
+        AddCoin_3 = 103,
+        AddCoin_4 = 104,
+        AddCoin_5 = 105,
     }
 
     public enum TargetPriority

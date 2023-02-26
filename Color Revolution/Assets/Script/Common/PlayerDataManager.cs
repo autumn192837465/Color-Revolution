@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CB.Model;
 using CR.Model;
-using JetBrains.Annotations;
+using Kinopi.Constants;
 using Kinopi.Enums;
 using UnityEngine;
 
@@ -20,6 +19,34 @@ namespace CR
             base.Awake();
             if (isDuplicate) return;
             LoadPlayerData();
+        }
+
+        public int PlayerHp
+        {
+            get
+            {
+                int hp = PlayerData.BaseHp;
+                if (HasResearch(ResearchType.Add1Hp_1)) hp += Constants.AddHpAmount;
+                if (HasResearch(ResearchType.Add1Hp_2)) hp += Constants.AddHpAmount;
+                if (HasResearch(ResearchType.Add1Hp_3)) hp += Constants.AddHpAmount;
+                if (HasResearch(ResearchType.Add1Hp_4)) hp += Constants.AddHpAmount;
+                if (HasResearch(ResearchType.Add1Hp_5)) hp += Constants.AddHpAmount;
+                return hp;
+            }
+        }
+
+        public int PlayerBaseCoin
+        {
+            get
+            {
+                int coin = PlayerData.BaseCoin;
+                if (HasResearch(ResearchType.AddCoin_1)) coin += Constants.AddCoinAmount;
+                if (HasResearch(ResearchType.AddCoin_2)) coin += Constants.AddCoinAmount;
+                if (HasResearch(ResearchType.AddCoin_3)) coin += Constants.AddCoinAmount;
+                if (HasResearch(ResearchType.AddCoin_4)) coin += Constants.AddCoinAmount;
+                if (HasResearch(ResearchType.AddCoin_5)) coin += Constants.AddCoinAmount;
+                return coin;
+            }   
         }
         
         public void AddUPoint(PointTuple tuple)

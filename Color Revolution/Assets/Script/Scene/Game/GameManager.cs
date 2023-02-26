@@ -63,9 +63,7 @@ namespace CR.Game
         {
             if(CurrentState == GameState.End)   return;
             //DeltaTime = Time.deltaTime * GameSpeed; 
-            
 
-            
             switch (CurrentState)
             {
                 case GameState.Initialize:
@@ -155,8 +153,8 @@ namespace CR.Game
             // Todo : create data from common
             playerData = new PlayerGameData()
             {
-                Hp = PlayerDataManager.Instance.PlayerData.BaseHp,
-                Coin = PlayerDataManager.Instance.PlayerData.BaseCoin,
+                Hp = PlayerDataManager.Instance.PlayerHp,
+                Coin = PlayerDataManager.Instance.PlayerBaseCoin,
                 CardDeck = PlayerDataManager.Instance.PlayerData.CardDeck,
             };
 
@@ -422,7 +420,7 @@ namespace CR.Game
             List<Enemy> returnList = new();
             foreach (var enemy in EnemyList)
             {
-                if (Vector3.Distance(enemy.transform.position, turret.transform.position) <= turret.TurretBasicData.AttackRange)
+                if (Vector3.Distance(enemy.transform.position, turret.transform.position) <= turret.MTurret.AttackRange)
                 {
                                     
                     returnList.Add(enemy);
