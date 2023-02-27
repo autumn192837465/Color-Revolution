@@ -30,11 +30,27 @@ namespace CR.Game
         
 
         public static GameState CurrentState = GameState.Initialize;
-        public int PlayerCoin => playerData.Coin;
-        public int PlayerHp => playerData.Hp;
-        public UCard[] PlayerCards => playerData.CardDeck;
+
+        #region Properties
+
+        public int PlayerCoin => PlayerGameData.Coin;
+        public int PlayerHp => PlayerGameData.Hp;
+        public UCard[] PlayerCards => PlayerGameData.CardDeck;
+        public int CoinPerRainbowTurret;
+        public int CoinPerEnemyKilled => PlayerGameData.CoinPerEnemyKilled;
+        public float CriticalAmplifier => PlayerGameData.CriticalAmplifier;
+        public float SuperCriticalAmplifier => PlayerGameData.SuperCriticalAmplifier;
+        public float FrozenSpeedDebuffPercentage => PlayerGameData.FrozenSpeedDebuffPercentage;
+        public float PoisonActivateTime => PlayerGameData.PoisonActivateTime;
+        public float BurningAmplifier => PlayerGameData.BurningAmplifier;
+
+        #endregion
+        
+        
+        
+        
         private Node selectingNode;
-        private PlayerGameData playerData;
+        public PlayerGameData PlayerGameData { get; private set; }
 
         public static float DeltaTime;
         public static int GameSpeed;
@@ -47,12 +63,6 @@ namespace CR.Game
         private float spawnTimer = 0;
         private float resuiltOpeningWaitTimer = Constants.ResultOpeningWaitTime;
         
-
-        protected override void Awake()
-        {
-            base.Awake();
-            if (isDuplicate) return;
-        }
 
         private void Start()
         {
@@ -159,7 +169,7 @@ namespace CR.Game
 
             if (rainbowTurretCount > 0)
             {
-                AddPlayerCoin(rainbowTurretCount * PlayerDataManager.Instance.PlayerBaseCoinPerRainbowTurret);
+                AddPlayerCoin(rainbowTurretCount * PlayerGameData.CoinPerRainbowTurret);
             }
         }
 
@@ -167,15 +177,8 @@ namespace CR.Game
         private void Initialize()
         {
             levelData = Common.Instance.GetAndClearSelectedMLevel() ?? tempLevelData.MLevel;
-            
-            // Todo : create data from common
-            playerData = new PlayerGameData()
-            {
-                Hp = PlayerDataManager.Instance.PlayerHp,
-                Coin = PlayerDataManager.Instance.PlayerBaseCoin,
-                CardDeck = PlayerDataManager.Instance.PlayerData.CardDeck,
-            };
 
+            PlayerGameData = new PlayerGameData(PlayerDataManager.Instance);
 
             WaveIndex = 0;
             MaxWaveCount = levelData.MaxWaveCount;
@@ -188,6 +191,8 @@ namespace CR.Game
             MapCreator.CreateMap(levelData.MapData);
             ToState(GameState.PlayerPreparing);
         }
+
+     
 
         private void ShowWinResult()
         {
@@ -434,11 +439,11 @@ namespace CR.Game
                 if (!killByPlayer)
                 {
                     ReducePlayerHP(1);
-                    if(playerData.Hp <= 0)  return;
+                    if(PlayerGameData.Hp <= 0)  return;
                 }
                 else
                 {
-                    AddPlayerCoin(PlayerDataManager.Instance.PlayerBaseCoinPerEnemyKilled);
+                    AddPlayerCoin(PlayerGameData.CoinPerEnemyKilled);
                 }
 
                 if (EnemyList.Count == 0 && hasSpawnedAll)
@@ -546,22 +551,22 @@ namespace CR.Game
         #region Player Status
         private void AddPlayerHP(int amount)
         {
-            playerData.Hp += amount;
+            PlayerGameData.Hp += amount;
             GameUI.RefreshHp();
         }
         
         private void AddPlayerCoin(int amount)
         {
-            playerData.Coin += amount;
+            PlayerGameData.Coin += amount;
             GameUI.RefreshCoin();
         }
         
         private void ReducePlayerHP(int amount)
         {
-            playerData.Hp -= amount;
-            if (playerData.Hp <= 0)
+            PlayerGameData.Hp -= amount;
+            if (PlayerGameData.Hp <= 0)
             {
-                playerData.Hp = 0;
+                PlayerGameData.Hp = 0;
                 ToState(GameState.ShowLoseResult);
             }
             GameUI.RefreshHp();
@@ -569,10 +574,10 @@ namespace CR.Game
         
         private void ReducePlayerCoin(int amount)
         {
-            playerData.Coin -= amount;
-            if (playerData.Coin < 0)
+            PlayerGameData.Coin -= amount;
+            if (PlayerGameData.Coin < 0)
             {
-                playerData.Coin = 0;
+                PlayerGameData.Coin = 0;
                 Debug.LogError("Coin is negative!!");
                 
             }

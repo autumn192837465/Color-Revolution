@@ -80,7 +80,7 @@ public class Enemy : UnitBase
 
     private void MoveEnemy()
     {
-        float moveSpeed = (freezeTimer > 0) ? speed * Constants.FrozenSpeedDebuffPercentage : speed;
+        float moveSpeed = (freezeTimer > 0) ? speed * GameManager.Instance.FrozenSpeedDebuffPercentage : speed;
         Vector3 nextPosition = transform.position + movingDirection * (Time.deltaTime * moveSpeed);
         if (Vector3.Dot((destinationNode.transform.position - nextPosition).XZPosition(), movingDirection) < 0)
         {
@@ -110,10 +110,10 @@ public class Enemy : UnitBase
         {
             poisonTimer -= deltaTime;
             poisonActivateTimer += deltaTime;
-            if (poisonActivateTimer > Constants.PoisonActivateTimer)
+            if (poisonActivateTimer >  GameManager.Instance.PoisonActivateTime)
             {
                 ReduceHp(Constants.PoisonDamage);
-                poisonActivateTimer -= Constants.PoisonActivateTimer;
+                poisonActivateTimer -=  GameManager.Instance.PoisonActivateTime;
             }
         }
 

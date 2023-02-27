@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CB.Model;
+using CR.Game;
 using CR.Model;
 using Kinopi.Constants;
 using Kinopi.Extensions;
@@ -84,8 +85,8 @@ public class Bullet : MonoBehaviour
 
         bool isCritical = BulletData.CriticalRate.HitProbability();
         float amplifier = 1;
-        amplifier = isCritical ? amplifier * Constants.CriticalAmplifier : amplifier;
-        amplifier = enemy.IsBurning ? amplifier * Constants.BurningAmplifier : amplifier;
+        amplifier = isCritical ? amplifier * GameManager.Instance.CriticalAmplifier : amplifier;
+        amplifier = enemy.IsBurning ? amplifier *  GameManager.Instance.BurningAmplifier : amplifier;
         
         enemy.ReduceHp(BulletData.Damage * amplifier);
 

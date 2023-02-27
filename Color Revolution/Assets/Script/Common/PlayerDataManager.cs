@@ -21,51 +21,103 @@ namespace CR
             LoadPlayerData();
         }
 
-        public int PlayerHp
+        public int Hp
         {
             get
             {
-                int hp = PlayerData.BaseHp;
-                if (HasResearch(ResearchType.Add1Hp_1)) hp += Constants.AddHpAmount;
-                if (HasResearch(ResearchType.Add1Hp_2)) hp += Constants.AddHpAmount;
-                if (HasResearch(ResearchType.Add1Hp_3)) hp += Constants.AddHpAmount;
-                if (HasResearch(ResearchType.Add1Hp_4)) hp += Constants.AddHpAmount;
-                if (HasResearch(ResearchType.Add1Hp_5)) hp += Constants.AddHpAmount;
-                return hp;
+                int value = Constants.PlayerBaseHp;
+                if (HasResearch(ResearchType.Add1Hp_1)) value += Constants.AddHpAmount;
+                if (HasResearch(ResearchType.Add1Hp_2)) value += Constants.AddHpAmount;
+                if (HasResearch(ResearchType.Add1Hp_3)) value += Constants.AddHpAmount;
+                if (HasResearch(ResearchType.Add1Hp_4)) value += Constants.AddHpAmount;
+                if (HasResearch(ResearchType.Add1Hp_5)) value += Constants.AddHpAmount;
+                return value;
             }
         }
 
-        public int PlayerBaseCoin
+        public int StartCoin
         {
             get
             {
-                int coin = PlayerData.BaseCoin;
-                if (HasResearch(ResearchType.AddCoin_1)) coin += Constants.AddCoinAmount;
-                if (HasResearch(ResearchType.AddCoin_2)) coin += Constants.AddCoinAmount;
-                if (HasResearch(ResearchType.AddCoin_3)) coin += Constants.AddCoinAmount;
-                if (HasResearch(ResearchType.AddCoin_4)) coin += Constants.AddCoinAmount;
-                if (HasResearch(ResearchType.AddCoin_5)) coin += Constants.AddCoinAmount;
-                return coin;
+                int value = Constants.PlayerBaseStartCoin;
+                if (HasResearch(ResearchType.AddCoin_1)) value += Constants.AddCoinAmount;
+                if (HasResearch(ResearchType.AddCoin_2)) value += Constants.AddCoinAmount;
+                if (HasResearch(ResearchType.AddCoin_3)) value += Constants.AddCoinAmount;
+                if (HasResearch(ResearchType.AddCoin_4)) value += Constants.AddCoinAmount;
+                if (HasResearch(ResearchType.AddCoin_5)) value += Constants.AddCoinAmount;
+                return value;
             }   
+        }
+
+        public UCard[] CardDeck => PlayerData.CardDeck;
+        
+        public int CoinPerRainbowTurret
+        {
+            get
+            {
+                int value =  Constants.BaseCoinPerRainbowTurret;
+                return value;
+            }   
+        }
+
+        public int CoinPerEnemyKilled
+        {
+            get
+            {
+                int value = Constants.BaseCoinPerEnemyKilled;
+                return value;
+            }
         }
         
-        public int PlayerBaseCoinPerRainbowTurret
+        public float FrozenSpeedDebuffPercentage
         {
             get
             {
-                int coin = PlayerData.BaseCoinPerRainbowTurret;
-                return coin;
-            }   
-        }
-
-        public int PlayerBaseCoinPerEnemyKilled
-        {
-            get
-            {
-                int coin = PlayerData.BaseCoinPerEnemyKilled;
-                return coin;
+                float value = Constants.BaseFrozenSpeedDebuffPercentage;
+                return value;
             }
         }
+        
+        
+        public float PoisonActivateTimer
+        {
+            get
+            {
+                float value = Constants.BasePoisonActivateTimer;
+                return value;
+            }
+        }
+        
+        public float BurningAmplifier
+        {
+            get
+            {
+                float value = Constants.BaseBurningAmplifier;
+                return value;
+            }
+        }
+
+        public float CriticalAmplifier
+        {
+            get
+            {
+                float value = Constants.BaseCriticalAmplifier;
+                return value;
+            }
+        }
+        public float SuperCriticalAmplifier
+        {
+            get
+            {
+                float value = Constants.BaseSuperCriticalAmplifier;
+                return value;
+            }
+        }
+        
+        
+        
+        
+        
         
         
         public void AddUPoint(PointTuple tuple)

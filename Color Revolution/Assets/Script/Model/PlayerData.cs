@@ -13,12 +13,6 @@ namespace CR.Model
     {
         public PlayerData()
         {
-            BaseHp = Constants.PlayerBaseHp;
-            BaseCoin = Constants.PlayerBaseCoin;
-            BaseCoinPerRainbowTurret = Constants.BaseCoinPerRainbowTurret;
-            BaseCoinPerEnemyKilled = Constants.BaseCoinPerEnemyKilled;
-                
-                
             UPointDataList = new();
             UPointDataList.Add(new UPoint(PointType.RainbowCandy, 100));
             UCardDataList = new List<UCard>();
@@ -56,11 +50,9 @@ namespace CR.Model
 
             ResearchList = new List<ResearchType>();
         }
-
-        public int BaseHp;
-        public int BaseCoin;
-        public int BaseCoinPerRainbowTurret;
-        public int BaseCoinPerEnemyKilled;
+        
+        
+        
         public List<UPoint> UPointDataList;     // Todo : to dictionary
         public List<UCard> UCardDataList;       // Todo : to dictionary
         public UCard[] CardDeck;

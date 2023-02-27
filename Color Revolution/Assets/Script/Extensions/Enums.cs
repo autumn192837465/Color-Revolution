@@ -102,9 +102,9 @@ namespace Kinopi.Enums
 
     public enum Status
     {
-        Burn,
-        Freeze,
-        Poison,
+        Burn,       // 增加受到的傷害
+        Freeze,     // 減緩敵人速度
+        Poison,     // 每秒損失血量
         
         
     }

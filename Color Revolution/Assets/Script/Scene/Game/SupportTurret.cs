@@ -1,11 +1,4 @@
-using System;
-using System.Linq;
 using CB.Model;
-using CR.Model;
-using Kinopi.Enums;
-using Kinopi.Extensions;
-using MoreMountains.Feedbacks;
-using UnityEngine;
 
 namespace CR.Game
 {
@@ -21,7 +14,7 @@ namespace CR.Game
         }
 
         public SupportTurretData SupportTurretData { get; protected set; }
-        
+                
 
     }
 }

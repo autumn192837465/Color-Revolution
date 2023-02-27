@@ -16,19 +16,25 @@ namespace Kinopi.Constants
         
 
         public const int PlayerBaseHp = 20;
-        public const int PlayerBaseCoin = 100;
+        public const int PlayerBaseStartCoin = 100;
         public const int BaseCoinPerRainbowTurret = 10;
         public const int BaseCoinPerEnemyKilled = 10;
+        
+        public const float BaseCriticalAmplifier = 1.5f;
+        public const float BaseSuperCriticalAmplifier = 2.5f;
+        
+        public const float BaseFrozenSpeedDebuffPercentage = 0.5f;
+        public const float BasePoisonActivateTimer = 1f;
+        public const float BaseBurningAmplifier = 1.2f;
+        
         
         public const float EffectTime = 5;
         public const uint DeckCardCount = 9;
         public const uint MaxCardLevel = 10;
 
-        public const float CriticalAmplifier = 2f;
         
-        public const float FrozenSpeedDebuffPercentage = 0.5f;
-        public const float PoisonActivateTimer = 1f;
-        public const float BurningAmplifier = 1.5f;
+        
+        
         
         
         public static readonly RGB PoisonDamage = new RGB(1, 1, 1);
