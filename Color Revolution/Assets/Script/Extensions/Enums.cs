@@ -84,11 +84,22 @@ namespace Kinopi.Enums
         Add1Hp_3 = 3,
         Add1Hp_4 = 4,
         Add1Hp_5 = 5,
-        AddCoin_1 = 101,
-        AddCoin_2 = 102,
-        AddCoin_3 = 103,
-        AddCoin_4 = 104,
-        AddCoin_5 = 105,
+        AddStartCoin_1 = 101,
+        AddStartCoin_2 = 102,
+        AddStartCoin_3 = 103,
+        AddStartCoin_4 = 104,
+        AddStartCoin_5 = 105,
+        CoinPerEnemyKilled_1 = 201,
+        CoinPerEnemyKilled_2 = 202,
+        CoinPerEnemyKilled_3 = 203,
+        CoinPerEnemyKilled_4 = 204,
+        CoinPerEnemyKilled_5 = 205,
+        CoinPerRainbowTurret_1 = 301,
+        CoinPerRainbowTurret_2 = 302,
+        CoinPerRainbowTurret_3 = 303,
+        CoinPerRainbowTurret_4 = 304,
+        CoinPerRainbowTurret_5 = 305,
+         
     }
 
     public enum TargetPriority

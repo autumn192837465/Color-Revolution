@@ -35,7 +35,6 @@ public class Bullet : MonoBehaviour
   
     [SerializeField] private MeshRenderer meshRenderer;
     
-    private float speed = 5;
     private Enemy targetEnemy;
     public BulletData BulletData { get; private set; }
 
@@ -55,7 +54,7 @@ public class Bullet : MonoBehaviour
         }
 
         Vector3 dir = targetEnemy.transform.position - transform.position;
-        dir = dir.normalized * speed;
+        dir = dir.normalized * GameManager.Instance.BulletSpeed;
         transform.position += dir * Time.deltaTime;
     }
 

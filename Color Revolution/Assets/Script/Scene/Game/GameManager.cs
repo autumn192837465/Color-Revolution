@@ -36,17 +36,20 @@ namespace CR.Game
         public int PlayerCoin => PlayerGameData.Coin;
         public int PlayerHp => PlayerGameData.Hp;
         public UCard[] PlayerCards => PlayerGameData.CardDeck;
-        public int CoinPerRainbowTurret;
-        public int CoinPerEnemyKilled => PlayerGameData.CoinPerEnemyKilled;
-        public float CriticalAmplifier => PlayerGameData.CriticalAmplifier;
-        public float SuperCriticalAmplifier => PlayerGameData.SuperCriticalAmplifier;
+
         public float FrozenSpeedDebuffPercentage => PlayerGameData.FrozenSpeedDebuffPercentage;
         public float PoisonActivateTime => PlayerGameData.PoisonActivateTime;
         public float BurningAmplifier => PlayerGameData.BurningAmplifier;
 
+        public float FreezeEffectTime => PlayerGameData.FreezeEffectTime;
+        public float PoisonEffectTime => PlayerGameData.PoisonEffectTime;
+        public float BurnEffectTime => PlayerGameData.BurnEffectTime;
+        
+        public float CriticalAmplifier => PlayerGameData.CriticalAmplifier;
+        public float SuperCriticalAmplifier => PlayerGameData.SuperCriticalAmplifier;
+        public float BulletSpeed => PlayerGameData.BulletSpeed;
+
         #endregion
-        
-        
         
         
         private Node selectingNode;

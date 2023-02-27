@@ -22,7 +22,7 @@ MonoBehaviour:
         RedValue: 5
         GreenValue: 5
         BlueValue: 5
-      BulletPerSecond: 100
+      BulletPerSecond: 1
       AttackRange: 5
       CriticalRate:
         value: 0

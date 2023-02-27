@@ -185,18 +185,18 @@ public class Enemy : UnitBase
 
     public void PoisonEnemy()
     {
-        poisonTimer = Constants.EffectTime;
+        poisonTimer = GameManager.Instance.PoisonEffectTime;
         poisonActivateTimer = 0;
     }
 
     public void FreezeEnemy()
     {
-        freezeTimer = Constants.EffectTime;
+        freezeTimer = GameManager.Instance.FreezeEffectTime;
     }
 
     public void BurnEnemy()
     {
-        burnTimer = Constants.EffectTime;
+        burnTimer = GameManager.Instance.BurnEffectTime;
     }
     
 

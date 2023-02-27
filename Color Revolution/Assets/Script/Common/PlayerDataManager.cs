@@ -40,11 +40,11 @@ namespace CR
             get
             {
                 int value = Constants.PlayerBaseStartCoin;
-                if (HasResearch(ResearchType.AddCoin_1)) value += Constants.AddCoinAmount;
-                if (HasResearch(ResearchType.AddCoin_2)) value += Constants.AddCoinAmount;
-                if (HasResearch(ResearchType.AddCoin_3)) value += Constants.AddCoinAmount;
-                if (HasResearch(ResearchType.AddCoin_4)) value += Constants.AddCoinAmount;
-                if (HasResearch(ResearchType.AddCoin_5)) value += Constants.AddCoinAmount;
+                if (HasResearch(ResearchType.AddStartCoin_1)) value += Constants.AddCoinAmount;
+                if (HasResearch(ResearchType.AddStartCoin_2)) value += Constants.AddCoinAmount;
+                if (HasResearch(ResearchType.AddStartCoin_3)) value += Constants.AddCoinAmount;
+                if (HasResearch(ResearchType.AddStartCoin_4)) value += Constants.AddCoinAmount;
+                if (HasResearch(ResearchType.AddStartCoin_5)) value += Constants.AddCoinAmount;
                 return value;
             }   
         }
@@ -68,6 +68,34 @@ namespace CR
                 return value;
             }
         }
+        
+        public float FreezeEffectTime
+        {
+            get
+            {
+                float value = Constants.BaseFreezeEffectTime;
+                return value;
+            }
+        }
+        
+        public float PoisonEffectTime
+        {
+            get
+            {
+                float value = Constants.BasePoisonEffectTime;
+                return value;
+            }
+        }
+        
+        public float BurnEffectTime
+        {
+            get
+            {
+                float value = Constants.BaseBurnEffectTime;
+                return value;
+            }
+        }
+        
         
         public float FrozenSpeedDebuffPercentage
         {
@@ -113,6 +141,17 @@ namespace CR
                 return value;
             }
         }
+        
+        public float BulletSpeed
+        {
+            get
+            {
+                float value = Constants.BaseBulletSpeed;
+                return value;
+            }
+        }
+  
+
         
         
         
