@@ -5,6 +5,7 @@ using CB.Model;
 using CR.Game;
 using CR.Model;
 using Kinopi.Constants;
+using Kinopi.Enums;
 using Kinopi.Extensions;
 using Kinopi.Utils;
 using MoreMountains.Tools;
@@ -17,6 +18,7 @@ public class BulletData
         Damage = mOffensiveTurret.AttackDamage.Copy();
         HitRate = mOffensiveTurret.HitRate.Copy();
         CriticalRate = mOffensiveTurret.CriticalRate.Copy();
+        SuperCriticalRate = mOffensiveTurret.SuperCriticalRate.Copy();
         PoisonRate = mOffensiveTurret.PoisonRate.Copy();
         BurnRate = mOffensiveTurret.BurnRate.Copy();
         FreezeRate = mOffensiveTurret.FreezeRate.Copy();
@@ -25,6 +27,7 @@ public class BulletData
     public RGB Damage;
     public Rate HitRate;
     public Rate CriticalRate;
+    public Rate SuperCriticalRate;
     public Rate PoisonRate;
     public Rate BurnRate;
     public Rate FreezeRate;
@@ -82,9 +85,15 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        bool isCritical = BulletData.CriticalRate.HitProbability();
+        CriticalType criticalType = GetCriticalType();
         float amplifier = 1;
-        amplifier = isCritical ? amplifier * GameManager.Instance.CriticalAmplifier : amplifier;
+        amplifier = criticalType switch
+        {
+            CriticalType.None => amplifier,
+            CriticalType.Critical => GameManager.Instance.CriticalAmplifier,
+            CriticalType.SuperCritical => GameManager.Instance.SuperCriticalAmplifier,
+            
+        };
         amplifier = enemy.IsBurning ? amplifier *  GameManager.Instance.BurningAmplifier : amplifier;
         
         enemy.ReduceHp(BulletData.Damage * amplifier);
@@ -103,11 +112,18 @@ public class Bullet : MonoBehaviour
         {
             enemy.PoisonEnemy();
         }
-        
-        
-        
     }
 
+    private CriticalType GetCriticalType()
+    {
+        if (BulletData.CriticalRate.HitProbability())
+        {
+            return BulletData.SuperCriticalRate.HitProbability() ? CriticalType.SuperCritical : CriticalType.Critical;
+        }
+
+        return CriticalType.None;
+    }
+    
     private void OnDestroy()
     {
         destroying = true;

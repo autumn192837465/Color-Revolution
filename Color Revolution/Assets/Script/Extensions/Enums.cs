@@ -32,6 +32,13 @@ namespace Kinopi.Enums
         End = 3,
     }
 
+    public enum CriticalType
+    {
+        None,
+        Critical,
+        SuperCritical,
+    }
+    
     public enum TurretType
     {
         Offensive,
@@ -45,6 +52,7 @@ namespace Kinopi.Enums
         GreenTurret,
     }
 
+    
     public enum SupportTurretType
     {
         RainbowTurret,
