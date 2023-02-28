@@ -13,6 +13,7 @@ namespace CR.Game
     
     public abstract class Turret : MonoBehaviour
     {
+        [SerializeField] private MMF_Player placeFeedbacks;
         public abstract TurretType TurretType { get; }
         
         protected int turretCost;
@@ -24,6 +25,11 @@ namespace CR.Game
         public void AddTurretValue(int amount)
         {
             turretCost += amount;
+        }
+
+        public void PlayPlaceFeedbacks()
+        {
+            placeFeedbacks.PlayFeedbacks();
         }
     }
     

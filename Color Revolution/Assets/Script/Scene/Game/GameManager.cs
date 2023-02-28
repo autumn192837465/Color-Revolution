@@ -517,6 +517,7 @@ namespace CR.Game
                 var turret = Instantiate(selectingTurretData.Turret);
                 turret.Initialize();
                 node.PlaceTurret(turret);
+                turret.PlayPlaceFeedbacks();
                 MapCreator.SetNodePlaceable();
                 MapCreator.ShowPlaceable();
                 
