@@ -172,7 +172,7 @@ namespace CR.Game
 
             if (rainbowTurretCount > 0)
             {
-                AddPlayerCoin(rainbowTurretCount * PlayerGameData.CoinPerRainbowTurret);
+                AddPlayerCoin(rainbowTurretCount * PlayerGameData.RainbowTurretCoinEarnings);
             }
         }
 
@@ -446,7 +446,7 @@ namespace CR.Game
                 }
                 else
                 {
-                    AddPlayerCoin(PlayerGameData.CoinPerEnemyKilled);
+                    AddPlayerCoin(PlayerGameData.CoinsDroppedPerEnemyKilled);
                 }
 
                 if (EnemyList.Count == 0 && hasSpawnedAll)

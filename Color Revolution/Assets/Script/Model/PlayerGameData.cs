@@ -13,8 +13,8 @@ namespace CB.Model
         public int Hp;
         public int Coin;
         public readonly UCard[] CardDeck;
-        public readonly int CoinPerRainbowTurret;
-        public readonly int CoinPerEnemyKilled;
+        public readonly int RainbowTurretCoinEarnings;
+        public readonly int CoinsDroppedPerEnemyKilled;
         
         public readonly float FreezeEffectTime;
         public readonly float PoisonEffectTime;
@@ -35,8 +35,8 @@ namespace CB.Model
             
             Hp = playerDataManager.Hp;
             Coin = playerDataManager.StartCoin;
-            CoinPerRainbowTurret = playerDataManager.CoinPerRainbowTurret;
-            CoinPerEnemyKilled = playerDataManager.CoinPerEnemyKilled;
+            RainbowTurretCoinEarnings = playerDataManager.RainbowTurretCoinEarnings;
+            CoinsDroppedPerEnemyKilled = playerDataManager.CoinsDroppedPerEnemyKilled;
 
             FreezeEffectTime = playerDataManager.FreezeEffectTime;
             PoisonEffectTime = playerDataManager.PoisonEffectTime;

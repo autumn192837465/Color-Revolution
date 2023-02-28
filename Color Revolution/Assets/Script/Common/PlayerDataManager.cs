@@ -51,20 +51,20 @@ namespace CR
 
         public UCard[] CardDeck => PlayerData.CardDeck;
         
-        public int CoinPerRainbowTurret
+        public int RainbowTurretCoinEarnings
         {
             get
             {
-                int value =  Constants.BaseCoinPerRainbowTurret;
+                int value =  Constants.BaseRainbowTurretCoinEarnings;
                 return value;
             }   
         }
 
-        public int CoinPerEnemyKilled
+        public int CoinsDroppedPerEnemyKilled
         {
             get
             {
-                int value = Constants.BaseCoinPerEnemyKilled;
+                int value = Constants.BaseCoinsDroppedPerEnemyKilled;
                 return value;
             }
         }

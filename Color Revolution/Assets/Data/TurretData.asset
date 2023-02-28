@@ -25,9 +25,9 @@ MonoBehaviour:
       BulletPerSecond: 1
       AttackRange: 5
       CriticalRate:
-        value: 0
+        value: 100
       SuperCriticalRate:
-        value: 0
+        value: 100
       HitRate:
         value: 100
       PoisonRate:
