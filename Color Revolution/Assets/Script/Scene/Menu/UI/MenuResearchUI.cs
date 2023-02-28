@@ -29,8 +29,10 @@ namespace CR.Menu
         [SerializeField] private List<ButtonInfo> buttonList;
         [SerializeField] private List<ResearchNodeUI> researchNodes;
         [SerializeField] private ResearchInformationPanelUI researchInformationPanelUI;
+        [SerializeField] private FeedbackButton playerStatusButton;
         public Action<ButtonType> OnClickButton;
         public Action<MResearch> OnClickResearch;
+        public Action OnClickPlayerStatus;
 
         private ResearchNodeUI selectingNode;
 
@@ -41,6 +43,7 @@ namespace CR.Menu
                 buttonInfo.Button.onClick.AddListener(() => OnClickButton?.Invoke(buttonInfo.Type));
             }
 
+            playerStatusButton.OnClick = () => OnClickPlayerStatus?.Invoke();
             researchInformationPanelUI.OnClickResearch = (mResearch) => OnClickResearch?.Invoke(mResearch);
             researchInformationPanelUI.SetActive(false);
         }

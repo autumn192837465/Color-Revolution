@@ -37,9 +37,9 @@ namespace CR.Game
         public int PlayerHp => PlayerGameData.Hp;
         public UCard[] PlayerCards => PlayerGameData.CardDeck;
 
-        public float FrozenSpeedDebuffPercentage => PlayerGameData.FrozenSpeedDebuffPercentage;
+        public float FreezeSpeedDebuffPercentage => PlayerGameData.FreezeSpeedDebuffPercentage;
         public float PoisonActivateTime => PlayerGameData.PoisonActivateTime;
-        public float BurningAmplifier => PlayerGameData.BurningAmplifier;
+        public float BurnAmplifier => PlayerGameData.BurnAmplifier;
 
         public float FreezeEffectTime => PlayerGameData.FreezeEffectTime;
         public float PoisonEffectTime => PlayerGameData.PoisonEffectTime;
@@ -446,7 +446,7 @@ namespace CR.Game
                 }
                 else
                 {
-                    AddPlayerCoin(PlayerGameData.CoinsDroppedPerEnemyKilled);
+                    AddPlayerCoin(PlayerGameData.CoinsEarnedPerEnemyKilled);
                 }
 
                 if (EnemyList.Count == 0 && hasSpawnedAll)

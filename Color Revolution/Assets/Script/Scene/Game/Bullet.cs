@@ -94,7 +94,7 @@ public class Bullet : MonoBehaviour
             CriticalType.SuperCritical => GameManager.Instance.SuperCriticalAmplifier,
             
         };
-        amplifier = enemy.IsBurning ? amplifier *  GameManager.Instance.BurningAmplifier : amplifier;
+        amplifier = enemy.IsBurning ? amplifier *  GameManager.Instance.BurnAmplifier : amplifier;
         
         enemy.ReduceHp(BulletData.Damage * amplifier);
 

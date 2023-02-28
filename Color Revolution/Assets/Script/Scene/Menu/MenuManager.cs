@@ -14,7 +14,7 @@ namespace CR.Menu
         [SerializeField] private MenuHeaderUI MenuHeaderUI;
         [SerializeField] private MenuResearchUI MenuResearchUI;
         [SerializeField] private MenuSettingsUI MenuSettingsUI;
-       
+        [SerializeField] private PlayerStatusUI PlayerStatusUI;
         
         protected override void Awake()
         {
@@ -28,6 +28,7 @@ namespace CR.Menu
             MenuResearchUI.InitializeUI();
             MenuMainUI.InitializeUI();
             MenuSettingsUI.InitializeUI();
+            PlayerStatusUI.InitializeUI();
             AddMenuMainUIEvent();
             AddMenuDeckUIEvent();
             AddCardUpgradeUIEvent();
@@ -97,7 +98,12 @@ namespace CR.Menu
                 PlayerDataManager.Instance.SubUPoint(new PointTuple(PointType.RainbowCandy, mResearch.Cost));
                 PlayerDataManager.Instance.AddResearch(mResearch.ResearchType);
                 MenuHeaderUI.InitializePlayerData();
+                PlayerStatusUI.InitializeUI();
                 MenuResearchUI.RefreshUI();
+            };
+            MenuResearchUI.OnClickPlayerStatus = () =>
+            {
+                PlayerStatusUI.Open();
             };
         }
 

@@ -80,7 +80,7 @@ public class Enemy : UnitBase
 
     private void MoveEnemy()
     {
-        float moveSpeed = (freezeTimer > 0) ? speed * GameManager.Instance.FrozenSpeedDebuffPercentage : speed;
+        float moveSpeed = (freezeTimer > 0) ? speed * GameManager.Instance.FreezeSpeedDebuffPercentage : speed;
         Vector3 nextPosition = transform.position + movingDirection * (Time.deltaTime * moveSpeed);
         if (Vector3.Dot((destinationNode.transform.position - nextPosition).XZPosition(), movingDirection) < 0)
         {

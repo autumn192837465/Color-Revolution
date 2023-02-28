@@ -60,11 +60,11 @@ namespace CR
             }   
         }
 
-        public int CoinsDroppedPerEnemyKilled
+        public int CoinsEarnedPerEnemyKilled
         {
             get
             {
-                int value = Constants.BaseCoinsDroppedPerEnemyKilled;
+                int value = Constants.BaseCoinsEarnedPerEnemyKilled;
                 return value;
             }
         }
@@ -97,11 +97,11 @@ namespace CR
         }
         
         
-        public float FrozenSpeedDebuffPercentage
+        public float FreezeSpeedDebuffPercentage
         {
             get
             {
-                float value = Constants.BaseFrozenSpeedDebuffPercentage;
+                float value = Constants.BaseFreezeSpeedDebuffPercentage;
                 return value;
             }
         }
@@ -116,11 +116,11 @@ namespace CR
             }
         }
         
-        public float BurningAmplifier
+        public float BurnAmplifier
         {
             get
             {
-                float value = Constants.BaseBurningAmplifier;
+                float value = Constants.BaseBurnAmplifier;
                 return value;
             }
         }

@@ -14,15 +14,15 @@ namespace CB.Model
         public int Coin;
         public readonly UCard[] CardDeck;
         public readonly int RainbowTurretCoinEarnings;
-        public readonly int CoinsDroppedPerEnemyKilled;
+        public readonly int CoinsEarnedPerEnemyKilled;
         
         public readonly float FreezeEffectTime;
         public readonly float PoisonEffectTime;
         public readonly float BurnEffectTime;
         
-        public readonly float FrozenSpeedDebuffPercentage;
+        public readonly float FreezeSpeedDebuffPercentage;
         public readonly float PoisonActivateTime;
-        public readonly float BurningAmplifier;
+        public readonly float BurnAmplifier;
         
         public readonly float CriticalAmplifier;
         public readonly float SuperCriticalAmplifier;
@@ -36,15 +36,15 @@ namespace CB.Model
             Hp = playerDataManager.Hp;
             Coin = playerDataManager.StartCoin;
             RainbowTurretCoinEarnings = playerDataManager.RainbowTurretCoinEarnings;
-            CoinsDroppedPerEnemyKilled = playerDataManager.CoinsDroppedPerEnemyKilled;
+            CoinsEarnedPerEnemyKilled = playerDataManager.CoinsEarnedPerEnemyKilled;
 
             FreezeEffectTime = playerDataManager.FreezeEffectTime;
             PoisonEffectTime = playerDataManager.PoisonEffectTime;
             BurnEffectTime = playerDataManager.BurnEffectTime;
             
-            FrozenSpeedDebuffPercentage = playerDataManager.FrozenSpeedDebuffPercentage;
+            FreezeSpeedDebuffPercentage = playerDataManager.FreezeSpeedDebuffPercentage;
             PoisonActivateTime = playerDataManager.PoisonActivateTimer;
-            BurningAmplifier = playerDataManager.BurningAmplifier;
+            BurnAmplifier = playerDataManager.BurnAmplifier;
 
             CriticalAmplifier = playerDataManager.CriticalAmplifier;
             SuperCriticalAmplifier = playerDataManager.SuperCriticalAmplifier;

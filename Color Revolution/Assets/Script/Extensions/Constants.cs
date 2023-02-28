@@ -17,7 +17,7 @@ namespace Kinopi.Constants
 
         public const int PlayerBaseHp = 20;
         public const int PlayerBaseStartCoin = 100;
-        public const int BaseCoinsDroppedPerEnemyKilled = 10;
+        public const int BaseCoinsEarnedPerEnemyKilled = 10;
         public const int BaseRainbowTurretCoinEarnings = 10;
 
         public const float BaseFreezeEffectTime = 3f;
@@ -25,9 +25,9 @@ namespace Kinopi.Constants
         public const float BaseBurnEffectTime = 3f;
         
         
-        public const float BaseFrozenSpeedDebuffPercentage = 0.5f;
+        public const float BaseFreezeSpeedDebuffPercentage = 0.5f;
         public const float BasePoisonActivateTimer = 1f;
-        public const float BaseBurningAmplifier = 1.2f;
+        public const float BaseBurnAmplifier = 1.2f;
         
         public const float BaseCriticalAmplifier = 1.5f;
         public const float BaseSuperCriticalAmplifier = 2.5f;
