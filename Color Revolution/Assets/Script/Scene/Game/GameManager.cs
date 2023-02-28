@@ -37,16 +37,16 @@ namespace CR.Game
         public int PlayerHp => PlayerGameData.Hp;
         public UCard[] PlayerCards => PlayerGameData.CardDeck;
 
-        public float FreezeSpeedDebuffPercentage => PlayerGameData.FreezeSpeedDebuffPercentage;
+        public Rate FreezeSpeedDebuffPercentage => PlayerGameData.FreezeSpeedDebuffPercentage;
         public float PoisonActivateTime => PlayerGameData.PoisonActivateTime;
-        public float BurnAmplifier => PlayerGameData.BurnAmplifier;
+        public Amplifier BurnAmplifier => PlayerGameData.BurnAmplifier;
 
         public float FreezeEffectTime => PlayerGameData.FreezeEffectTime;
         public float PoisonEffectTime => PlayerGameData.PoisonEffectTime;
         public float BurnEffectTime => PlayerGameData.BurnEffectTime;
         
-        public float CriticalAmplifier => PlayerGameData.CriticalAmplifier;
-        public float SuperCriticalAmplifier => PlayerGameData.SuperCriticalAmplifier;
+        public Amplifier CriticalAmplifier => PlayerGameData.CriticalAmplifier;
+        public Amplifier SuperCriticalAmplifier => PlayerGameData.SuperCriticalAmplifier;
         public float BulletSpeed => PlayerGameData.BulletSpeed;
 
         #endregion

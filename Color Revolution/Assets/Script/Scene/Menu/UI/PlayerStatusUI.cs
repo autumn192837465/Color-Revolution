@@ -61,12 +61,12 @@ public class PlayerStatusUI : AnimatorBase
         freezeEffectTimeText.SetText($"{playerDataManager.FreezeEffectTime}s");
         poisonEffectTimeText.SetText($"{playerDataManager.PoisonEffectTime}s");
         burnEffectTimeText.SetText($"{playerDataManager.BurnEffectTime}s");
-        freezeSpeedDebuffText.SetText($"-{playerDataManager.FreezeSpeedDebuffPercentage}%");
-        burnAmplifierText.SetText($"{playerDataManager.FreezeSpeedDebuffPercentage}%");
+        freezeSpeedDebuffText.SetText($"-{playerDataManager.FreezeSpeedDebuffPercentage}");
+        burnAmplifierText.SetText($"{playerDataManager.BurnAmplifier}");
         poisonActivateTimeText.SetText($"{playerDataManager.PoisonActivateTimer}s");
         bulletSpeedText.SetText(playerDataManager.BulletSpeed.ToString("0.#"));
-        criticalDamageText.SetText($"{playerDataManager.CriticalAmplifier}%");
-        superCriticalDamageText.SetText($"{playerDataManager.SuperCriticalAmplifier}%");
+        criticalDamageText.SetText($"{playerDataManager.CriticalAmplifier}");
+        superCriticalDamageText.SetText($"{playerDataManager.SuperCriticalAmplifier}");
         
     }
 }

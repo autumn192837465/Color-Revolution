@@ -22,4 +22,14 @@ public class Rate
     {
         return Utils.HitProbability(value);
     }
+
+    public float ToPercentage()
+    {
+        return value / 100.0f;
+    }
+
+    public override string ToString()
+    {
+        return $"{value}%";
+    }
 }

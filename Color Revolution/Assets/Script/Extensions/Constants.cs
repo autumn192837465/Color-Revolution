@@ -25,12 +25,12 @@ namespace Kinopi.Constants
         public const float BaseBurnEffectTime = 3f;
         
         
-        public const float BaseFreezeSpeedDebuffPercentage = 0.5f;
+        public static readonly Rate BaseFreezeSpeedDebuffPercentage = new(20);
         public const float BasePoisonActivateTimer = 1f;
-        public const float BaseBurnAmplifier = 1.2f;
+        public static readonly Amplifier BaseBurnAmplifier = new(120);
         
-        public const float BaseCriticalAmplifier = 1.5f;
-        public const float BaseSuperCriticalAmplifier = 2.5f;
+        public static readonly Amplifier BaseCriticalAmplifier = new (150);
+        public static readonly Amplifier BaseSuperCriticalAmplifier = new (250);
 
         public const float BaseBulletSpeed = 3f;
         

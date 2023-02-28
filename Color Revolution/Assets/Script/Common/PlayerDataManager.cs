@@ -97,11 +97,11 @@ namespace CR
         }
         
         
-        public float FreezeSpeedDebuffPercentage
+        public Rate FreezeSpeedDebuffPercentage
         {
             get
             {
-                float value = Constants.BaseFreezeSpeedDebuffPercentage;
+                Rate value = Constants.BaseFreezeSpeedDebuffPercentage;
                 return value;
             }
         }
@@ -116,28 +116,28 @@ namespace CR
             }
         }
         
-        public float BurnAmplifier
+        public Amplifier BurnAmplifier
         {
             get
             {
-                float value = Constants.BaseBurnAmplifier;
+                Amplifier value = Constants.BaseBurnAmplifier;
                 return value;
             }
         }
 
-        public float CriticalAmplifier
+        public Amplifier CriticalAmplifier
         {
             get
             {
-                float value = Constants.BaseCriticalAmplifier;
+                Amplifier value = Constants.BaseCriticalAmplifier;
                 return value;
             }
         }
-        public float SuperCriticalAmplifier
+        public Amplifier SuperCriticalAmplifier
         {
             get
             {
-                float value = Constants.BaseSuperCriticalAmplifier;
+                Amplifier value = Constants.BaseSuperCriticalAmplifier;
                 return value;
             }
         }

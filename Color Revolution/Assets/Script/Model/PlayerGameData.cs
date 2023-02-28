@@ -20,12 +20,12 @@ namespace CB.Model
         public readonly float PoisonEffectTime;
         public readonly float BurnEffectTime;
         
-        public readonly float FreezeSpeedDebuffPercentage;
+        public readonly Rate FreezeSpeedDebuffPercentage;
         public readonly float PoisonActivateTime;
-        public readonly float BurnAmplifier;
+        public readonly Amplifier BurnAmplifier;
         
-        public readonly float CriticalAmplifier;
-        public readonly float SuperCriticalAmplifier;
+        public readonly Amplifier CriticalAmplifier;
+        public readonly Amplifier SuperCriticalAmplifier;
         public readonly float BulletSpeed;
         
         
