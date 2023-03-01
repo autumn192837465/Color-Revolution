@@ -35,7 +35,9 @@ public class BulletData
 
 public class Bullet : MonoBehaviour
 {
-  
+
+    [SerializeField] private ParticleSystem particleSystem;
+    [SerializeField] private GameObject trailRenender ;
     [SerializeField] private MeshRenderer meshRenderer;
     
     private Enemy targetEnemy;
@@ -43,8 +45,10 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-            
+        
+
     }
+
 
     private bool destroying = false;
     void Update()
@@ -52,6 +56,7 @@ public class Bullet : MonoBehaviour
         if(destroying)  return;
         if (targetEnemy == null || targetEnemy.gameObject == null )
         {
+            DetachEffects();
             Destroy(gameObject);
             return;
         }
@@ -77,8 +82,9 @@ public class Bullet : MonoBehaviour
         if (!collider.CompareTag("Enemy")) return;
         Enemy enemy = collider.GetComponent<Enemy>();
         if (enemy != targetEnemy)    return;
-        
+        DetachEffects();
         Destroy(gameObject);
+        
         if(!BulletData.HitRate.HitProbability())    
         {
             // Todo : play miss text
@@ -122,9 +128,22 @@ public class Bullet : MonoBehaviour
 
         return CriticalType.None;
     }
+
+    private void DetachEffects()
+    {
+        transform.DetachChildren();
+        particleSystem.transform.localScale = Vector3.one;
+
+        var main = particleSystem.main;
+        main.loop = false;
+        particleSystem.Stop();
+        Destroy(particleSystem, 1);
+        Destroy(trailRenender, 0.3f);
+    }
     
     private void OnDestroy()
     {
+        
         destroying = true;
     }
 }

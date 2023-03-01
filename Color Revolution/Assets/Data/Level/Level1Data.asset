@@ -20,7 +20,7 @@ MonoBehaviour:
       EnemySpawnGroupList:
       - enemy: {fileID: 4817018552055963457, guid: ccb1a73ed5aff0d498d5579a31cc497d,
           type: 3}
-        count: 3
+        count: 1
         interval: 1
     - Name: Wave 2
       EnemySpawnGroupList:

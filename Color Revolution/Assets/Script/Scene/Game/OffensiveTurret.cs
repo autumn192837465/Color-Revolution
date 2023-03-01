@@ -51,7 +51,7 @@ namespace CR.Game
         public OffensiveTurretData OffensiveTurretData { get; private set; }
         public MOffensiveTurret MOffensiveTurret => mOffensiveTurret;
         private MOffensiveTurret mOffensiveTurret;
-
+        private float bulletTimer;
 
       
 
@@ -74,6 +74,8 @@ namespace CR.Game
             mOffensiveTurret = OffensiveTurretData.MOffensiveTurret.DeepClone();
             worldCanvas.Initialize(mOffensiveTurret);
             turretCost = OffensiveTurretData.Cost;
+            bulletTimer = 1.0f / mOffensiveTurret.BulletPerSecond;
+            timer.bulletTimer = bulletTimer;
         }
 
 
@@ -133,9 +135,9 @@ namespace CR.Game
         private void AttackIfCan(Enemy target)
         {
             // Todo : enhance performance
-            float time = 1.0f / mOffensiveTurret.BulletPerSecond;
-            if (timer.bulletTimer < time)  return;
-            timer.bulletTimer -= time;
+            
+            if (timer.bulletTimer < bulletTimer)  return;
+            timer.bulletTimer -= bulletTimer;
             CreateBullet(target);
         }
 
