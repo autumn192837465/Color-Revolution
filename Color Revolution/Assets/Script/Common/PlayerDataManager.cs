@@ -13,6 +13,7 @@ namespace CR
     {
         [HideInInspector] public PlayerData PlayerData;
         public Dictionary<PointType, UPoint> UPointCache;
+        public Dictionary<CardType, UCard> UCardCache;
         public HashSet<ResearchType> ResearchCache;
         protected override void Awake()
         {
@@ -150,15 +151,16 @@ namespace CR
                 return value;
             }
         }
-  
 
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+        #region UPoint
+
         public void AddUPoint(PointTuple tuple)
         {
             AddUPoints(new List<PointTuple> { tuple });
@@ -215,6 +217,57 @@ namespace CR
         {
             return UPointCache.GetValueOrDefault(pointType, new UPoint(pointType));
         }
+
+        private void CreateUPointCache()
+        {
+            UPointCache = new Dictionary<PointType, UPoint>();
+            foreach (var uPoint in PlayerData.UPointDataList)
+            {
+                UPointCache[uPoint.PointType] = uPoint;
+            }
+        }
+        
+        #endregion
+
+        #region UCard
+        public void UpgradeCard(CardType cardType)
+        {
+            UCard uCard = GetUCard(cardType);
+            if (uCard is null)
+            {
+                Debug.LogError($"Can't find card {Enum.GetName(typeof(CardType), cardType)}");
+                return;
+            }
+            
+            MCardLevel mCardLevel = DataManager.Instance.GetCardLevelData(uCard.Level);
+            SubUPoint(new PointTuple(PointType.RainbowCandy, mCardLevel.UpgradeCost));
+            uCard.Level += 1;
+            SavePlayerData();
+            CreateUCardCache();
+        }
+        
+        public UCard GetUCard(CardType cardType)
+        {
+            return UCardCache.GetValueOrDefault(cardType, null);
+        }
+
+        
+        private void CreateUCardCache()
+        {
+            UCardCache = new Dictionary<CardType, UCard>();
+            foreach (var uCard in PlayerData.UCardDataList)
+            {
+                UCardCache[uCard.CardType] = uCard;
+            }
+        }
+        
+        
+        
+
+        #endregion
+        
+       
+        
         
         private void SavePlayerData()
         {
@@ -228,16 +281,12 @@ namespace CR
             PlayerData = JsonUtility.FromJson<PlayerData>(dataString) ?? new PlayerData();
             CreateUPointCache();
             CreateResearchCache();
+            CreateUCardCache();
         }
 
-        private void CreateUPointCache()
-        {
-            UPointCache = new Dictionary<PointType, UPoint>();
-            foreach (var uPoint in PlayerData.UPointDataList)
-            {
-                UPointCache[uPoint.PointType] = uPoint;
-            }
-        }
+       
+        
+      
 
         public void AddResearch(ResearchType researchType)
         {

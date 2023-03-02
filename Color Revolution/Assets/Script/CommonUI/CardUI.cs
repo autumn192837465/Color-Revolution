@@ -15,7 +15,8 @@ public class CardUI : MonoBehaviour
     public virtual void InitializeUI(UCard data)
     {
         MCard = data.MCard;
-        descriptionText.text = MCard.Description;
+        descriptionText.text = MCard.GetDescription(data.Level);
         costIcon.SetText(data.MCard.Cost);
     }   
+    
 }

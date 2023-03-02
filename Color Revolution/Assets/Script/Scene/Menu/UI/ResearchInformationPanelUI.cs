@@ -39,7 +39,7 @@ namespace CR.Menu
             descriptionText.text = ResearchData.Description;
             
             
-            if (PlayerDataManager.Instance.CanResearch(type))
+            if (ResearchData.RequiredResearchType == ResearchType.None)
             {
                 requiredResearchText.SetActive(false);    
             }

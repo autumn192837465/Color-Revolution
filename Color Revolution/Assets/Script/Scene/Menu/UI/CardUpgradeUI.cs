@@ -62,13 +62,31 @@ public class CardUpgradeUI : AnimatorBase
         {
             int cost = DataManager.Instance.GetCardLevelData(uCard.Level).UpgradeCost;
 
+            upgradeCostText.text = cost.ToString();
+            upgradeCostText.color = PlayerDataManager.Instance.GetUPoint(PointType.RainbowCandy).Count >= cost
+                ? Constants.EnableColor
+                : Constants.DisableColor;
+        }
+    }
+
+    public void RefreshUI()
+    {
+        var uCard = UCard;
+        cardUI.InitializeUI(uCard);
+
+        if (uCard.Level == Constants.MaxCardLevel)
+        {
+            
+        }
+        else
+        {
+            int cost = DataManager.Instance.GetCardLevelData(uCard.Level).UpgradeCost;
 
             upgradeCostText.text = cost.ToString();
             upgradeCostText.color = PlayerDataManager.Instance.GetUPoint(PointType.RainbowCandy).Count >= cost
                 ? Constants.EnableColor
                 : Constants.DisableColor;
         }
-
     }
     
 }

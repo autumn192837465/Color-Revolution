@@ -84,7 +84,8 @@ namespace CR.Menu
                     case CardUpgradeUI.ButtonType.Upgrade:
                         //CardUpgradeUI.UCard;
                         // Todo : get m card cost
-                        PlayerDataManager.Instance.SubUPoint(new PointTuple(PointType.RainbowCandy, 10));
+                        PlayerDataManager.Instance.UpgradeCard(CardUpgradeUI.UCard.CardType);
+                        CardUpgradeUI.RefreshUI();
                         MenuHeaderUI.InitializePlayerData();
                         break;
                     default:

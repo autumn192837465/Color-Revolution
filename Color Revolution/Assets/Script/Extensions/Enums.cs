@@ -67,16 +67,12 @@ namespace Kinopi.Enums
         AddAttackSpeed,
         AddHitRate,
         AddCriticalRate,
+        AddSuperCriticalRate,
         AddPoisonRate,
         AddBurnRate,
         AddFreezeRate,
-        Test1,
-        Test2,
-        Test3,
-        Test4,
-        Test5,
-        Test6,
-        Test7,
+        AddOperatingTime,
+        ReduceCooldownTime,
     }
 
     public enum PointType

@@ -336,20 +336,6 @@ namespace CR.Game
                             break;
                         case CardType.AddFreezeRate:
                             break;
-                        case CardType.Test1:
-                            break;
-                        case CardType.Test2:
-                            break;
-                        case CardType.Test3:
-                            break;
-                        case CardType.Test4:
-                            break;
-                        case CardType.Test5:
-                            break;
-                        case CardType.Test6:
-                            break;
-                        case CardType.Test7:
-                            break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
