@@ -13,6 +13,7 @@ public class GameMenuUI : AnimatorBase
         Continue,
         Restart,
         EndGame,
+        Glossary,
         Close,
     }
 

@@ -25,6 +25,7 @@ namespace CR.Game
         [SerializeField] private Transform floatingTextRoot;
         [SerializeField] private GameWinResultUI GameWinResultUI;
         [SerializeField] private GameLoseResultUI GameLoseResultUI;
+        [SerializeField] private AnimatorBase GlossaryUI;
         private MLevel levelData;
         
         
@@ -379,6 +380,9 @@ namespace CR.Game
                         break;
                     case GameMenuUI.ButtonType.Restart:
                         //SceneController.Instance.LoadToMenuScene();
+                        break;
+                    case GameMenuUI.ButtonType.Glossary:
+                        GlossaryUI.Open();
                         break;
                     case GameMenuUI.ButtonType.EndGame:
                         SceneController.Instance.LoadToMenuScene();
