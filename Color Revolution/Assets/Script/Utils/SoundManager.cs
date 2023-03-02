@@ -60,13 +60,7 @@ public class SoundManager : Singleton<SoundManager>
     {
         Tutorial,
         Menu,
-        Map,
-        Shop,
-        CoinRush,
-        ZombieGame = 10,
-        SkeletonGame = 11,
-        ElfGame = 12,
-        DemonGame = 13,
+        Game,
         
     }
     public enum SoundEffect

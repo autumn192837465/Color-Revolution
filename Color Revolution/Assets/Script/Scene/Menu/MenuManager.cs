@@ -19,11 +19,13 @@ namespace CR.Menu
         protected override void Awake()
         {
             base.Awake();
-            if (isDuplicate) return;        
+            if (isDuplicate) return;
+            
         }
         
         void Start()
         {
+            SoundManager.Instance.PlayBgm(SoundManager.BackgroundMusic.Menu);
             MenuHeaderUI.InitializePlayerData();
             MenuResearchUI.InitializeUI();
             MenuMainUI.InitializeUI();
