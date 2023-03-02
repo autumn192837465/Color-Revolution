@@ -19,8 +19,10 @@ public class CardDeckThumbnail : MonoBehaviour
     [SerializeField] private GameObject buttonRoot;
     [SerializeField] private Button useRemoveButton;
     [SerializeField] private TextMeshProUGUI useRemoveText;
+    [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private Button upgradeButton;
-
+    
+    
     public Status CardStatus
     {
         get
@@ -59,6 +61,7 @@ public class CardDeckThumbnail : MonoBehaviour
     {
         UCard = uCard;
         cardUI.InitializeUI(uCard);
+        levelText.text = $"Lv.{uCard.Level}";
     }
 
 
