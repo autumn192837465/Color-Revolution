@@ -26,4 +26,34 @@ public class CardDataScriptableObject : ScriptableObject
             CardDataCache.Add(data.CardType, data);
         }
     }
+
+    [ContextMenu("Set Default Data")]
+    public void SetDefaultData()
+    {
+        CardIntDataList = new List<MCardInt>();
+        CardFloatDataList = new List<MCardFloat>();
+        foreach (CardType cardType  in Enum.GetValues(typeof(CardType)))
+        {
+            if ((int)cardType <= 1000)
+            {
+                CardIntDataList.Add(new MCardInt()
+                {
+                    CardType = cardType,
+                    Cost = 10,
+                    ArgInt = 1,
+                    Description = $"{Enum.GetName(typeof(CardType), cardType)} {{0}}"
+                });
+            }
+            else
+            {
+                CardFloatDataList.Add(new MCardFloat()
+                {
+                    CardType = cardType,
+                    Cost = 10,
+                    ArgFloat = 1,
+                    Description = $"{Enum.GetName(typeof(CardType), cardType)} {{0}}"
+                });
+            }
+        }
+    }
 }

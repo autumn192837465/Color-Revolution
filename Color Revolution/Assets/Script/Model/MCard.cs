@@ -26,6 +26,7 @@ namespace CB.Model
         public override string GetDescription(int level) => string.Format(Description, GetValue(level));
     }
 
+    [Serializable]
     public class MCardFloat : MCard
     {
         public float ArgFloat;

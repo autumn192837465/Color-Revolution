@@ -12,89 +12,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c762a6fc21f6840ba174eb1dcb884d, type: 3}
   m_Name: Card Data
   m_EditorClassIdentifier: 
-  CardDataList:
-  - CardType: 0
-    Sprite: {fileID: 0}
-    Cost: 5
-    Description: Add {0} Red Attack
-    ArgInt: 1
+  CardIntDataList:
   - CardType: 1
     Sprite: {fileID: 0}
     Cost: 10
-    Description: Add {0} Blue Attack
+    Description: AddRedAttack {0}
     ArgInt: 1
   - CardType: 2
     Sprite: {fileID: 0}
-    Cost: 15
-    Description: Add 1 Green Attack
+    Cost: 10
+    Description: AddBlueAttack {0}
     ArgInt: 1
   - CardType: 3
     Sprite: {fileID: 0}
-    Cost: 20
-    Description: Add 0.1 Attack Range
+    Cost: 10
+    Description: AddGreenAttack {0}
     ArgInt: 1
   - CardType: 4
     Sprite: {fileID: 0}
-    Cost: 25
-    Description: Add 0.1 Attack Speed
+    Cost: 10
+    Description: AddAttackSpeed {0}
     ArgInt: 1
   - CardType: 5
     Sprite: {fileID: 0}
-    Cost: 25
-    Description: Test 1
+    Cost: 10
+    Description: AddHitRate {0}
     ArgInt: 1
   - CardType: 6
     Sprite: {fileID: 0}
-    Cost: 25
-    Description: Test 2
+    Cost: 10
+    Description: AddCriticalRate {0}
     ArgInt: 1
   - CardType: 7
     Sprite: {fileID: 0}
-    Cost: 25
-    Description: Test 3
+    Cost: 10
+    Description: AddSuperCriticalRate {0}
     ArgInt: 1
   - CardType: 8
     Sprite: {fileID: 0}
-    Cost: 25
-    Description: Test 4
+    Cost: 10
+    Description: AddPoisonRate {0}
     ArgInt: 1
   - CardType: 9
     Sprite: {fileID: 0}
-    Cost: 25
-    Description: Test 5
+    Cost: 10
+    Description: AddBurnRate {0}
     ArgInt: 1
   - CardType: 10
     Sprite: {fileID: 0}
-    Cost: 25
-    Description: Test 6
-    ArgInt: 0
-  - CardType: 11
+    Cost: 10
+    Description: AddFreezeRate {0}
+    ArgInt: 1
+  CardFloatDataList:
+  - CardType: 1001
     Sprite: {fileID: 0}
-    Cost: 25
-    Description: Test 7
-    ArgInt: 0
-  - CardType: 12
+    Cost: 10
+    Description: AddAttackRange {0}
+    ArgFloat: 1
+  - CardType: 1002
     Sprite: {fileID: 0}
-    Cost: 25
-    Description: Test 7
-    ArgInt: 0
-  - CardType: 13
+    Cost: 10
+    Description: AddOperatingTime {0}
+    ArgFloat: 1
+  - CardType: 1003
     Sprite: {fileID: 0}
-    Cost: 25
-    Description: Test 7
-    ArgInt: 0
-  - CardType: 14
-    Sprite: {fileID: 0}
-    Cost: 25
-    Description: Test 7
-    ArgInt: 0
-  - CardType: 15
-    Sprite: {fileID: 0}
-    Cost: 25
-    Description: Test 7
-    ArgInt: 0
-  - CardType: 16
-    Sprite: {fileID: 0}
-    Cost: 25
-    Description: Test 7
-    ArgInt: 0
+    Cost: 10
+    Description: ReduceCooldownTime {0}
+    ArgFloat: 1
