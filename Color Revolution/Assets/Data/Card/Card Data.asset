@@ -16,12 +16,12 @@ MonoBehaviour:
   - CardType: 1
     Sprite: {fileID: 0}
     Cost: 10
-    Description: AddRedAttack {0}
+    Description: Add {0} Red Attack
     ArgInt: 1
   - CardType: 2
     Sprite: {fileID: 0}
     Cost: 10
-    Description: AddBlueAttack {0}
+    Description: Add {0} Blue Attack
     ArgInt: 1
   - CardType: 3
     Sprite: {fileID: 0}

@@ -15,6 +15,7 @@ namespace CB.Model
         public string Description;
 
         public abstract string GetDescription(int level);
+        public abstract string GetUpgradeDescription(int level);
     }
 
 
@@ -24,6 +25,10 @@ namespace CB.Model
         public int ArgInt;
         public int GetValue(int level) => level * ArgInt;
         public override string GetDescription(int level) => string.Format(Description, GetValue(level));
+
+        public override string GetUpgradeDescription(int level) => string.Format(Description, $"{GetValue(level)} -> <color=green>{GetValue(level + 1)}</color>");
+        
+            
     }
 
     [Serializable]
@@ -37,5 +42,6 @@ namespace CB.Model
         } 
         
         public override string GetDescription(int level) => string.Format(Description, GetValue(level));
+        public override string GetUpgradeDescription(int level) => string.Format(Description, $"{GetValue(level)} -> <color=green>{GetValue(level + 1)}</color>");
     }
 }

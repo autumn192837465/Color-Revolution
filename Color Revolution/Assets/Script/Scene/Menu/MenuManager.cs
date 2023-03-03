@@ -74,24 +74,12 @@ namespace CR.Menu
     
         private void AddCardUpgradeUIEvent()
         {
-            CardUpgradeUI.OnClickButton = (type) =>
+            CardUpgradeUI.OnClickUpgrade = () =>
             {
-                switch (type)
-                {
-                    case CardUpgradeUI.ButtonType.Close:
-                        CardUpgradeUI.Close();
-                        break;
-                    case CardUpgradeUI.ButtonType.Upgrade:
-                        //CardUpgradeUI.UCard;
-                        // Todo : get m card cost
-                        PlayerDataManager.Instance.UpgradeCard(CardUpgradeUI.UCard.CardType);
-                        CardUpgradeUI.RefreshUI();
-                        MenuDeckUI.SelectingCardDeckThumbnail.RefreshUI();
-                        MenuHeaderUI.InitializePlayerData();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(type), type, null);
-                }
+                PlayerDataManager.Instance.UpgradeCard(CardUpgradeUI.SelectingUCard.CardType);
+                CardUpgradeUI.RefreshUI();
+                MenuDeckUI.SelectingCardDeckThumbnail.RefreshUI();
+                MenuHeaderUI.InitializePlayerData();
             };
         }
 

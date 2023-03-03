@@ -6,42 +6,30 @@ using CB.Model;
 using CR;
 using Kinopi.Constants;
 using Kinopi.Enums;
+using Kinopi.Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CardUpgradeUI : AnimatorBase
 {
-    public enum ButtonType
-    {
-        Close,
-        Upgrade,
-    }
-
-    [Serializable]
-    public class ButtonInfo
-    {
-        public ButtonType Type;
-        public Button Button;
-    }
-
-    [SerializeField] private List<ButtonInfo> buttonList;
     [SerializeField] private CardUI cardUI;
-
+    [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private TextMeshProUGUI upgradeCostText;
-    public UCard UCard { get; private set; }
+    [SerializeField] private FeedbackButton upgradeButton;
+    [SerializeField] private Button closeButton;
     
- 
-    public Action<ButtonType> OnClickButton;    
+    public UCard SelectingUCard { get; private set; }
+
+
+    public Action OnClickUpgrade;    
     
 
     protected override void Awake()
     {
         base.Awake();
-        foreach(ButtonInfo buttonInfo in buttonList)
-        {
-            buttonInfo.Button.onClick.AddListener(() => OnClickButton?.Invoke(buttonInfo.Type));
-        }
+        upgradeButton.OnClick = () => OnClickUpgrade?.Invoke();
+        closeButton.onClick.AddListener(Close);
     }
     
     void Start()
@@ -51,41 +39,30 @@ public class CardUpgradeUI : AnimatorBase
 
     public void InitializeUI(UCard uCard)
     {
-        UCard = uCard;
-        cardUI.InitializeUI(uCard);
-
-        if (uCard.Level == Constants.MaxCardLevel)
-        {
-            
-        }
-        else
-        {
-            int cost = DataManager.Instance.GetCardLevelData(uCard.Level).UpgradeCost;
-
-            upgradeCostText.text = cost.ToString();
-            upgradeCostText.color = PlayerDataManager.Instance.GetUPoint(PointType.RainbowCandy).Count >= cost
-                ? Constants.EnableColor
-                : Constants.DisableColor;
-        }
+        SelectingUCard = uCard;
+        RefreshUI();
+        
     }
 
     public void RefreshUI()
     {
-        var uCard = UCard;
+        var uCard = SelectingUCard;
         cardUI.InitializeUI(uCard);
 
         if (uCard.Level == Constants.MaxCardLevel)
         {
-            
+            descriptionText.text = uCard.GetDescription();
+            upgradeButton.SetActive(false);
         }
         else
         {
             int cost = DataManager.Instance.GetCardLevelData(uCard.Level).UpgradeCost;
-
+            descriptionText.text = uCard.GetUpgradeDescription();
             upgradeCostText.text = cost.ToString();
             upgradeCostText.color = PlayerDataManager.Instance.GetUPoint(PointType.RainbowCandy).Count >= cost
                 ? Constants.EnableColor
                 : Constants.DisableColor;
+            upgradeButton.SetActive(true);
         }
     }
     
