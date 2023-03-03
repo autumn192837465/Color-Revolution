@@ -26,56 +26,56 @@ MonoBehaviour:
   - CardType: 3
     Sprite: {fileID: 0}
     Cost: 10
-    Description: AddGreenAttack {0}
+    Description: Add {0} Green Attack
     ArgInt: 1
   - CardType: 4
     Sprite: {fileID: 0}
     Cost: 10
-    Description: AddAttackSpeed {0}
+    Description: Add {0} AttackSpeed
     ArgInt: 1
   - CardType: 5
     Sprite: {fileID: 0}
     Cost: 10
-    Description: AddHitRate {0}
+    Description: Add {0}% Hit Rate
     ArgInt: 1
   - CardType: 6
     Sprite: {fileID: 0}
     Cost: 10
-    Description: AddCriticalRate {0}
+    Description: Add {0}% Critical Rate
     ArgInt: 1
   - CardType: 7
     Sprite: {fileID: 0}
     Cost: 10
-    Description: AddSuperCriticalRate {0}
+    Description: Add {0}% Super Critical Rate
     ArgInt: 1
   - CardType: 8
     Sprite: {fileID: 0}
     Cost: 10
-    Description: AddPoisonRate {0}
+    Description: Add{0}% Poison Rate
     ArgInt: 1
   - CardType: 9
     Sprite: {fileID: 0}
     Cost: 10
-    Description: AddBurnRate {0}
+    Description: Add {0}% Burn Rate
     ArgInt: 1
   - CardType: 10
     Sprite: {fileID: 0}
     Cost: 10
-    Description: AddFreezeRate {0}
+    Description: Add {0}% Freeze Rate
     ArgInt: 1
   CardFloatDataList:
   - CardType: 1001
     Sprite: {fileID: 0}
     Cost: 10
-    Description: AddAttackRange {0}
+    Description: Add {0} Attack Range
     ArgFloat: 1
   - CardType: 1002
     Sprite: {fileID: 0}
     Cost: 10
-    Description: AddOperatingTime {0}
+    Description: Add {0}s Operating Time
     ArgFloat: 1
   - CardType: 1003
     Sprite: {fileID: 0}
     Cost: 10
-    Description: ReduceCooldownTime {0}
+    Description: Reduce {0} Cooldown Time
     ArgFloat: 1
