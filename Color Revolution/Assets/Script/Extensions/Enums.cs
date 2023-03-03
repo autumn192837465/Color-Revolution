@@ -60,19 +60,21 @@ namespace Kinopi.Enums
     
     public enum CardType
     {
-        AddRedAttack,
-        AddBlueAttack,
-        AddGreenAttack,
-        AddAttackRange,
-        AddAttackSpeed,
+        AddRedAttack = 1,
+        AddBlueAttack = 2,
+        AddGreenAttack = 3,
+        AddAttackSpeed = 4,
         AddHitRate,
         AddCriticalRate,
         AddSuperCriticalRate,
         AddPoisonRate,
         AddBurnRate,
         AddFreezeRate,
-        AddOperatingTime,
-        ReduceCooldownTime,
+        
+        
+        AddAttackRange = 1001,
+        AddOperatingTime = 1002,
+        ReduceCooldownTime = 1003,
     }
 
     public enum PointType
