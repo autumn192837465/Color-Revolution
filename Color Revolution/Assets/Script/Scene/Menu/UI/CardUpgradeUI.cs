@@ -59,9 +59,12 @@ public class CardUpgradeUI : AnimatorBase
             int cost = DataManager.Instance.GetCardLevelData(uCard.Level).UpgradeCost;
             descriptionText.text = uCard.GetUpgradeDescription();
             upgradeCostText.text = cost.ToString();
-            upgradeCostText.color = PlayerDataManager.Instance.GetUPoint(PointType.RainbowCandy).Count >= cost
+            bool canUpgrade = PlayerDataManager.Instance.GetUPoint(PointType.RainbowCandy).Count >= cost;
+            upgradeCostText.color = canUpgrade
                 ? Constants.EnableColor
                 : Constants.DisableColor;
+            
+            upgradeButton.Interactable = canUpgrade;
             upgradeButton.SetActive(true);
         }
     }

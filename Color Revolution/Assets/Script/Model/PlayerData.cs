@@ -14,7 +14,7 @@ namespace CR.Model
         public PlayerData()
         {
             UPointDataList = new();
-            UPointDataList.Add(new UPoint(PointType.RainbowCandy, 10000));
+            UPointDataList.Add(new UPoint(PointType.RainbowCandy, 100000));
             UCardDataList = new List<UCard>();
             UCard temp = new UCard(CardType.AddRedAttack);
             UCardDataList.Add(temp);
