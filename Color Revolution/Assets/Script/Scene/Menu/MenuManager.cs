@@ -86,6 +86,7 @@ namespace CR.Menu
                         // Todo : get m card cost
                         PlayerDataManager.Instance.UpgradeCard(CardUpgradeUI.UCard.CardType);
                         CardUpgradeUI.RefreshUI();
+                        MenuDeckUI.SelectingCardDeckThumbnail.RefreshUI();
                         MenuHeaderUI.InitializePlayerData();
                         break;
                     default:

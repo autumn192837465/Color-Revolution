@@ -64,6 +64,12 @@ public class CardDeckThumbnail : MonoBehaviour
         levelText.text = $"Lv.{uCard.Level}";
     }
 
+    public void RefreshUI()
+    {
+        cardUI.RefreshUI();
+        levelText.text = $"Lv.{UCard.Level}";
+    }
+
 
 
     public void ShowButtonRoot()

@@ -16,5 +16,6 @@ namespace CB.Model
         public int Level;
         public CardType CardType;
         public MCard MCard => DataManager.Instance.GetCardData(CardType);
+        public string GetDescription() => MCard.GetDescription(Level);
     }    
 }

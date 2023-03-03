@@ -36,7 +36,7 @@ public class MenuDeckUI : MonoBehaviour
     public Action<UCard> OnClickCardUpgrade;
     
     
-    private CardDeckThumbnail selectingCardDeckThumbnail;
+    public CardDeckThumbnail SelectingCardDeckThumbnail { get; private set; }
     private UCard[] PlayerCardDeck => PlayerDataManager.Instance.PlayerData.CardDeck;
     private List<UCard> PlayerPossessingCards => PlayerDataManager.Instance.PlayerData.UCardDataList;
     private bool IsInDeck(UCard uCard) => PlayerCardDeck.ToList().Contains(uCard);
@@ -116,7 +116,7 @@ public class MenuDeckUI : MonoBehaviour
             return;
         }
 
-        if (selectingCardDeckThumbnail == cardDeckThumbnail)
+        if (SelectingCardDeckThumbnail == cardDeckThumbnail)
         {
             DeselectingCard();    
             return;
@@ -125,35 +125,33 @@ public class MenuDeckUI : MonoBehaviour
         
         DeselectingCard();
 
-        selectingCardDeckThumbnail = cardDeckThumbnail;
-        selectingCardDeckThumbnail.ShowButtonRoot();
+        SelectingCardDeckThumbnail = cardDeckThumbnail;
+        SelectingCardDeckThumbnail.ShowButtonRoot();
 
 
         
-        switch (selectingCardDeckThumbnail.CardStatus)
+        switch (SelectingCardDeckThumbnail.CardStatus)
         {
             case CardDeckThumbnail.Status.InDeck:
                 foreach (var slot in cardSlots)
                 {
-                    if (slot.PlacingCardDeckThumbnail != selectingCardDeckThumbnail) continue;
+                    if (slot.PlacingCardDeckThumbnail != SelectingCardDeckThumbnail) continue;
                     slot.transform.SetAsLastSibling();
                     break;
                 }
                 break;
             case CardDeckThumbnail.Status.CardPool:
-                selectingCardDeckThumbnail.transform.SetAsLastSibling();
+                SelectingCardDeckThumbnail.transform.SetAsLastSibling();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
-       
-        
     }
 
     private void DeselectingCard()
     {
-        if (selectingCardDeckThumbnail != null) selectingCardDeckThumbnail.HideButtonRoot();
-        selectingCardDeckThumbnail = null;
+        if (SelectingCardDeckThumbnail != null) SelectingCardDeckThumbnail.HideButtonRoot();
+        SelectingCardDeckThumbnail = null;
     }
 
     private bool isOpeningSwapRoot;
@@ -174,9 +172,9 @@ public class MenuDeckUI : MonoBehaviour
 
     private void OpenCardSwapRoot(CardDeckThumbnail cardDeckThumbnail)
     {
-        selectingCardDeckThumbnail = cardDeckThumbnail;
+        SelectingCardDeckThumbnail = cardDeckThumbnail;
         cardSwapRoot.SetActive(true);
-        swapCardUI.InitializeUI(selectingCardDeckThumbnail.UCard);
+        swapCardUI.InitializeUI(SelectingCardDeckThumbnail.UCard);
         isOpeningSwapRoot = true;
     }
 
@@ -190,7 +188,7 @@ public class MenuDeckUI : MonoBehaviour
     private void PlaceCardToSlot(CardSlot slot, int slotIndex, CardDeckThumbnail cardDeckThumbnail)
     {
         slot.PlaceCard(cardDeckThumbnail);
-        selectingCardDeckThumbnail.CardStatus = CardDeckThumbnail.Status.InDeck;
+        SelectingCardDeckThumbnail.CardStatus = CardDeckThumbnail.Status.InDeck;
         DeselectingCard();
         PlayerCardDeck[slotIndex] = cardDeckThumbnail.UCard;
         RefreshCardScroller();
@@ -202,7 +200,7 @@ public class MenuDeckUI : MonoBehaviour
     {
         // Remove
         cardDeckThumbnail.transform.SetParent(cardScrollerContent);
-        selectingCardDeckThumbnail.CardStatus = CardDeckThumbnail.Status.CardPool;
+        SelectingCardDeckThumbnail.CardStatus = CardDeckThumbnail.Status.CardPool;
         for (int i = 0; i < PlayerCardDeck.Length; i++) 
         {
             if (PlayerCardDeck[i] == cardDeckThumbnail.UCard)
@@ -221,12 +219,12 @@ public class MenuDeckUI : MonoBehaviour
         {
             if (PlayerCardDeck[i] == cardDeckThumbnail.UCard)
             {
-                PlayerCardDeck[i] = selectingCardDeckThumbnail.UCard;
+                PlayerCardDeck[i] = SelectingCardDeckThumbnail.UCard;
                 
                 cardDeckThumbnail.transform.SetParent(cardScrollerContent);
                 cardDeckThumbnail.CardStatus = CardDeckThumbnail.Status.CardPool;
-                selectingCardDeckThumbnail.CardStatus = CardDeckThumbnail.Status.InDeck;
-                cardSlots[i].PlaceCard(selectingCardDeckThumbnail);
+                SelectingCardDeckThumbnail.CardStatus = CardDeckThumbnail.Status.InDeck;
+                cardSlots[i].PlaceCard(SelectingCardDeckThumbnail);
                 CloseCardSwapRoot();
                 RefreshCardScroller();
                 return;
@@ -241,6 +239,8 @@ public class MenuDeckUI : MonoBehaviour
         Canvas.ForceUpdateCanvases();
         cardScrollerLayoutGroup.enabled = false;
     }
+
+ 
     #endregion
     
 

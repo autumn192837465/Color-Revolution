@@ -316,7 +316,7 @@ namespace CR.Game
         private void OnPointerDownCard(GameCardUI card, PointerEventData pointerEventData)
         {
             if(GameManager.IsPausing)   return;
-            if (GameManager.Instance.PlayerCoin < card.MCard.Cost)
+            if (GameManager.Instance.PlayerCoin < card.UCard.MCard.Cost)
             {
                 // Todo : play feedbacks
                 return;
@@ -337,7 +337,7 @@ namespace CR.Game
             if (Physics.Raycast(ray, out hit, 100))
             {
                 
-                if (OnDropCard?.Invoke(hit.collider, card.MCard)?? false)
+                if (OnDropCard?.Invoke(hit.collider, card.UCard.MCard)?? false)
                 {
                     card.SetActive(false);
                 }
