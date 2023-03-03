@@ -128,6 +128,7 @@ namespace Kinopi.Enums
         SuperCriticalAmplifier_1 = 1101,
         SuperCriticalAmplifier_2 = 1102,
         SuperCriticalAmplifier_3 = 1103,
+        ReduceCardDrawCost_1 = 1201,
         
          
     }

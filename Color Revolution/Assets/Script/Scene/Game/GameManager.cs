@@ -48,8 +48,8 @@ namespace CR.Game
         
         public Amplifier CriticalAmplifier => PlayerGameData.CriticalAmplifier;
         public Amplifier SuperCriticalAmplifier => PlayerGameData.SuperCriticalAmplifier;
-        public float BulletSpeed => PlayerGameData.BulletSpeed;
-
+        public float BulletSpeed => PlayerGameData.DrawCost;
+        public int DrawCost => PlayerGameData.DrawCost;
         #endregion
         
         
@@ -238,8 +238,8 @@ namespace CR.Game
                 switch (type)
                 {
                     case GameUI.ButtonType.DrawCard:
-                        if(PlayerCoin < Constants.DrawCost) return;
-                        ReducePlayerCoin(Constants.DrawCost);
+                        if(PlayerCoin < DrawCost) return;
+                        ReducePlayerCoin(DrawCost);
                         GameUI.DrawCards();
                         break;
                     case GameUI.ButtonType.SellTurret:

@@ -152,6 +152,14 @@ namespace CR
             }
         }
 
+        public int DrawCost
+        {
+            get
+            {
+                int value = Constants.BaseDrawCost;
+                return value;
+            }
+        }
 
 
 

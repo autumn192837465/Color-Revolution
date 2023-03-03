@@ -27,6 +27,7 @@ namespace CB.Model
         public readonly Amplifier CriticalAmplifier;
         public readonly Amplifier SuperCriticalAmplifier;
         public readonly float BulletSpeed;
+        public readonly int DrawCost;
         
         
         public PlayerGameData(PlayerDataManager playerDataManager)
@@ -51,6 +52,7 @@ namespace CB.Model
             
             BulletSpeed = playerDataManager.BulletSpeed;
 
+            DrawCost = playerDataManager.DrawCost;
         }
     }    
 }
