@@ -22,7 +22,6 @@ namespace CR.Game
         [SerializeField] private Transform enemyRoot;
         [SerializeField] private MapCreator MapCreator;
         [SerializeField] private TextMeshProUGUI logText;
-        [SerializeField] private Transform floatingTextRoot;
         [SerializeField] private GameWinResultUI GameWinResultUI;
         [SerializeField] private GameLoseResultUI GameLoseResultUI;
         [SerializeField] private AnimatorBase GlossaryUI;
@@ -264,7 +263,7 @@ namespace CR.Game
             {
                 if (CurrentState != GameState.PlayerPreparing) return;
 
-                spawnTimer = 0;
+                spawnTimer = levelData.GetEnemySpawnGroupInterval(WaveIndex, spawnGroupIndex);
                 MapCreator.CalculateAllNearestPath();
                 hasSpawnedAll = false;
                 GameUI.RefreshWaveText();

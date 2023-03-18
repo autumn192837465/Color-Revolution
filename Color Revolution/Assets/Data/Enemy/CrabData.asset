@@ -15,11 +15,11 @@ MonoBehaviour:
   EnemyData:
     Health:
       CurrentHealth:
-        RedValue: 255
+        RedValue: 50
         GreenValue: 0
         BlueValue: 0
       MaxHealth:
-        RedValue: 255
+        RedValue: 50
         GreenValue: 0
         BlueValue: 0
     Speed: 1

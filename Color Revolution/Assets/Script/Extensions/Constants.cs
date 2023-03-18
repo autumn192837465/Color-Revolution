@@ -16,7 +16,7 @@ namespace Kinopi.Constants
         
 
         public const int PlayerBaseHp = 20;
-        public const int PlayerBaseStartCoin = 100;
+        public const int PlayerBaseStartCoin = 1000;
         public const int BaseCoinsEarnedPerEnemyKilled = 10;
         public const int BaseRainbowTurretCoinEarnings = 10;
 

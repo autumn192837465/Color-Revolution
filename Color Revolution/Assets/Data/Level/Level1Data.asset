@@ -18,22 +18,14 @@ MonoBehaviour:
     WaveSpawnList:
     - Name: Wave 1
       EnemySpawnGroupList:
-      - enemy: {fileID: 4817018552055963457, guid: ccb1a73ed5aff0d498d5579a31cc497d,
+      - enemy: {fileID: 4817018552055963457, guid: f4f5b0b831a2e21418b1c053199bdb4c,
           type: 3}
         count: 5
-        interval: 5
-    - Name: Wave 2
-      EnemySpawnGroupList:
-      - enemy: {fileID: 4817018552055963457, guid: ccb1a73ed5aff0d498d5579a31cc497d,
+        interval: 1
+      - enemy: {fileID: 4817018552055963457, guid: 11be0a358d3c13e4e8eb402992b87d8b,
           type: 3}
         count: 5
-        interval: 5
-    - Name: Wave 3
-      EnemySpawnGroupList:
-      - enemy: {fileID: 4817018552055963457, guid: ccb1a73ed5aff0d498d5579a31cc497d,
-          type: 3}
-        count: 5
-        interval: 5
+        interval: 1
     LevelReward:
     - PointType: 0
       Count: 100
