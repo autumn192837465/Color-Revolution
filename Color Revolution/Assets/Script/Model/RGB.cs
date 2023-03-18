@@ -15,7 +15,13 @@ namespace CR.Model
             OriginGreenValue = GreenValue = g;
             OriginBlueValue = BlueValue = b;
         }*/
-
+        public RGB(RGB rgb)
+        {
+            RedValue = rgb.RedValue;
+            GreenValue = rgb.GreenValue;
+            BlueValue = rgb.BlueValue;
+        }
+        
         public RGB(int red, int green, int blue)
         {
             RedValue = red;
@@ -55,8 +61,7 @@ namespace CR.Model
             return new Color(redRatio, blueRatio, greenRatio);
         }
 
-        public bool IsDead =>
-            CurrentHealth.RedValue == 0 && CurrentHealth.GreenValue == 0 && CurrentHealth.BlueValue == 0;
+        public bool IsDead => CurrentHealth.RedValue == 0 && CurrentHealth.GreenValue == 0 && CurrentHealth.BlueValue == 0;
         public RGB CurrentHealth;
         public RGB MaxHealth;
 

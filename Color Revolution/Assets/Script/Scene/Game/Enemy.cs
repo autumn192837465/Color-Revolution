@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CB.Model;
 using CR.Game;
 using CR.Model;
@@ -14,7 +15,7 @@ public class Enemy : UnitBase
     public class SpriteSet
     {
         public SpriteRenderer Sprite;
-        public Color FinalColor;
+        public Color FinalColor = Color.white;
     }
 
     
@@ -22,9 +23,10 @@ public class Enemy : UnitBase
     [SerializeField] private EnemyDataScriptableObject enemyDataScriptableObject;
     
     [Header("Sprite Set")] 
-    [SerializeField] private SpriteSet redSpriteSet;
-    [SerializeField] private SpriteSet blueSpriteSet;
-    [SerializeField] private SpriteSet greenSpriteSet;
+    [SerializeField] private List<SpriteSet> redSpriteSetList;
+    [SerializeField] private List<SpriteSet> greenSpriteSetList;
+    [SerializeField] private List<SpriteSet> blueSpriteSetList;
+    
     
     
     private Path path;
@@ -64,6 +66,8 @@ public class Enemy : UnitBase
         enemyData = enemyDataScriptableObject.EnemyData.DeepClone();
         //HitEndNode = false;
         enemyWorldCanvas.Initialize(enemyData);
+        transform.localScale = Vector3.one * 0.5f;
+        SetColor();
     }
 
     void Start()
@@ -164,19 +168,22 @@ public class Enemy : UnitBase
     
     private void SetColor()
     {
-        if (redSpriteSet.Sprite != null)
+        foreach (var spriteSet in redSpriteSetList)
         {
-            redSpriteSet.Sprite.color = Color.Lerp(Color.white, redSpriteSet.FinalColor,
+            spriteSet.Sprite.color = Color.Lerp(Color.white, spriteSet.FinalColor,
                 (float)(MaxHealth.RedValue - CurrentHealth.RedValue) / MaxHealth.RedValue);
         }
-        if (greenSpriteSet.Sprite != null)
+        
+        
+        foreach (var spriteSet in greenSpriteSetList)
         {
-            greenSpriteSet.Sprite.color = Color.Lerp(Color.white, greenSpriteSet.FinalColor,
+            spriteSet.Sprite.color = Color.Lerp(Color.white, spriteSet.FinalColor,
                 (float)(MaxHealth.GreenValue - CurrentHealth.GreenValue) / MaxHealth.GreenValue);
         }
-        if (blueSpriteSet.Sprite != null)
+        
+        foreach (var spriteSet in blueSpriteSetList)
         {
-            blueSpriteSet.Sprite.color = Color.Lerp(Color.white, blueSpriteSet.FinalColor,
+            spriteSet.Sprite.color = Color.Lerp(Color.white, spriteSet.FinalColor,
                 (float)(MaxHealth.BlueValue - CurrentHealth.BlueValue) / MaxHealth.BlueValue);
         }
     }
