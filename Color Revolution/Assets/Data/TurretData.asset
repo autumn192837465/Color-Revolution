@@ -19,11 +19,11 @@ MonoBehaviour:
     MOffensiveTurret:
       OffensiveTurretType: 0
       AttackDamage:
-        RedValue: 5
-        GreenValue: 5
-        BlueValue: 5
-      BulletPerSecond: 1
-      AttackRange: 5
+        RedValue: 1
+        GreenValue: 0
+        BlueValue: 0
+      BulletPerSecond: 20
+      AttackRange: 10
       CriticalRate:
         value: 100
       SuperCriticalRate:
@@ -47,11 +47,11 @@ MonoBehaviour:
       AttackDamage:
         RedValue: 0
         GreenValue: 0
-        BlueValue: 0
-      BulletPerSecond: 0
-      AttackRange: 0
+        BlueValue: 2
+      BulletPerSecond: 20
+      AttackRange: 5
       CriticalRate:
-        value: 0
+        value: 71
       SuperCriticalRate:
         value: 0
       HitRate:
@@ -72,12 +72,12 @@ MonoBehaviour:
       OffensiveTurretType: 2
       AttackDamage:
         RedValue: 0
-        GreenValue: 0
+        GreenValue: 2
         BlueValue: 0
-      BulletPerSecond: 0
-      AttackRange: 0
+      BulletPerSecond: 20
+      AttackRange: 5
       CriticalRate:
-        value: 0
+        value: 47
       SuperCriticalRate:
         value: 0
       HitRate:

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PointData
   m_EditorClassIdentifier: 
   PointDataList:
-  - PointType: 0
+  - PointName: Rainbow Candy
+    PointType: 0
     Sprite: {fileID: 21300000, guid: 79a60f635b97de146a58c75a9a59ee5b, type: 3}
     Description: Currency
