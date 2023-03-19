@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace CR.Game
@@ -10,13 +12,15 @@ namespace CR.Game
     {
         [SerializeField] private Camera camera;
         [SerializeField] private Slider zoomSlider;
-        
+        [SerializeField] private MMTouchJoystick cameraJoyStick;
 
-        
+        private Vector3 cameraInitPosition;
+        private float moveSpeed = 0.055f;
         
         private void Awake()
         {
             zoomSlider.onValueChanged.AddListener(OnZoomSliderValueChange);
+            cameraInitPosition = camera.transform.position;
         }
 
         
@@ -35,5 +39,14 @@ namespace CR.Game
         {
             camera.fieldOfView = zoomSlider.value;
         }
+
+        public void JoystickMovement(Vector2 movement)
+        {
+            
+             movement *= moveSpeed;
+            camera.transform.position += new Vector3(movement.x, movement.y);
+
+        }
+       
     }    
 }

@@ -69,11 +69,14 @@ namespace CR.Game
 
         private void Start()
         {
+            return;
+            
             Initialize();
         }
 
         void Update()
         {
+            return;
             if(CurrentState == GameState.End)   return;
             //DeltaTime = Time.deltaTime * GameSpeed; 
 
