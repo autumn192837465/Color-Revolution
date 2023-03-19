@@ -17,6 +17,9 @@ namespace CR.Game
         private Vector3 cameraInitPosition;
         private float cameraMoveSpeed = 3f;
         private bool dragging = false;
+        private const float MaxX = 10;
+        private const float MaxZ = 5;
+        
         
         private void Awake()
         {
@@ -55,7 +58,14 @@ namespace CR.Game
         {
             if (!dragging) return;   
             movement *= cameraMoveSpeed * Time.deltaTime;
-            camera.transform.position += new Vector3(movement.x, 0,  movement.y) ;
+            
+            Vector3 newPos = camera.transform.position + new Vector3(movement.x, 0,  movement.y) ;
+            if (newPos.x > cameraInitPosition.x + MaxX) newPos.x = cameraInitPosition.x + MaxX;
+            else if(newPos.x < cameraInitPosition.x - MaxX) newPos.x = cameraInitPosition.x - MaxX;
+            if (newPos.z > cameraInitPosition.z + MaxZ) newPos.z = cameraInitPosition.z + MaxZ;
+            else if(newPos.z < cameraInitPosition.z - MaxZ) newPos.z = cameraInitPosition.z - MaxZ;
+
+            camera.transform.position = newPos;
 
         }
        
