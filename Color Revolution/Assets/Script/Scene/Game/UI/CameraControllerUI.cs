@@ -15,7 +15,8 @@ namespace CR.Game
         [SerializeField] private MMTouchJoystick cameraJoyStick;
 
         private Vector3 cameraInitPosition;
-        private float moveSpeed = 0.055f;
+        private float cameraMoveSpeed = 5f;
+        private bool dragging = false;
         
         private void Awake()
         {
@@ -40,11 +41,21 @@ namespace CR.Game
             camera.fieldOfView = zoomSlider.value;
         }
 
+        public void OnBeginDragJoystick()
+        {
+            dragging = true;
+        }
+        
+        public void OnEndDragJoystick()
+        {
+            dragging = false;
+        }
+        
         public void JoystickMovement(Vector2 movement)
         {
-            
-             movement *= moveSpeed;
-            camera.transform.position += new Vector3(movement.x, movement.y);
+            if (!dragging) return;   
+            movement *= cameraMoveSpeed * Time.deltaTime;
+            camera.transform.position += new Vector3(movement.x, 0,  movement.y) ;
 
         }
        
