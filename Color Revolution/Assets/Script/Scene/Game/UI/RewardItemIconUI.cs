@@ -15,6 +15,7 @@ public class RewardItemIconUI : MonoBehaviour
     public void InitializeUI(PointType type, int count)
     {
         MPointData = DataManager.Instance.GetPointData(type);
+        icon.sprite = MPointData.Sprite;
         countText.text = count.ToString();
     }
 }
