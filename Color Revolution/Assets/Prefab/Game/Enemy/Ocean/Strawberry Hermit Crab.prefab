@@ -219,7 +219,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4ae448caed14586409889a6ad573f3e8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 21e3f09a9d252b1428d036506830badd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -460,10 +460,10 @@ MonoBehaviour:
   SpriteSetRoot: {fileID: 7648606469686356690}
   redSpriteSetList:
   - Sprite: {fileID: 1932861756263578165}
-    FinalColor: {r: 0.4862745, g: 0.6862745, b: 0.49411765, a: 1}
+    FinalColor: {r: 0.9411765, g: 0.26666668, b: 0.22352941, a: 1}
   greenSpriteSetList:
   - Sprite: {fileID: 6243371286139764231}
-    FinalColor: {r: 0.9411765, g: 0.26666668, b: 0.22352941, a: 1}
+    FinalColor: {r: 0.4862745, g: 0.6862745, b: 0.49411765, a: 1}
   blueSpriteSetList: []
 --- !u!95 &-6865671702407324145
 Animator:
@@ -558,7 +558,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 21e3f09a9d252b1428d036506830badd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4ae448caed14586409889a6ad573f3e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
