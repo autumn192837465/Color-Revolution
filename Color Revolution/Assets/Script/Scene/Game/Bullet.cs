@@ -137,8 +137,8 @@ public class Bullet : MonoBehaviour
         var main = particleSystem.main;
         main.loop = false;
         particleSystem.Stop();
-        Destroy(particleSystem, 1);
-        Destroy(trailRenender, 0.3f);
+        Destroy(particleSystem.gameObject, 1);
+        Destroy(trailRenender.gameObject, 0.3f);
     }
     
     private void OnDestroy()
