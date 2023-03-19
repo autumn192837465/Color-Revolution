@@ -25,7 +25,7 @@ namespace CB.Model
 
                 foreach (var enemySpawnGroup in WaveSpawnList.SelectMany(waveSpawnData => waveSpawnData.EnemySpawnGroupList))
                 {
-                    spriteHashSet.Add(enemySpawnGroup.enemy.EnemyDataScriptableObject.EnemyData.Thumbnail);
+                    spriteHashSet.Add(enemySpawnGroup.enemy.EnemyDataScriptableObject.Thumbnail);
                 }
                 return spriteHashSet.ToList();
             }

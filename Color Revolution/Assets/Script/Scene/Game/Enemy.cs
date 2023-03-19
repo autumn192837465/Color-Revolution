@@ -115,8 +115,11 @@ public class Enemy : UnitBase
             transform.position = nextPosition;
         }
         
-        
-        // rotation
+        SetRotation();
+    }
+
+    private void SetRotation()
+    {
         Quaternion rotation = Quaternion.LookRotation(Vector3.right, Vector3.up);
         rotation *= Quaternion.Euler(0, 90, 0);
         SpriteSetRoot.localRotation = rotation;
@@ -154,6 +157,7 @@ public class Enemy : UnitBase
         nodeIndex = 0;
         transform.localPosition = path.StartNode.transform.position.XZPosition() + offset;
         movingDirection = path.GetDirection(nodeIndex++);
+        SetRotation();
     }
 
 

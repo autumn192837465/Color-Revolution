@@ -8,6 +8,7 @@ namespace CR.ScriptableObjects
     [CreateAssetMenu(fileName = "EnemyData", menuName = "ScriptableObjects/Enemy Data", order = 1)]
     public class EnemyDataScriptableObject : ScriptableObject
     {
+        public Sprite Thumbnail;
         public EnemyData EnemyData;
         
         public void OnValidate()
