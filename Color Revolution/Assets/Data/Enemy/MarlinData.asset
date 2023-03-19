@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MarlinData
   m_EditorClassIdentifier: 
   EnemyData:
+    Thumbnail: {fileID: 21300000, guid: e41c2fb15af90ed489a451dd80ad1052, type: 3}
     Health:
       CurrentHealth:
         RedValue: 0

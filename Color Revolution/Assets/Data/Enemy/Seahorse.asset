@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Seahorse
   m_EditorClassIdentifier: 
   EnemyData:
+    Thumbnail: {fileID: 21300000, guid: 07fbf8fc6ce70b7489e4376d8f44020b, type: 3}
     Health:
       CurrentHealth:
         RedValue: 0

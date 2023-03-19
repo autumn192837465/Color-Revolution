@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using CR.Model;
 using CR.ScriptableObjects;
 using Kinopi.Enums;
@@ -15,6 +16,20 @@ namespace CB.Model
         public int GetSpawnGroupEnemyCount(int waveIndex, int spawnGroupIndex) => WaveSpawnList[waveIndex].EnemySpawnGroupList[spawnGroupIndex].count;
         public int GetEnemySpawnGroupCount(int waveIndex) => WaveSpawnList[waveIndex].EnemySpawnGroupList.Count;
         public int MaxWaveCount => WaveSpawnList.Count;
+
+        public List<Sprite> GetEnemyThumbnails
+        {
+            get
+            {
+                HashSet<Sprite> spriteHashSet = new();
+
+                foreach (var enemySpawnGroup in WaveSpawnList.SelectMany(waveSpawnData => waveSpawnData.EnemySpawnGroupList))
+                {
+                    spriteHashSet.Add(enemySpawnGroup.enemy.EnemyDataScriptableObject.EnemyData.Thumbnail);
+                }
+                return spriteHashSet.ToList();
+            }
+        }
     }
 }
     

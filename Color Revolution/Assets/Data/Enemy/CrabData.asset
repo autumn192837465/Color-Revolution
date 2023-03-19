@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CrabData
   m_EditorClassIdentifier: 
   EnemyData:
+    Thumbnail: {fileID: 21300000, guid: 817636b54330d5546b8bfdae89523abe, type: 3}
     Health:
       CurrentHealth:
         RedValue: 50

@@ -23,6 +23,7 @@ public class Enemy : UnitBase
 
     
     [SerializeField] private EnemyWorldCanvas enemyWorldCanvas;
+    public EnemyDataScriptableObject EnemyDataScriptableObject => enemyDataScriptableObject;
     [SerializeField] private EnemyDataScriptableObject enemyDataScriptableObject;
 
     [Header("Sprite Set")] 

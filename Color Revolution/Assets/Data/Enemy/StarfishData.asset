@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StarfishData
   m_EditorClassIdentifier: 
   EnemyData:
+    Thumbnail: {fileID: 21300000, guid: 36d3c5a291f4ce64bb98df741bfcb681, type: 3}
     Health:
       CurrentHealth:
         RedValue: 50

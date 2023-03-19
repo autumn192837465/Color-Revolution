@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StrawberryData
   m_EditorClassIdentifier: 
   EnemyData:
+    Thumbnail: {fileID: 21300000, guid: 80fcd3e812014ed489f76ab007925850, type: 3}
     Health:
       CurrentHealth:
         RedValue: 50

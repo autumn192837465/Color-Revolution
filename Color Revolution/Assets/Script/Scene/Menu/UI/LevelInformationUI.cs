@@ -28,10 +28,16 @@ public class LevelInformationUI : AnimatorBase
     [SerializeField] private Button closeButton;
     [SerializeField] private FeedbackButton challengeButton;
     
+    [Header("Enemy")]
+    [SerializeField] private Transform enemyRoot;
+    [SerializeField] private EnemyIconUI enemyCellPrefab;
+    private readonly List<EnemyIconUI> enemyCellList = new();
+    
+    
     [Header("Reward")]
     [SerializeField] private Transform rewardRoot;
     [SerializeField] private RewardItemIconUI rewardCellPrefab;
-    private List<RewardItemIconUI> rewardCellList = new();
+    private readonly List<RewardItemIconUI> rewardCellList = new();
     public Action<MLevel> OnClickChallengeButton;
     public MLevel MLevel { get; private set; }
     
@@ -57,6 +63,28 @@ public class LevelInformationUI : AnimatorBase
         MLevel = mLevel;
         levelNameText.text = mLevel.LevelName;
 
+        var enemySpriteList = mLevel.GetEnemyThumbnails;
+        for (int i = enemyCellList.Count; i < enemySpriteList.Count; i++)
+        {
+            var cell = Instantiate(enemyCellPrefab, enemyRoot);
+            cell.InitializeUI(enemySpriteList[i]);
+            enemyCellList.Add(cell);
+        }
+        
+        
+        for (int i = 0; i < enemyCellList.Count; i++)
+        {
+            var cell = enemyCellList[i];
+            if (i >= enemySpriteList.Count)
+            {
+                cell.SetActive(false);
+                continue;
+            }
+            cell.SetActive(true);
+            
+        }
+        
+        
         var rewardList = mLevel.LevelReward;
         for (int i = rewardCellList.Count; i < rewardList.Count; i++)
         {
