@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 4817018552055963458}
   - component: {fileID: 4817018552055963456}
   - component: {fileID: 4817018552055963457}
+  - component: {fileID: 8971184006641754956}
   m_Layer: 0
   m_Name: Seahorse
   m_TagString: Enemy
@@ -423,13 +424,34 @@ MonoBehaviour:
   enemyWorldCanvas: {fileID: 6550775797770036905}
   enemyDataScriptableObject: {fileID: 11400000, guid: 8ceb6088b9831e7479bb639b314e915f,
     type: 2}
+  SpriteSetRoot: {fileID: 7648606469686356690}
   redSpriteSetList: []
   greenSpriteSetList:
   - Sprite: {fileID: 6243371286139764231}
-    FinalColor: {r: 0.3764706, g: 0.9098039, b: 0.72156864, a: 1}
+    FinalColor: {r: 1, g: 1, b: 1, a: 1}
   blueSpriteSetList:
   - Sprite: {fileID: 13941022053256577}
     FinalColor: {r: 0.16078432, g: 0.60784316, b: 0.76862746, a: 1}
+--- !u!95 &8971184006641754956
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4817018552055963459}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f3d038a24eacff845bc279e37cc3c30d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4981816134871208707
 GameObject:
   m_ObjectHideFlags: 0

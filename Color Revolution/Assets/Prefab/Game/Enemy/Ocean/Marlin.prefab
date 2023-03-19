@@ -84,6 +84,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1501495833002970627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8091129540183047073}
+  m_Layer: 0
+  m_Name: AnimationRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8091129540183047073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501495833002970627}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7648606469686356690}
+  m_Father: {fileID: 4817018552055963458}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2075215001350996599
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +139,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075215001350996599}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -116,8 +148,8 @@ Transform:
   - {fileID: 6399003406570010362}
   - {fileID: 8209039896780380298}
   - {fileID: 5099935189656314045}
-  m_Father: {fileID: 4817018552055963458}
-  m_RootOrder: 1
+  m_Father: {fileID: 8091129540183047073}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2594097878604301704
 GameObject:
@@ -371,6 +403,7 @@ GameObject:
   - component: {fileID: 4817018552055963458}
   - component: {fileID: 4817018552055963456}
   - component: {fileID: 4817018552055963457}
+  - component: {fileID: 7948713709309045560}
   m_Layer: 0
   m_Name: Marlin
   m_TagString: Enemy
@@ -391,7 +424,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3943682990292943044}
-  - {fileID: 7648606469686356690}
+  - {fileID: 8091129540183047073}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -423,11 +456,32 @@ MonoBehaviour:
   enemyWorldCanvas: {fileID: 6550775797770036905}
   enemyDataScriptableObject: {fileID: 11400000, guid: 6d8aa8b617fd2f944b84c78e6403501f,
     type: 2}
+  SpriteSetRoot: {fileID: 7648606469686356690}
   redSpriteSetList: []
   greenSpriteSetList: []
   blueSpriteSetList:
   - Sprite: {fileID: 13941022053256577}
     FinalColor: {r: 0.14509805, g: 0.47843137, b: 0.99607843, a: 1}
+--- !u!95 &7948713709309045560
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4817018552055963459}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f3d038a24eacff845bc279e37cc3c30d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7364274358956191461
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ MonoBehaviour:
     WaveSpawnList:
     - Name: Wave 1
       EnemySpawnGroupList:
-      - enemy: {fileID: 4817018552055963457, guid: f4f5b0b831a2e21418b1c053199bdb4c,
+      - enemy: {fileID: 4817018552055963457, guid: 0f78c890664962b408dfdb20fc6a4d05,
           type: 3}
         count: 5
         interval: 1

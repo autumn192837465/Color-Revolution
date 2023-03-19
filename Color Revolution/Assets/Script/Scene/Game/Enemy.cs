@@ -7,6 +7,9 @@ using CR.ScriptableObjects;
 using Kinopi.Constants;
 using Kinopi.Enums;
 using Kinopi.Extensions;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 public class Enemy : UnitBase
@@ -21,11 +24,13 @@ public class Enemy : UnitBase
     
     [SerializeField] private EnemyWorldCanvas enemyWorldCanvas;
     [SerializeField] private EnemyDataScriptableObject enemyDataScriptableObject;
-    
+
     [Header("Sprite Set")] 
+    [SerializeField] private Transform SpriteSetRoot;
     [SerializeField] private List<SpriteSet> redSpriteSetList;
     [SerializeField] private List<SpriteSet> greenSpriteSetList;
     [SerializeField] private List<SpriteSet> blueSpriteSetList;
+    
     
     
     
@@ -59,6 +64,7 @@ public class Enemy : UnitBase
     
     //[HideInInspector] public bool HitEndNode;
 
+    private Quaternion defaultRotation = Quaternion.Euler(0, 90, 0);
    
 
     private void Awake()
@@ -77,6 +83,8 @@ public class Enemy : UnitBase
 
     void Update()
     {
+        
+        
         if(GameManager.CurrentState != GameState.SpawningEnemy)    return;
         MoveEnemy();
         ActivateStatus();
@@ -104,7 +112,13 @@ public class Enemy : UnitBase
         else
         {
             transform.position = nextPosition;
-        }    
+        }
+        
+        
+        // rotation
+        Quaternion rotation = Quaternion.LookRotation(Vector3.right, Vector3.up);
+        rotation *= Quaternion.Euler(0, 90, 0);
+        SpriteSetRoot.localRotation = rotation;
     }
 
     private void ActivateStatus()
@@ -213,8 +227,70 @@ public class Enemy : UnitBase
     {
         OnEnemyDeath?.Invoke(this, killByPlayer);
     }
-    
-    
-    
-    
+
+
+    #if UNITY_EDITOR
+    [ContextMenu("Set Reference")]
+    public void SetReference()
+    {
+        SpriteSetRoot = null;
+        foreach (Transform child in transform)
+        {
+            SpriteSetRoot = child.Find("Sprites")?.transform;
+            if(SpriteSetRoot != null)   break;
+        } 
+            
+        
+        Transform redRoot = SpriteSetRoot.Find("RedRoot")?.transform;
+        redSpriteSetList = new List<SpriteSet>();
+        foreach (Transform redSprite in redRoot)
+        {
+            
+            SpriteRenderer spriteRenderer = redSprite.GetComponent<SpriteRenderer>();
+            
+            string colorTag = spriteRenderer.sprite.name[^7..];
+            ColorUtility.TryParseHtmlString(colorTag, out var color);
+            var spriteSet = new SpriteSet
+            {
+                Sprite = spriteRenderer,
+                FinalColor = color
+            };
+            redSpriteSetList.Add(spriteSet);
+        }
+        Transform greenRoot = SpriteSetRoot.Find("GreenRoot")?.transform;
+        greenSpriteSetList = new List<SpriteSet>();
+        foreach (Transform greenSprite in greenRoot)
+        {
+            SpriteRenderer spriteRenderer = greenSprite.GetComponent<SpriteRenderer>();
+            
+            string colorTag = spriteRenderer.sprite.name[^7..];
+            ColorUtility.TryParseHtmlString(colorTag, out var color);
+            var spriteSet = new SpriteSet
+            {
+                Sprite = spriteRenderer,
+                FinalColor = color
+            };
+            greenSpriteSetList.Add(spriteSet);
+        }
+        
+        
+        Transform blueRoot = SpriteSetRoot.Find("BlueRoot")?.transform;
+        blueSpriteSetList = new List<SpriteSet>();
+        foreach (Transform blueSprite in blueRoot)
+        {
+            SpriteRenderer spriteRenderer = blueSprite.GetComponent<SpriteRenderer>();
+            
+            string colorTag = spriteRenderer.sprite.name[^7..];
+            ColorUtility.TryParseHtmlString(colorTag, out var color);
+            var spriteSet = new SpriteSet
+            {
+                Sprite = spriteRenderer,
+                FinalColor = color
+            };
+            blueSpriteSetList.Add(spriteSet);
+        }
+
+        EditorUtility.SetDirty(this);
+    }
+    #endif
 }

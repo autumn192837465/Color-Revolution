@@ -7121,7 +7121,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.254887, y: 0.16773129, z: -0.04494347, w: 0.95125127}
-  m_LocalPosition: {x: -0, y: 7.5, z: -8}
+  m_LocalPosition: {x: 0, y: 7, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13847,7 +13847,6 @@ MonoBehaviour:
   enemyRoot: {fileID: 259779444}
   MapCreator: {fileID: 560546438}
   logText: {fileID: 2012069159}
-  floatingTextRoot: {fileID: 0}
   GameWinResultUI: {fileID: 1087567263}
   GameLoseResultUI: {fileID: 606152797}
   GlossaryUI: {fileID: 238212511}

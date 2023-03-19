@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &331696078193132499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2635081045224822005}
+  m_Layer: 0
+  m_Name: AnimationRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2635081045224822005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331696078193132499}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7648606469686356690}
+  m_Father: {fileID: 4817018552055963458}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1921895864270793460
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +139,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075215001350996599}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -116,8 +148,8 @@ Transform:
   - {fileID: 6399003406570010362}
   - {fileID: 8209039896780380298}
   - {fileID: 5099935189656314045}
-  m_Father: {fileID: 4817018552055963458}
-  m_RootOrder: 1
+  m_Father: {fileID: 2635081045224822005}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2594097878604301704
 GameObject:
@@ -456,6 +488,7 @@ GameObject:
   - component: {fileID: 4817018552055963458}
   - component: {fileID: 4817018552055963456}
   - component: {fileID: 4817018552055963457}
+  - component: {fileID: 8980067601580534389}
   m_Layer: 0
   m_Name: Starfish
   m_TagString: Enemy
@@ -476,7 +509,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3943682990292943044}
-  - {fileID: 7648606469686356690}
+  - {fileID: 2635081045224822005}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -508,6 +541,7 @@ MonoBehaviour:
   enemyWorldCanvas: {fileID: 6550775797770036905}
   enemyDataScriptableObject: {fileID: 11400000, guid: e2a934e4950e52f47bc912cb07a7fcbc,
     type: 2}
+  SpriteSetRoot: {fileID: 7648606469686356690}
   redSpriteSetList:
   - Sprite: {fileID: 1932861756263578165}
     FinalColor: {r: 0.89411765, g: 0.45882353, b: 0.5254902, a: 1}
@@ -515,6 +549,26 @@ MonoBehaviour:
   blueSpriteSetList:
   - Sprite: {fileID: 4723956351436996362}
     FinalColor: {r: 0.69803923, g: 0.92156863, b: 0.9647059, a: 1}
+--- !u!95 &8980067601580534389
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4817018552055963459}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f3d038a24eacff845bc279e37cc3c30d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7364274358956191461
 GameObject:
   m_ObjectHideFlags: 0
