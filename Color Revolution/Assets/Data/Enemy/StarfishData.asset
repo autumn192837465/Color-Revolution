@@ -18,9 +18,9 @@ MonoBehaviour:
       CurrentHealth:
         RedValue: 50
         GreenValue: 0
-        BlueValue: 0
+        BlueValue: 20
       MaxHealth:
         RedValue: 50
         GreenValue: 0
-        BlueValue: 0
+        BlueValue: 20
     Speed: 1
