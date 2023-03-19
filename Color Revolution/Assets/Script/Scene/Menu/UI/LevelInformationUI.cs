@@ -63,11 +63,11 @@ public class LevelInformationUI : AnimatorBase
         MLevel = mLevel;
         levelNameText.text = mLevel.LevelName;
 
-        var enemySpriteList = mLevel.GetEnemyThumbnails;
-        for (int i = enemyCellList.Count; i < enemySpriteList.Count; i++)
+        var possibleEnemyList = mLevel.GetPossibleEnemyList;
+        for (int i = enemyCellList.Count; i < possibleEnemyList.Count; i++)
         {
             var cell = Instantiate(enemyCellPrefab, enemyRoot);
-            cell.InitializeUI(enemySpriteList[i]);
+            cell.InitializeUI(possibleEnemyList[i]);
             enemyCellList.Add(cell);
         }
         
@@ -75,7 +75,7 @@ public class LevelInformationUI : AnimatorBase
         for (int i = 0; i < enemyCellList.Count; i++)
         {
             var cell = enemyCellList[i];
-            if (i >= enemySpriteList.Count)
+            if (i >= possibleEnemyList.Count)
             {
                 cell.SetActive(false);
                 continue;

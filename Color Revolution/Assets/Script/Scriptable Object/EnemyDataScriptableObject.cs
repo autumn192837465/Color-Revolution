@@ -10,6 +10,9 @@ namespace CR.ScriptableObjects
     {
         public Sprite Thumbnail;
         public EnemyData EnemyData;
+        public bool HasRed => EnemyData.Health.MaxHealth.RedValue > 0;
+        public bool HasGreen => EnemyData.Health.MaxHealth.GreenValue > 0;
+        public bool HasBlue => EnemyData.Health.MaxHealth.BlueValue > 0;
         
         public void OnValidate()
         {

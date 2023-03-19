@@ -17,17 +17,17 @@ namespace CB.Model
         public int GetEnemySpawnGroupCount(int waveIndex) => WaveSpawnList[waveIndex].EnemySpawnGroupList.Count;
         public int MaxWaveCount => WaveSpawnList.Count;
 
-        public List<Sprite> GetEnemyThumbnails
+        public List<EnemyDataScriptableObject> GetPossibleEnemyList
         {
             get
             {
-                HashSet<Sprite> spriteHashSet = new();
+                HashSet<EnemyDataScriptableObject> enemyList = new();
 
                 foreach (var enemySpawnGroup in WaveSpawnList.SelectMany(waveSpawnData => waveSpawnData.EnemySpawnGroupList))
                 {
-                    spriteHashSet.Add(enemySpawnGroup.enemy.EnemyDataScriptableObject.Thumbnail);
+                    enemyList.Add(enemySpawnGroup.enemy.EnemyDataScriptableObject);
                 }
-                return spriteHashSet.ToList();
+                return enemyList.ToList();
             }
         }
     }

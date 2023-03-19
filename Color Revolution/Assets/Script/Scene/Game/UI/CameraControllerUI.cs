@@ -15,7 +15,7 @@ namespace CR.Game
         [SerializeField] private MMTouchJoystick cameraJoyStick;
 
         private Vector3 cameraInitPosition;
-        private float cameraMoveSpeed = 5f;
+        private float cameraMoveSpeed = 3f;
         private bool dragging = false;
         
         private void Awake()
