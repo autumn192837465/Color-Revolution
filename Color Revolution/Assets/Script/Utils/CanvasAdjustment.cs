@@ -9,8 +9,7 @@ public class CanvasAdjustment : MonoBehaviour
     public int preferredHeight = 1080;    
     
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         float screenRatio = (float)Screen.height / Screen.width;
         CanvasScaler scaler = GetComponent<CanvasScaler>();

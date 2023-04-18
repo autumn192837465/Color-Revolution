@@ -428,7 +428,7 @@ MonoBehaviour:
   redSpriteSetList: []
   greenSpriteSetList:
   - Sprite: {fileID: 6243371286139764231}
-    FinalColor: {r: 1, g: 1, b: 1, a: 1}
+    FinalColor: {r: 0.3764706, g: 0.9098039, b: 0.72156864, a: 1}
   blueSpriteSetList:
   - Sprite: {fileID: 13941022053256577}
     FinalColor: {r: 0.16078432, g: 0.60784316, b: 0.76862746, a: 1}

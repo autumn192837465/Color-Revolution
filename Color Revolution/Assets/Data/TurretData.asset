@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TurretData
   m_EditorClassIdentifier: 
   OffensiveTurretDataList:
-  - Sprite: {fileID: 21300000, guid: 6f09d446a6cc6d3439b99dacbe957b76, type: 3}
+  - Sprite: {fileID: 21300000, guid: 562ba1c8f173ca14c842a566314035bd, type: 3}
     Turret: {fileID: 8774115302777318212, guid: c82617abafe425847a75730cffe68e0a,
       type: 3}
     MOffensiveTurret:
@@ -39,7 +39,7 @@ MonoBehaviour:
       OperatingTime: 20
       CooldownTime: 5
       Cost: 10
-  - Sprite: {fileID: 21300000, guid: bfbd866315892bc49b4bec68551a9bbe, type: 3}
+  - Sprite: {fileID: 21300000, guid: 28cadb0b6a73a3242a80197165aff918, type: 3}
     Turret: {fileID: 8774115302777318212, guid: 2a2c7e126c864d54195895374b629736,
       type: 3}
     MOffensiveTurret:
@@ -65,7 +65,7 @@ MonoBehaviour:
       OperatingTime: 20
       CooldownTime: 5
       Cost: 10
-  - Sprite: {fileID: 21300000, guid: 3ba1017e34fb81d42a95a32495a59547, type: 3}
+  - Sprite: {fileID: 21300000, guid: f83fb9299d3c1af4ba255aaac67ee0ef, type: 3}
     Turret: {fileID: 8774115302777318212, guid: 02d3426f2adbcfb47abf39e9de752dfd,
       type: 3}
     MOffensiveTurret:

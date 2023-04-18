@@ -6381,7 +6381,7 @@ MonoBehaviour:
   RawValue: {x: 0, y: 0}
   NormalizedValue: {x: 0, y: 0}
   Magnitude: 0
-  DrawGizmos: 1
+  DrawGizmos: 0
 --- !u!114 &824130063
 MonoBehaviour:
   m_ObjectHideFlags: 0
